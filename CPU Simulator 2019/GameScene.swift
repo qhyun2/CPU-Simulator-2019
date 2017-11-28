@@ -42,6 +42,8 @@ class GameScene: SKScene {
     var memoryX = Float()
     var memoryY = Float()
     var memoryTop = CGFloat()
+    var busWidth = CGFloat()
+    var busHeight = CGFloat()
 
     //objects in scene
     private var background = SKSpriteNode(imageNamed: "memory background")
@@ -70,12 +72,31 @@ class GameScene: SKScene {
         memoryX = screenWidth * 0.04
         memoryY = screenHeight * 0.05
         memoryTop = CGFloat(memoryY + unitHeight / 2 - 14)
+        busWidth = CGFloat(screenWidth * 0.05)
+        busHeight = CGFloat(screenHeight * 0.1)
 
         //background
         background.size = CGSize(width: CGFloat(screenWidth), height: CGFloat(screenHeight))
         background.zPosition = -99
         background.position = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
         self.addChild(background)
+        
+        //address bus
+        for i in 0...7 {
+            
+            let offsetX = CGFloat(Float(i) * width + memoryX)
+            let position = CGPoint.init(x: offsetX, y: CGFloat(memoryY + unitHeight))
+            
+            let addressLabel = SKLabelNode(text: String(i))
+            addressLabel.position = position
+            addressLabel.fontName = "AmericanTypewriter-Bold"
+            addressLabel.fontSize = 20
+            addressLabel.fontColor = SKColor.orange
+            
+            self.addChild(addressLabel)
+        }
+        
+        //data bus
 
         //memory labels 0 - 31
         for i in 0..<col {
