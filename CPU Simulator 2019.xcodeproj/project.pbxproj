@@ -1,0 +1,556 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BC3D40021FC4756800C78858 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40011FC4756800C78858 /* AppDelegate.swift */; };
+		BC3D400A1FC4756800C78858 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40091FC4756800C78858 /* ViewController.swift */; };
+		BC3D400C1FC4756800C78858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC3D400B1FC4756800C78858 /* Assets.xcassets */; };
+		BC3D400F1FC4756800C78858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC3D400D1FC4756800C78858 /* Main.storyboard */; };
+		BC3D401B1FC4756800C78858 /* CPU_Simulator_2019Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D401A1FC4756800C78858 /* CPU_Simulator_2019Tests.swift */; };
+		BC3D40261FC4756800C78858 /* CPU_Simulator_2019UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40251FC4756800C78858 /* CPU_Simulator_2019UITests.swift */; };
+		BC3D40771FC72B5100C78858 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC3D40751FC72B5100C78858 /* GameScene.sks */; };
+		BC3D40781FC72B5100C78858 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40761FC72B5100C78858 /* GameScene.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BC3D40171FC4756800C78858 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC3D3FF61FC4756800C78858 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC3D3FFD1FC4756800C78858;
+			remoteInfo = "CPU Simulator 2019";
+		};
+		BC3D40221FC4756800C78858 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BC3D3FF61FC4756800C78858 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BC3D3FFD1FC4756800C78858;
+			remoteInfo = "CPU Simulator 2019";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BC3D3FFE1FC4756800C78858 /* CPU Simulator 2019.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CPU Simulator 2019.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC3D40011FC4756800C78858 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		BC3D40091FC4756800C78858 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BC3D400B1FC4756800C78858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BC3D400E1FC4756800C78858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BC3D40101FC4756800C78858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC3D40111FC4756800C78858 /* CPU_Simulator_2019.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CPU_Simulator_2019.entitlements; sourceTree = "<group>"; };
+		BC3D40161FC4756800C78858 /* CPU Simulator 2019Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CPU Simulator 2019Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC3D401A1FC4756800C78858 /* CPU_Simulator_2019Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU_Simulator_2019Tests.swift; sourceTree = "<group>"; };
+		BC3D401C1FC4756800C78858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC3D40211FC4756800C78858 /* CPU Simulator 2019UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CPU Simulator 2019UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC3D40251FC4756800C78858 /* CPU_Simulator_2019UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU_Simulator_2019UITests.swift; sourceTree = "<group>"; };
+		BC3D40271FC4756800C78858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC3D40751FC72B5100C78858 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		BC3D40761FC72B5100C78858 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BC3D3FFB1FC4756800C78858 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC3D40131FC4756800C78858 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC3D401E1FC4756800C78858 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BC3D3FF51FC4756800C78858 = {
+			isa = PBXGroup;
+			children = (
+				BC3D40001FC4756800C78858 /* CPU Simulator 2019 */,
+				BC3D40191FC4756800C78858 /* CPU Simulator 2019Tests */,
+				BC3D40241FC4756800C78858 /* CPU Simulator 2019UITests */,
+				BC3D3FFF1FC4756800C78858 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BC3D3FFF1FC4756800C78858 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BC3D3FFE1FC4756800C78858 /* CPU Simulator 2019.app */,
+				BC3D40161FC4756800C78858 /* CPU Simulator 2019Tests.xctest */,
+				BC3D40211FC4756800C78858 /* CPU Simulator 2019UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BC3D40001FC4756800C78858 /* CPU Simulator 2019 */ = {
+			isa = PBXGroup;
+			children = (
+				BC3D40011FC4756800C78858 /* AppDelegate.swift */,
+				BC3D40091FC4756800C78858 /* ViewController.swift */,
+				BC3D400B1FC4756800C78858 /* Assets.xcassets */,
+				BC3D400D1FC4756800C78858 /* Main.storyboard */,
+				BC3D40751FC72B5100C78858 /* GameScene.sks */,
+				BC3D40761FC72B5100C78858 /* GameScene.swift */,
+				BC3D40101FC4756800C78858 /* Info.plist */,
+				BC3D40111FC4756800C78858 /* CPU_Simulator_2019.entitlements */,
+			);
+			path = "CPU Simulator 2019";
+			sourceTree = "<group>";
+		};
+		BC3D40191FC4756800C78858 /* CPU Simulator 2019Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BC3D401A1FC4756800C78858 /* CPU_Simulator_2019Tests.swift */,
+				BC3D401C1FC4756800C78858 /* Info.plist */,
+			);
+			path = "CPU Simulator 2019Tests";
+			sourceTree = "<group>";
+		};
+		BC3D40241FC4756800C78858 /* CPU Simulator 2019UITests */ = {
+			isa = PBXGroup;
+			children = (
+				BC3D40251FC4756800C78858 /* CPU_Simulator_2019UITests.swift */,
+				BC3D40271FC4756800C78858 /* Info.plist */,
+			);
+			path = "CPU Simulator 2019UITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BC3D3FFD1FC4756800C78858 /* CPU Simulator 2019 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC3D402A1FC4756800C78858 /* Build configuration list for PBXNativeTarget "CPU Simulator 2019" */;
+			buildPhases = (
+				BC3D3FFA1FC4756800C78858 /* Sources */,
+				BC3D3FFB1FC4756800C78858 /* Frameworks */,
+				BC3D3FFC1FC4756800C78858 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CPU Simulator 2019";
+			productName = "CPU Simulator 2019";
+			productReference = BC3D3FFE1FC4756800C78858 /* CPU Simulator 2019.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BC3D40151FC4756800C78858 /* CPU Simulator 2019Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC3D402D1FC4756800C78858 /* Build configuration list for PBXNativeTarget "CPU Simulator 2019Tests" */;
+			buildPhases = (
+				BC3D40121FC4756800C78858 /* Sources */,
+				BC3D40131FC4756800C78858 /* Frameworks */,
+				BC3D40141FC4756800C78858 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC3D40181FC4756800C78858 /* PBXTargetDependency */,
+			);
+			name = "CPU Simulator 2019Tests";
+			productName = "CPU Simulator 2019Tests";
+			productReference = BC3D40161FC4756800C78858 /* CPU Simulator 2019Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BC3D40201FC4756800C78858 /* CPU Simulator 2019UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC3D40301FC4756800C78858 /* Build configuration list for PBXNativeTarget "CPU Simulator 2019UITests" */;
+			buildPhases = (
+				BC3D401D1FC4756800C78858 /* Sources */,
+				BC3D401E1FC4756800C78858 /* Frameworks */,
+				BC3D401F1FC4756800C78858 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BC3D40231FC4756800C78858 /* PBXTargetDependency */,
+			);
+			name = "CPU Simulator 2019UITests";
+			productName = "CPU Simulator 2019UITests";
+			productReference = BC3D40211FC4756800C78858 /* CPU Simulator 2019UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC3D3FF61FC4756800C78858 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0910;
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = "Hao Yun";
+				TargetAttributes = {
+					BC3D3FFD1FC4756800C78858 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					BC3D40151FC4756800C78858 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BC3D3FFD1FC4756800C78858;
+					};
+					BC3D40201FC4756800C78858 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BC3D3FFD1FC4756800C78858;
+					};
+				};
+			};
+			buildConfigurationList = BC3D3FF91FC4756800C78858 /* Build configuration list for PBXProject "CPU Simulator 2019" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BC3D3FF51FC4756800C78858;
+			productRefGroup = BC3D3FFF1FC4756800C78858 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BC3D3FFD1FC4756800C78858 /* CPU Simulator 2019 */,
+				BC3D40151FC4756800C78858 /* CPU Simulator 2019Tests */,
+				BC3D40201FC4756800C78858 /* CPU Simulator 2019UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BC3D3FFC1FC4756800C78858 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC3D400C1FC4756800C78858 /* Assets.xcassets in Resources */,
+				BC3D40771FC72B5100C78858 /* GameScene.sks in Resources */,
+				BC3D400F1FC4756800C78858 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC3D40141FC4756800C78858 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC3D401F1FC4756800C78858 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BC3D3FFA1FC4756800C78858 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC3D40781FC72B5100C78858 /* GameScene.swift in Sources */,
+				BC3D400A1FC4756800C78858 /* ViewController.swift in Sources */,
+				BC3D40021FC4756800C78858 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC3D40121FC4756800C78858 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC3D401B1FC4756800C78858 /* CPU_Simulator_2019Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC3D401D1FC4756800C78858 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC3D40261FC4756800C78858 /* CPU_Simulator_2019UITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BC3D40181FC4756800C78858 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC3D3FFD1FC4756800C78858 /* CPU Simulator 2019 */;
+			targetProxy = BC3D40171FC4756800C78858 /* PBXContainerItemProxy */;
+		};
+		BC3D40231FC4756800C78858 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BC3D3FFD1FC4756800C78858 /* CPU Simulator 2019 */;
+			targetProxy = BC3D40221FC4756800C78858 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BC3D400D1FC4756800C78858 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC3D400E1FC4756800C78858 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BC3D40281FC4756800C78858 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BC3D40291FC4756800C78858 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		BC3D402B1FC4756800C78858 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "CPU Simulator 2019/CPU_Simulator_2019.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "CPU Simulator 2019/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CHCI.CPU-Simulator-2019";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		BC3D402C1FC4756800C78858 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "CPU Simulator 2019/CPU_Simulator_2019.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "CPU Simulator 2019/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CHCI.CPU-Simulator-2019";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		BC3D402E1FC4756800C78858 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "CPU Simulator 2019Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CHCI.CPU-Simulator-2019Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CPU Simulator 2019.app/Contents/MacOS/CPU Simulator 2019";
+			};
+			name = Debug;
+		};
+		BC3D402F1FC4756800C78858 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "CPU Simulator 2019Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CHCI.CPU-Simulator-2019Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CPU Simulator 2019.app/Contents/MacOS/CPU Simulator 2019";
+			};
+			name = Release;
+		};
+		BC3D40311FC4756800C78858 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "CPU Simulator 2019UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CHCI.CPU-Simulator-2019UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = "CPU Simulator 2019";
+			};
+			name = Debug;
+		};
+		BC3D40321FC4756800C78858 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "CPU Simulator 2019UITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "CHCI.CPU-Simulator-2019UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TEST_TARGET_NAME = "CPU Simulator 2019";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC3D3FF91FC4756800C78858 /* Build configuration list for PBXProject "CPU Simulator 2019" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC3D40281FC4756800C78858 /* Debug */,
+				BC3D40291FC4756800C78858 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC3D402A1FC4756800C78858 /* Build configuration list for PBXNativeTarget "CPU Simulator 2019" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC3D402B1FC4756800C78858 /* Debug */,
+				BC3D402C1FC4756800C78858 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC3D402D1FC4756800C78858 /* Build configuration list for PBXNativeTarget "CPU Simulator 2019Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC3D402E1FC4756800C78858 /* Debug */,
+				BC3D402F1FC4756800C78858 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC3D40301FC4756800C78858 /* Build configuration list for PBXNativeTarget "CPU Simulator 2019UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC3D40311FC4756800C78858 /* Debug */,
+				BC3D40321FC4756800C78858 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BC3D3FF61FC4756800C78858 /* Project object */;
+}
