@@ -23,9 +23,6 @@ import Cocoa
 
 class GameScene: SKScene {
 
-    //variables for testing
-    var run = 0
-
     //constant "settings"
     var dataSize = 16
     var storageSize = 32
@@ -58,7 +55,7 @@ class GameScene: SKScene {
 
     //other variables
     private var memoryValue: Array<Int> = Array(repeating: 0, count: 256)
-    
+
     public var addressBusValue = 0 {
         didSet {
             updateState(source: 1)
@@ -81,7 +78,7 @@ class GameScene: SKScene {
             updateState(source: 4)
         }
     }
-    
+
     //current page the memory is displaying
     var page = 0
 
@@ -137,10 +134,8 @@ class GameScene: SKScene {
         readLine.strokeColor = SKColor.black
         readLine.zPosition = 5
 
-
         //add to array and scene
         self.addChild(readLine)
-
 
         //******** write line ********
         offsetX = CGFloat(screenWidth * 0.8)
@@ -215,7 +210,7 @@ class GameScene: SKScene {
 
             let offsetX = CGFloat(Float(i) * width + memoryX)
             let position = CGPoint.init(x: offsetX, y: CGFloat(memoryY + unitHeight))
-            
+
             //external display counts from 1 not 0
             let addressLabel = SKLabelNode(text: String(i + 1))
             addressLabel.position = position
@@ -245,7 +240,7 @@ class GameScene: SKScene {
                 //determine positions and size
                 let offsetX = CGFloat(Float(i) * width + memoryX)
                 let offsetY = CGFloat(Float(j) * width + memoryY)
-                
+
                 let cellWidth = CGFloat(CGwidth * 0.45)
                 let cellHeight = CGFloat(CGwidth * 0.8)
 
@@ -279,7 +274,7 @@ class GameScene: SKScene {
         //******** update displays ********
         switch source {
         case 1: //address bus changed
-            
+
             //external display counts from 1
             let unpaddedBinary = String(addressBusValue + 1, radix: 2) //binary base
             let padding = String.init(repeating: "0", count: (8 - unpaddedBinary.count))
@@ -383,7 +378,20 @@ class GameScene: SKScene {
 
 //mouse clicked
     override func mouseDown(with event: NSEvent) {
-        //test()
+//        for i in memory {
+//            i.isHidden = true
+//        }
+//
+//        for i in dataBus {
+//            i.isHidden = true
+//        }
+//        for i in addressBus {
+//            i.isHidden = true
+//        }
+//        for i in
+
+        let tempScene = ALU(fileNamed: "ALU")
+        self.scene?.view?.presentScene(tempScene!)
     }
 
 //mouse dragged
@@ -406,37 +414,20 @@ class GameScene: SKScene {
 //        }
     }
 
-    func test() {
-
-        //example program
-        addressBusValue = 0
-        dataBusValue = 6
-        writing = true
-        sleep(1)
-        writing = false
-        sleep(4)
-        addressBusValue = 1
-        dataBusValue = 7
-        writing = true
-        sleep(1)
-        writing = false
-        sleep(123)
-    }
-
-
     override func update(_ currentTime: TimeInterval) {
-
-        //dataBusValue = Int(arc4random_uniform(65536)) - 32768
+        
+        sleep(1)
+        dataBusValue = Int(arc4random_uniform(65536)) - 32768
         //dataBusValue = 14223
-        //addressBusValue = Int(arc4random_uniform(32) + 1)
-        //writing = arc4random_uniform(2) == 1
-        //reading = arc4random_uniform(2) == 1
+        addressBusValue = Int(arc4random_uniform(30) + 1)
+        writing = arc4random_uniform(2) == 1
+        reading = arc4random_uniform(2) == 1
         //writing = true
         //reading = true
         //addressBusValue = 30
-        dataBusValue = 1231
-        addressBusValue = 0
-        writing = true
+        //dataBusValue = 1231
+        //addressBusValue = 0
+        //writing = true
     }
 }
 
