@@ -13,10 +13,12 @@
 		BC3D400F1FC4756800C78858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC3D400D1FC4756800C78858 /* Main.storyboard */; };
 		BC3D401B1FC4756800C78858 /* CPU_Simulator_2019Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D401A1FC4756800C78858 /* CPU_Simulator_2019Tests.swift */; };
 		BC3D40261FC4756800C78858 /* CPU_Simulator_2019UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40251FC4756800C78858 /* CPU_Simulator_2019UITests.swift */; };
-		BC3D40771FC72B5100C78858 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC3D40751FC72B5100C78858 /* GameScene.sks */; };
-		BC3D40781FC72B5100C78858 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40761FC72B5100C78858 /* GameScene.swift */; };
+		BC3D40771FC72B5100C78858 /* Memory.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC3D40751FC72B5100C78858 /* Memory.sks */; };
 		BCB5B3FC1FD6ECDA00462F8B /* ALU.sks in Resources */ = {isa = PBXBuildFile; fileRef = BCB5B3FB1FD6ECDA00462F8B /* ALU.sks */; };
 		BCB5B3FE1FD6ED5800462F8B /* ALU.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB5B3FD1FD6ED5800462F8B /* ALU.swift */; };
+		BCD5F7B32003C86B00D514AC /* Test2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD5F7B22003C86B00D514AC /* Test2.swift */; };
+		BCD5F7B520050E5600D514AC /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD5F7B420050E5600D514AC /* Scene.swift */; };
+		BCE845FB1FE41BB000274557 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE845FA1FE41BB000274557 /* Memory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,10 +52,12 @@
 		BC3D40211FC4756800C78858 /* CPU Simulator 2019UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CPU Simulator 2019UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3D40251FC4756800C78858 /* CPU_Simulator_2019UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU_Simulator_2019UITests.swift; sourceTree = "<group>"; };
 		BC3D40271FC4756800C78858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BC3D40751FC72B5100C78858 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		BC3D40761FC72B5100C78858 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		BC3D40751FC72B5100C78858 /* Memory.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Memory.sks; sourceTree = "<group>"; };
 		BCB5B3FB1FD6ECDA00462F8B /* ALU.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ALU.sks; sourceTree = "<group>"; };
 		BCB5B3FD1FD6ED5800462F8B /* ALU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALU.swift; sourceTree = "<group>"; };
+		BCD5F7B22003C86B00D514AC /* Test2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2.swift; sourceTree = "<group>"; };
+		BCD5F7B420050E5600D514AC /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		BCE845FA1FE41BB000274557 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,10 +112,12 @@
 				BC3D40091FC4756800C78858 /* ViewController.swift */,
 				BC3D400B1FC4756800C78858 /* Assets.xcassets */,
 				BC3D400D1FC4756800C78858 /* Main.storyboard */,
-				BC3D40751FC72B5100C78858 /* GameScene.sks */,
+				BC3D40751FC72B5100C78858 /* Memory.sks */,
+				BCD5F7B22003C86B00D514AC /* Test2.swift */,
 				BCB5B3FB1FD6ECDA00462F8B /* ALU.sks */,
+				BCD5F7B420050E5600D514AC /* Scene.swift */,
+				BCE845FA1FE41BB000274557 /* Memory.swift */,
 				BCB5B3FD1FD6ED5800462F8B /* ALU.swift */,
-				BC3D40761FC72B5100C78858 /* GameScene.swift */,
 				BC3D40101FC4756800C78858 /* Info.plist */,
 				BC3D40111FC4756800C78858 /* CPU_Simulator_2019.entitlements */,
 			);
@@ -245,7 +251,7 @@
 			files = (
 				BCB5B3FC1FD6ECDA00462F8B /* ALU.sks in Resources */,
 				BC3D400C1FC4756800C78858 /* Assets.xcassets in Resources */,
-				BC3D40771FC72B5100C78858 /* GameScene.sks in Resources */,
+				BC3D40771FC72B5100C78858 /* Memory.sks in Resources */,
 				BC3D400F1FC4756800C78858 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,10 +277,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC3D40781FC72B5100C78858 /* GameScene.swift in Sources */,
+				BCE845FB1FE41BB000274557 /* Memory.swift in Sources */,
 				BC3D400A1FC4756800C78858 /* ViewController.swift in Sources */,
+				BCD5F7B520050E5600D514AC /* Scene.swift in Sources */,
 				BCB5B3FE1FD6ED5800462F8B /* ALU.swift in Sources */,
 				BC3D40021FC4756800C78858 /* AppDelegate.swift in Sources */,
+				BCD5F7B32003C86B00D514AC /* Test2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

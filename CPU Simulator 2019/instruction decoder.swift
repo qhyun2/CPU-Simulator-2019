@@ -10,23 +10,27 @@ import SpriteKit
 import GameplayKit
 import Cocoa
 
-class ALU: SKScene {
-
-    var memory: Scene?
-
+class instructiondecoder: SKScene {
+    
+    var vc : GameDelegate?
+    
+    func setGD(gdd: GameDelegate) {
+        vc = gdd
+    }
+    
     //initialize the game scene
     override func didMove(to view: SKView) {
-        memory = Scene(id:1)
+        
     }
-
+    
     override func update(_ currentTime: TimeInterval) {
-        print(memory?.getID())
     }
-
+    
     //mouse clicked
     override func mouseDown(with event: NSEvent) {
+        vc?.showScene(scene: 1)
     }
-
 }
+
 
 

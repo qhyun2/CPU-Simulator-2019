@@ -1,5 +1,5 @@
 //
-//  ALU.swift
+//  Overview.swift
 //  CPU Simulator 2019
 //
 //  Created by Hao Yun on 2017-11-21.
@@ -10,23 +10,25 @@ import SpriteKit
 import GameplayKit
 import Cocoa
 
-class ALU: SKScene {
-
-    var memory: Scene?
-
+class Overview: SKScene {
+    
+    private var addressBus: Array<SKShapeNode> = Array()
+    private var dataBus: Array<SKShapeNode> = Array()
+    
     //initialize the game scene
     override func didMove(to view: SKView) {
-        memory = Scene(id:1)
     }
-
+    
     override func update(_ currentTime: TimeInterval) {
-        print(memory?.getID())
     }
-
+    
     //mouse clicked
     override func mouseDown(with event: NSEvent) {
+        let tempScene = Memory(fileNamed: "Overview")
+        self.scene?.view?.presentScene(tempScene!)
     }
-
+    
 }
+
 
 

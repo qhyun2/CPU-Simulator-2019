@@ -9,26 +9,27 @@ import Cocoa
 import SpriteKit
 import GameplayKit
 
+
+
 class ViewController: NSViewController {
-    
-    
+
     @IBOutlet var skView: SKView!
-    var memory = SKScene(fileNamed: "GameScene")!
+    var memory = SKScene(fileNamed: "Memory")!
     var alu = SKScene(fileNamed: "ALU")!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Load the SKScene from 'GameScene.sks'
+        // Set the scale mode to scale to fit the window
+        let viewer = self.skView!
+        memory.scaleMode = .aspectFit
         
-        if let view = self.skView {
-            // Load the SKScene from 'GameScene.sks'
-                // Set the scale mode to scale to fit the window
-                memory.scaleMode = .aspectFit
-                
-                // Present the scene
-                view.presentScene(memory)
-            
-            let presOptions: NSApplication.PresentationOptions = ([.fullScreen,.autoHideMenuBar])
-            /*These are all of the options for NSApplicationPresentationOptions
+        //instructiondecoder.setGD(self)
+
+        // Present the scene
+        viewer.presentScene(memory)
+
+        let presOptions: NSApplication.PresentationOptions = ([.fullScreen, .autoHideMenuBar])
+        /*These are all of the options for NSApplicationPresentationOptions
              .Default
              .AutoHideDock              |   /
              .AutoHideMenuBar           |   /
@@ -48,14 +49,13 @@ class ViewController: NSViewController {
              .DisableSessionTermination |   /
              .DisableHideApplication    |   /
              .AutoHideToolbar */
-            
-            let optionsDictionary = [NSView.FullScreenModeOptionKey.fullScreenModeApplicationPresentationOptions :
+
+        let optionsDictionary = [NSView.FullScreenModeOptionKey.fullScreenModeApplicationPresentationOptions:
                 presOptions.rawValue]
-            
-            view.enterFullScreenMode(NSScreen.main!, withOptions:optionsDictionary)
-            view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+
+        viewer.enterFullScreenMode(NSScreen.main!, withOptions: optionsDictionary)
+        viewer.ignoresSiblingOrder = true
+        viewer.showsFPS = true
+        viewer.showsNodeCount = true
     }
 }
