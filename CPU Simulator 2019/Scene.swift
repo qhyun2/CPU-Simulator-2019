@@ -7,17 +7,40 @@
 //
 
 import Foundation
+import SpriteKit
 
 open class Scene {
 
     var id: Int
+    var stage: SKScene
+    var controller: SceneController
+    var nodeArray: Array<SKNode>
 
-    init(id: Int) {
+    init(id: Int, stage: SKScene, controller: SceneController) {
         self.id = id
+        self.stage = stage
+        self.controller = controller
+        nodeArray = []
     }
 
-    open func sceneDidLoad() { }
+    //called when scene is active and updated
     open func update(_ currentTime: TimeInterval) { }
+    open func addNode(node:SKNode) {
+        nodeArray.append(node)
+        stage.addChild(node)
+    }
+
+    //scene displayed
+    open func show() {
+        for i in nodeArray {
+            i.isHidden = false
+        }
+    }
+    open func hide() {
+        for i in nodeArray {
+            i.isHidden = true
+        }
+    }
 
     func getID() -> Int {
         return id

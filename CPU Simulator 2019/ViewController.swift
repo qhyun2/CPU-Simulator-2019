@@ -9,27 +9,51 @@ import Cocoa
 import SpriteKit
 import GameplayKit
 
-
+/* Project Outline
+ 
+ Sprint 2:
+ XCreate working memory display
+ XDisplay when sections are accessed
+ 
+ Sprint 3:
+ -Write Scene Controller
+ 
+ 
+ Overall:
+ 
+ Overview:
+ -Represent each scene connected together
+ 
+ Memory Scene:
+ 
+ ALU:
+ -Input and Result registers
+ -Op Codes
+ -Flags
+ 
+ Control Unit:
+ -Intruction id input
+ -Intruction representation
+ 
+ */
 
 class ViewController: NSViewController {
 
     @IBOutlet var skView: SKView!
-    var memory = SKScene(fileNamed: "Memory")!
-    var alu = SKScene(fileNamed: "ALU")!
+    
+    var SceneController = SKScene(fileNamed: "SceneController")!
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        // Load the SKScene from 'GameScene.sks'
         // Set the scale mode to scale to fit the window
         let viewer = self.skView!
-        memory.scaleMode = .aspectFit
-        
-        //instructiondecoder.setGD(self)
-
+        viewer.preferredFramesPerSecond = 40
+        SceneController.scaleMode = .aspectFit
         // Present the scene
-        viewer.presentScene(memory)
+        viewer.presentScene(SceneController)
 
-        let presOptions: NSApplication.PresentationOptions = ([.fullScreen, .autoHideMenuBar])
-        /*These are all of the options for NSApplicationPresentationOptions
+        /* These are all of the options for NSApplicationPresentationOptions
              .Default
              .AutoHideDock              |   /
              .AutoHideMenuBar           |   /
@@ -48,8 +72,10 @@ class ViewController: NSViewController {
              .DisableProcessSwitching   |   /
              .DisableSessionTermination |   /
              .DisableHideApplication    |   /
-             .AutoHideToolbar */
+             .AutoHideToolbar
+         */
 
+        let presOptions: NSApplication.PresentationOptions = ([.fullScreen, .autoHideMenuBar])
         let optionsDictionary = [NSView.FullScreenModeOptionKey.fullScreenModeApplicationPresentationOptions:
                 presOptions.rawValue]
 
