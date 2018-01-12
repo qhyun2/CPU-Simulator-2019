@@ -35,7 +35,6 @@ class Memory: Scene {
     var lineLocation = CGFloat()
 
     //objects in scene
-    private var background = SKSpriteNode(imageNamed: "memory background")
     private var memory: Array<SKShapeNode> = Array()
     private var accessIndicator = SKShapeNode()
     private var writeIndicator = SKShapeNode()
@@ -74,9 +73,9 @@ class Memory: Scene {
     var page = 0
 
     //initialize the game scene
-    override init(id: Int, stage: SKScene, controller: SceneController) {
+    override init(id: Int, controller: SceneController, bg: String) {
 
-        super.init(id: id, stage: stage, controller: controller)
+        super.init(id: id, controller: controller, bg:bg)
 
         row = 16
         col = 32
@@ -94,12 +93,6 @@ class Memory: Scene {
         busWidth = CGFloat(screenWidth * 0.04)
         busHeight = CGFloat(screenHeight * 0.2)
         lineLocation = CGFloat(screenHeight * 0.945)
-
-        //******** background ********
-        background.size = CGSize(width: CGFloat(screenWidth), height: CGFloat(screenHeight))
-        background.zPosition = -99
-        background.position = CGPoint(x: stage.frame.size.width / 2, y: stage.frame.size.height / 2)
-        addNode(node: background)
 
         //******** background box ********
         let memoryBackground = SKShapeNode.init(rectOf: CGSize.init(width: CGFloat(screenWidth * 0.88), height: CGFloat(screenWidth * 0.46)))
@@ -184,7 +177,7 @@ class Memory: Scene {
             let position = CGPoint.init(x: offsetX, y: lineLocation)
 
             //create cell
-            let cell = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: cellHeight), cornerRadius: 0)
+            let cell = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: cellHeight))
             cell.position = position
             cell.lineWidth = 2
             cell.fillColor = SKColor.gray
@@ -217,7 +210,7 @@ class Memory: Scene {
         //******** access indicator ********
         accessIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight + 15)))
         accessIndicator.fillColor = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 0.4)
-        accessIndicator.zPosition = 2
+        accessIndicator.zPosition = 3
         addNode(node: accessIndicator)
 
         //******** write indicator *******
@@ -256,7 +249,7 @@ class Memory: Scene {
 
         //fill memory with random values
         for _ in 0...31 {
-            let randomInt = Int(arc4random_uniform(65536)) - 32768
+            //let randomInt = Int(arc4random_uniform(65536)) - 32768
             //let _ = updateMemory(address: i, data: randomInt)
         }
     }

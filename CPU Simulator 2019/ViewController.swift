@@ -20,11 +20,15 @@ import GameplayKit
  
  
  Overall:
+
  
  Overview:
  -Represent each scene connected together
+ -component selection
+ -returning from scenes
  
  Memory Scene:
+ -split up updateState function
  
  ALU:
  -Input and Result registers
@@ -34,6 +38,7 @@ import GameplayKit
  Control Unit:
  -Intruction id input
  -Intruction representation
+ -intruction execution
  
  */
 
@@ -48,7 +53,6 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         // Set the scale mode to scale to fit the window
         let viewer = self.skView!
-        viewer.preferredFramesPerSecond = 40
         SceneController.scaleMode = .aspectFit
         // Present the scene
         viewer.presentScene(SceneController)

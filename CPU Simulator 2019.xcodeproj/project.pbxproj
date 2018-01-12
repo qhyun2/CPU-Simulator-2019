@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC0390DA2007AEB0003C8F1E /* ALU.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0390D92007AEB0003C8F1E /* ALU.swift */; };
+		BC0390DC2007B276003C8F1E /* Overview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0390DB2007B276003C8F1E /* Overview.swift */; };
+		BC0390DE200842DF003C8F1E /* ControlUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0390DD200842DF003C8F1E /* ControlUnit.swift */; };
 		BC3D40021FC4756800C78858 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40011FC4756800C78858 /* AppDelegate.swift */; };
 		BC3D400A1FC4756800C78858 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40091FC4756800C78858 /* ViewController.swift */; };
 		BC3D400C1FC4756800C78858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC3D400B1FC4756800C78858 /* Assets.xcassets */; };
@@ -17,6 +20,7 @@
 		BCB5B3FE1FD6ED5800462F8B /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */; };
 		BCD5F7B520050E5600D514AC /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD5F7B420050E5600D514AC /* Scene.swift */; };
 		BCE845FB1FE41BB000274557 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE845FA1FE41BB000274557 /* Memory.swift */; };
+		BCECBD6C2008EDF700EDA7BA /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECBD6B2008EDF700EDA7BA /* Bus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC0390D92007AEB0003C8F1E /* ALU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALU.swift; sourceTree = "<group>"; };
+		BC0390DB2007B276003C8F1E /* Overview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overview.swift; sourceTree = "<group>"; };
+		BC0390DD200842DF003C8F1E /* ControlUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlUnit.swift; sourceTree = "<group>"; };
 		BC3D3FFE1FC4756800C78858 /* CPU Simulator 2019.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CPU Simulator 2019.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC3D40011FC4756800C78858 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC3D40091FC4756800C78858 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,6 +61,7 @@
 		BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		BCD5F7B420050E5600D514AC /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		BCE845FA1FE41BB000274557 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
+		BCECBD6B2008EDF700EDA7BA /* Bus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,14 +112,18 @@
 		BC3D40001FC4756800C78858 /* CPU Simulator 2019 */ = {
 			isa = PBXGroup;
 			children = (
-				BC3D40011FC4756800C78858 /* AppDelegate.swift */,
-				BC3D40091FC4756800C78858 /* ViewController.swift */,
 				BC3D400B1FC4756800C78858 /* Assets.xcassets */,
-				BC3D400D1FC4756800C78858 /* Main.storyboard */,
-				BCB5B3FB1FD6ECDA00462F8B /* SceneController.sks */,
-				BCD5F7B420050E5600D514AC /* Scene.swift */,
+				BC0390DB2007B276003C8F1E /* Overview.swift */,
 				BCE845FA1FE41BB000274557 /* Memory.swift */,
+				BC0390D92007AEB0003C8F1E /* ALU.swift */,
+				BC0390DD200842DF003C8F1E /* ControlUnit.swift */,
+				BCD5F7B420050E5600D514AC /* Scene.swift */,
 				BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */,
+				BCB5B3FB1FD6ECDA00462F8B /* SceneController.sks */,
+				BCECBD6B2008EDF700EDA7BA /* Bus.swift */,
+				BC3D400D1FC4756800C78858 /* Main.storyboard */,
+				BC3D40091FC4756800C78858 /* ViewController.swift */,
+				BC3D40011FC4756800C78858 /* AppDelegate.swift */,
 				BC3D40101FC4756800C78858 /* Info.plist */,
 				BC3D40111FC4756800C78858 /* CPU_Simulator_2019.entitlements */,
 			);
@@ -270,11 +282,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCECBD6C2008EDF700EDA7BA /* Bus.swift in Sources */,
 				BCE845FB1FE41BB000274557 /* Memory.swift in Sources */,
 				BC3D400A1FC4756800C78858 /* ViewController.swift in Sources */,
 				BCD5F7B520050E5600D514AC /* Scene.swift in Sources */,
 				BCB5B3FE1FD6ED5800462F8B /* SceneController.swift in Sources */,
+				BC0390DA2007AEB0003C8F1E /* ALU.swift in Sources */,
+				BC0390DE200842DF003C8F1E /* ControlUnit.swift in Sources */,
 				BC3D40021FC4756800C78858 /* AppDelegate.swift in Sources */,
+				BC0390DC2007B276003C8F1E /* Overview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

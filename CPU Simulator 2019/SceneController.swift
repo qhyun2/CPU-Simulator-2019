@@ -13,26 +13,35 @@ import Cocoa
 class SceneController: SKScene {
 
     var memory: Scene?
+    var alu: Scene?
+    var overview: Scene?
+    var controlunit: Scene?
     var sceneArray: Array<Scene>?
-    var currentScene = 0
-    var OVERVIEW = 0
-    var MEMORY = 0
-    var ALU = 2
-    var CONTROLUNIT = 3
-    
+    var currentScene = 1
+    var OVERVIEWid = 0
+    var MEMORYid = 1
+    var ALUid = 2
+    var CONTROLUNITid = 3
+    var initialScene = 0
+
 
     //initialize the game scene
     override func didMove(to view: SKView) {
-        memory = Memory(id:MEMORY, stage: self, controller: self)
-         sceneArray = [memory!]
+        
+ 
+        overview = Overview(id: OVERVIEWid, controller: self, bg: "bg1")
+        memory = Memory(id: MEMORYid, controller: self, bg: "bg2")
+        alu = ALU(id: ALUid, controller: self, bg: "bg3")
+        controlunit = ControlUnit(id: CONTROLUNITid, controller: self, bg: "bg4")
+
+        sceneArray = [overview!, memory!, alu!, controlunit!]
+        changeScene(id: initialScene)
     }
 
     override func update(_ currentTime: TimeInterval) {
-        for i in sceneArray! {
-            i.update(currentTime)
-        }
+        sceneArray![currentScene].update(currentTime)
     }
-    
+
     //swap scenes
     func changeScene(id: Int) {
         //hide current scene
@@ -45,7 +54,7 @@ class SceneController: SKScene {
 
     //mouse clicked
     override func mouseDown(with event: NSEvent) {
-        memory?.hide()
+            sceneArray![currentScene].mouseDown(event: event)
     }
 
 }
