@@ -37,6 +37,7 @@ class Scene {
 
     //called when scene is active to update scene
     func update(_ currentTime: TimeInterval) { }
+    
     //mouse input
     func mouseDown(event: NSEvent) {
         controller.changeScene(id: 0)

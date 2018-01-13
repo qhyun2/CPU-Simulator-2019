@@ -362,60 +362,23 @@ class Memory: Scene {
         return false
     }
 
-//    //mouse clicked
-//    override func mouseDown(with event: NSEvent) {
-//        print("NOOO")
-//                for i in memory {
-//                    i.isHidden = true
-//                }
-//
-//                for i in dataBus {
-//                    i.isHidden = true
-//                }
-//                for i in addressBus {
-//                    i.isHidden = true
-//                }
-//                for i in
-//
-//        let tempScene = ALU(fileNamed: "ALU")
-//        stage.scene?.view?.presentScene(tempScene!)
-//    }
-//
-//    //mouse dragged
-//    override func mouseDragged(with event: NSEvent) {
+    //mouse clicked
+//    override func mouseDown(event with: NSEvent) {
 //
 //    }
-//
-//    //mouse released
-//    override func mouseUp(with event: NSEvent) {
-//
-//    }
-//
-//    //keyboard pressed
-//    override func keyDown(with event: NSEvent) {
-//        //        switch event.keyCode {
-//        //        case 0x31:
-//        //
-//        //        default:
-//        //            //print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
-//        //        }
-//    }
-//
+
     override func update(_ currentTime: TimeInterval) {
 
         sleep(1)
         dataBusValue = Int(arc4random_uniform(65536)) - 32768
-        //dataBusValue = 14223
         addressBusValue = Int(arc4random_uniform(30) + 1)
-        writing = arc4random_uniform(2) == 1
-        reading = arc4random_uniform(2) == 1
-        //writing = true
+        writing = true
         //reading = true
         //addressBusValue = 30
         //dataBusValue = 1231
         //addressBusValue = 0
         //writing = true
+        //writing = arc4random_uniform(2) == 1
+        //reading = arc4random_uniform(2) == 1
     }
 }
-
-

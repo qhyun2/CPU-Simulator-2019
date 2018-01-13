@@ -19,7 +19,7 @@ class Bus {
     var bits: Int
     var lines: Array<SKShapeNode> = []
 
-    init(x: Int, y: Int, width: Int, height: Int, bits: Int, scene: Scene) {
+    init(x: Int, y: Int, width: Int, height: Int, bits: Int, spacing: Float, scene: Scene) {
 
         let cellWidth = width / bits
         self.bits = bits
@@ -33,7 +33,7 @@ class Bus {
             let position = CGPoint.init(x: offsetX, y: y)
 
             //create cell
-            let cell = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: height))
+            let cell = SKShapeNode.init(rectOf: CGSize.init(width: Int(Float(cellWidth) * spacing), height: height))
             cell.position = position
             cell.lineWidth = 4
             cell.zPosition = 5
