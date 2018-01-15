@@ -35,6 +35,19 @@ class Overview: Scene {
     //called when scene is active and updated
     override func update(_ currentTime: TimeInterval) {
     }
+    
+    override func event(id: Int) {
+        switch id {
+        case 1:
+            print("yesy1")
+        case 2:
+            print("yesy2")
+        case 3:
+            print("yesy3")
+        default:
+            print("Error")
+        }
+    }
 
     override func mouseDown(event: NSEvent) {
         let x = event.locationInWindow.x
@@ -43,7 +56,6 @@ class Overview: Scene {
 
         for (index, i) in buttons!.enumerated() {
             if i.contains(point) {
-                print(index)
                 controller.changeScene(id: index + 1)
             }
         }

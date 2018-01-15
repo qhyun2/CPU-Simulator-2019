@@ -17,6 +17,7 @@ class SceneController: SKScene {
     var overview: Scene?
     var controlunit: Scene?
     var sceneArray: Array<Scene>?
+    var eventQ: EventQueue?
     var currentScene = 1
     var OVERVIEWid = 0
     var MEMORYid = 1
@@ -33,13 +34,16 @@ class SceneController: SKScene {
         memory = Memory(id: MEMORYid, controller: self, bg: "bg2")
         alu = ALU(id: ALUid, controller: self, bg: "bg3")
         controlunit = ControlUnit(id: CONTROLUNITid, controller: self, bg: "bg4")
+        eventQ = EventQueue()
 
         sceneArray = [overview!, memory!, alu!, controlunit!]
         changeScene(id: initialScene)
     }
 
     override func update(_ currentTime: TimeInterval) {
+        
         sceneArray![currentScene].update(currentTime)
+        eventQ?.update(delta: currentTime)
     }
 
     //swap scenes
@@ -55,6 +59,13 @@ class SceneController: SKScene {
     //mouse clicked
     override func mouseDown(with event: NSEvent) {
             sceneArray![currentScene].mouseDown(event: event)
+        let a = Event(delay: 1000, id: 1, scene: overview!)
+        let b = Event(delay: 5000, id: 2, scene: overview!)
+        let c = Event(delay: 1000, id: 3, scene: overview!)
+        
+        eventQ?.addEvent(event: a)
+        eventQ?.addEvent(event: b)
+        eventQ?.addEvent(event: c)
     }
 
 }
