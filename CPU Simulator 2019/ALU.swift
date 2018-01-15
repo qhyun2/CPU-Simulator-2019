@@ -79,29 +79,19 @@ class ALU: Scene {
         addNode(node: box)
     }
     
-    override func event(id: Int) {
+    override func event(id: Int, data:Array<Int> = []) {
         
         inputBus?.value = 14
-        
-        print("\(id) event")
+
         switch id {
-        //write bus1 enabled
+        //set write bus 1
         case 1:
-            write1V = 1
+            write1V = data[0]
             break
             
-        //write bus1 disabled
+        //set write bus 2
         case 2:
-            write1V = 0
-        
-        //write bus2 enabled
-        case 3:
-            write2V = 1
-            break
-            
-        //write bus2 disabled
-        case 4:
-            write2V = 0
+            write2V = data[0]
         
         default:
             print("Error")

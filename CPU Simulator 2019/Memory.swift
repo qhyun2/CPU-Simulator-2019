@@ -367,25 +367,17 @@ class Memory: Scene {
         return false
     }
 
-    override func event(id: Int) {
+    override func event(id: Int, data:Array<Int> = []) {
         switch id {
         case 1:
-            //read line on
-            reading = true
+            //set write line
+            reading = data[0] == 1
             break
         case 2:
-            //read line off
-            reading = false
+            //set read line
+            reading = data[0] == 1
             break
         case 3:
-            //write line on
-            writing = true
-            break
-        case 4:
-            //write line off
-            writing = false
-            break
-        case 5:
             //
             break
         case 6:

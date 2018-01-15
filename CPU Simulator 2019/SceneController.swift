@@ -64,8 +64,8 @@ class SceneController: SKScene {
     override func mouseDown(with event: NSEvent) {
         sceneArray![currentScene].mouseDown(event: event)
         
-        controlunit?.event(id: 1)
-        controlunit?.event(id: 2)
+        controlunit?.event(id: 1, data:[1])
+        controlunit?.event(id: 1, data:[2])
 //        let a = Event(delay: 6000, id: 1, scene: alu!)
 //        let b = Event(delay: 500, id: 2, scene: alu!)
 //        let c = Event(delay: 500, id: 1, scene: alu!)
@@ -78,7 +78,6 @@ class SceneController: SKScene {
 //        eventQ?.addEvent(event: b)
 //        eventQ?.addEvent(event: a)
     }
-
 }
 
 

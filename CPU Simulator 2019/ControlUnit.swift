@@ -28,42 +28,31 @@ class ControlUnit: Scene {
      3 - write line on
      4 - write line off
     */
-    
-    override func event(id: Int) {
+
+    override func event(id: Int, data: Array<Int> = []) {
         switch id {
             //loadFromMemory
         case 1:
-            loadFromMemory(address: 1, reg: 1)
-            break
-        case 2:
-            loadFromMemory(address: 1, reg: 2)
+            loadFromMemory(address: 1, reg: data[0])
             break
         default:
             print("Control Unit Event Error")
         }
     }
-    
+
     func loadFromMemory(address: Int, reg: Int) {
 
         let memory = controller.memory!
         let alu = controller.alu!
         
-        
-        let readMem = Event(delay: 1000, id: 1, scene: memory)
-        let writeALU1 = Event(delay: 1000, id: 1, scene: alu)
-        let writeALU1o = Event(delay: 1000, id: 2, scene: alu)
-        let writeALU2 = Event(delay: 1000, id: 3, scene: alu)
-        let writeALU2o = Event(delay: 1000, id: 4, scene: alu)
-        let readMemo = Event(delay: 1000, id: 2, scene: memory)
+        let readMem = Event(delay: 500, id: 1, scene: memory, data: [1])
+        let writeALU = Event(delay: 500, id: reg, scene: alu, data:[1])
+        let writeALUo = Event(delay: 500, id: reg, scene: alu, data:[0])
+        let readMemo = Event(delay: 500, id: 2, scene: memory, data: [0])
 
         controller.eventQ?.addEvent(event: readMem)
-        if  reg == 1 {
-            controller.eventQ?.addEvent(event: writeALU1)
-            controller.eventQ?.addEvent(event: writeALU1o)
-        } else {
-            controller.eventQ?.addEvent(event: writeALU2)
-            controller.eventQ?.addEvent(event: writeALU2o)
-        }
+        controller.eventQ?.addEvent(event: writeALU)
+        controller.eventQ?.addEvent(event: writeALUo)
         controller.eventQ?.addEvent(event: readMemo)
     }
 }

@@ -41,7 +41,7 @@ class Scene {
     func update(_ currentTime: TimeInterval) { }
 
     //called when it is time for scene to display or do something
-    func event(id: Int) { }
+    func event(id: Int, data:Array<Int> = []) { }
 
     //mouse input
     func mouseDown(event: NSEvent) {

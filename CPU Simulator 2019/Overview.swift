@@ -36,14 +36,10 @@ class Overview: Scene {
     override func update(_ currentTime: TimeInterval) {
     }
     
-    override func event(id: Int) {
+    override func event(id: Int, data:Array<Int> = []) {
         switch id {
         case 1:
-            print("yesy1")
-        case 2:
-            print("yesy2")
-        case 3:
-            print("yesy3")
+            print("1")
         default:
             print("Error")
         }

@@ -16,10 +16,14 @@ struct Event {
     var id = 0
     var scene: Scene
     
-    init(delay: Int, id: Int, scene: Scene) {
+    //extra parameters for the event
+    var data:Array<Int>
+    
+    init(delay: Int, id: Int, scene: Scene, data:Array<Int> = []) {
         self.delay = delay
         self.id = id
         self.scene = scene
+        self.data = data
     }
 }
 
@@ -50,7 +54,7 @@ class EventQueue {
         //then timer is greater then the required delay the event will be triggered
         if let current = events.first {
             if timer >= current.delay {
-                current.scene.event(id: current.id)
+                current.scene.event(id: current.id, data:current.data)
                 
                 //event passed, remove from queue
                 events.removeFirst()

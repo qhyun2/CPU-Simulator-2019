@@ -121,12 +121,12 @@
 				BC0390DD200842DF003C8F1E /* ControlUnit.swift */,
 				BCD5F7B420050E5600D514AC /* Scene.swift */,
 				BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */,
-				BCB5B3FB1FD6ECDA00462F8B /* SceneController.sks */,
 				BC5B545D200C46B2001C36CD /* EventQueue.swift */,
 				BCECBD6B2008EDF700EDA7BA /* Bus.swift */,
 				BC3D40091FC4756800C78858 /* ViewController.swift */,
 				BC3D40011FC4756800C78858 /* AppDelegate.swift */,
 				BC3D400D1FC4756800C78858 /* Main.storyboard */,
+				BCB5B3FB1FD6ECDA00462F8B /* SceneController.sks */,
 				BC3D40101FC4756800C78858 /* Info.plist */,
 				BC3D40111FC4756800C78858 /* CPU_Simulator_2019.entitlements */,
 			);
