@@ -248,6 +248,11 @@ class Memory: Scene {
         }
 
         //fill memory with random values
+        
+        updateMemory(address: 1, data: 41)
+        updateMemory(address: 2, data: 31)
+        addressBusValue = 1
+        
         for _ in 0...31 {
             //let randomInt = Int(arc4random_uniform(65536)) - 32768
             //let _ = updateMemory(address: i, data: randomInt)
@@ -362,17 +367,41 @@ class Memory: Scene {
         return false
     }
 
-    //mouse clicked
-//    override func mouseDown(event with: NSEvent) {
-//
-//    }
+    override func event(id: Int) {
+        switch id {
+        case 1:
+            //read line on
+            reading = true
+            break
+        case 2:
+            //read line off
+            reading = false
+            break
+        case 3:
+            //write line on
+            writing = true
+            break
+        case 4:
+            //write line off
+            writing = false
+            break
+        case 5:
+            //
+            break
+        case 6:
+            //
+            break
+        default:
+            print("Memory Event Error")
+        }
+    }
 
     override func update(_ currentTime: TimeInterval) {
 
-        sleep(1)
-        dataBusValue = Int(arc4random_uniform(65536)) - 32768
-        addressBusValue = Int(arc4random_uniform(30) + 1)
-        writing = true
+//        sleep(1)
+//        dataBusValue = Int(arc4random_uniform(65536)) - 32768
+//        addressBusValue = Int(arc4random_uniform(30) + 1)
+//        writing = true
         //reading = true
         //addressBusValue = 30
         //dataBusValue = 1231

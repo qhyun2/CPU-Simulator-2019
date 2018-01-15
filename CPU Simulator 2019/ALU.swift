@@ -21,6 +21,7 @@ class ALU: Scene {
     var reg2: Bus?
     var regOut: Bus?
     var label: SKLabelNode?
+    var resultLabel: SKLabelNode?
 
     var write1V = 0
     {
@@ -71,8 +72,40 @@ class ALU: Scene {
 
         label = SKLabelNode(text: "")
         label?.position = CGPoint(x: 500, y: 350)
+        resultLabel = SKLabelNode(text: "0")
+        resultLabel?.position = CGPoint(x: 500, y: 280)
         addNode(node: label!)
+        addNode(node: resultLabel!)
         addNode(node: box)
+    }
+    
+    override func event(id: Int) {
+        
+        inputBus?.value = 14
+        
+        print("\(id) event")
+        switch id {
+        //write bus1 enabled
+        case 1:
+            write1V = 1
+            break
+            
+        //write bus1 disabled
+        case 2:
+            write1V = 0
+        
+        //write bus2 enabled
+        case 3:
+            write2V = 1
+            break
+            
+        //write bus2 disabled
+        case 4:
+            write2V = 0
+        
+        default:
+            print("Error")
+        }
     }
 
     //called when scene is active and updated
@@ -80,15 +113,18 @@ class ALU: Scene {
 //        inputBus?.value = Int(arc4random_uniform(65300))
 //        inputBus!.value = 8
 //        write1V = Int(arc4random_uniform(2))
-        write2V = Int(arc4random_uniform(2))
-        regOut!.value = 12314
-        readV = Int(arc4random_uniform(2))
+//        write2V = Int(arc4random_uniform(2))
+//        regOut!.value = 12314
+//        readV = Int(arc4random_uniform(2))
     }
 
     func updateLabel() {
         let sign = subtractV == 0 ? "+" : "-"
         let text = "\(reg1!.value ) \(sign) \(reg2!.value )"
         label!.text = text
+        
+        let result = reg1!.value + reg2!.value
+        resultLabel!.text = String(result)
     }
 }
 

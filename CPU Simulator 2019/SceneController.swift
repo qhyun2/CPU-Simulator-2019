@@ -23,7 +23,6 @@ class SceneController: SKScene {
     var MEMORYid = 1
     var ALUid = 2
     var CONTROLUNITid = 3
-    var initialScene = 0
 
 
     //initialize the game scene
@@ -35,9 +34,14 @@ class SceneController: SKScene {
         alu = ALU(id: ALUid, controller: self, bg: "bg3")
         controlunit = ControlUnit(id: CONTROLUNITid, controller: self, bg: "bg4")
         eventQ = EventQueue()
+        
+        overview?.hide()
+        memory?.hide()
+        alu?.hide()
+        controlunit?.hide()
 
         sceneArray = [overview!, memory!, alu!, controlunit!]
-        changeScene(id: initialScene)
+        changeScene(id: 0)
     }
 
     override func update(_ currentTime: TimeInterval) {
@@ -58,14 +62,21 @@ class SceneController: SKScene {
 
     //mouse clicked
     override func mouseDown(with event: NSEvent) {
-            sceneArray![currentScene].mouseDown(event: event)
-        let a = Event(delay: 1000, id: 1, scene: overview!)
-        let b = Event(delay: 5000, id: 2, scene: overview!)
-        let c = Event(delay: 1000, id: 3, scene: overview!)
+        sceneArray![currentScene].mouseDown(event: event)
         
-        eventQ?.addEvent(event: a)
-        eventQ?.addEvent(event: b)
-        eventQ?.addEvent(event: c)
+        controlunit?.event(id: 1)
+        controlunit?.event(id: 2)
+//        let a = Event(delay: 6000, id: 1, scene: alu!)
+//        let b = Event(delay: 500, id: 2, scene: alu!)
+//        let c = Event(delay: 500, id: 1, scene: alu!)
+//
+//        eventQ?.addEvent(event: a)
+//        eventQ?.addEvent(event: b)
+//        eventQ?.addEvent(event: c)
+//        eventQ?.addEvent(event: b)
+//        eventQ?.addEvent(event: c)
+//        eventQ?.addEvent(event: b)
+//        eventQ?.addEvent(event: a)
     }
 
 }
