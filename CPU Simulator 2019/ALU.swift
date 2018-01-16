@@ -80,18 +80,21 @@ class ALU: Scene {
     }
     
     override func event(id: Int, data:Array<Int> = []) {
-        
-        inputBus?.value = 14
 
         switch id {
         //set write bus 1
         case 1:
             write1V = data[0]
             break
-            
         //set write bus 2
         case 2:
             write2V = data[0]
+        //set read bus
+        case 3:
+            readV = data[0]
+        case 4:
+            //value received for data bus
+            inputBus?.value = data[0]
         default:
             print("Error")
         }

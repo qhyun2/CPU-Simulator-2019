@@ -18,6 +18,7 @@ class Bus {
     }
     var bits: Int
     var lines: Array<SKShapeNode> = []
+    var label = SKLabelNode()
 
     init(x: Int, y: Int, width: Int, height: Int, bits: Int, spacing: Float, scene: Scene) {
 
@@ -44,7 +45,19 @@ class Bus {
         }
     }
 
+    func enableLabel(x: Int, y: Int, fontSize: Int, scene: Scene) {
+        label.position = CGPoint(x: x, y: y)
+        label.fontName = "AmericanTypewriter-Bold"
+        label.fontSize = CGFloat(fontSize)
+        label.fontColor = SKColor.orange
+        scene.addNode(node: label)
+    }
+
     func updateDisplay() {
+        
+        //update label
+        label.text = "\(value)"
+        
         let unpaddedBinary = String(value, radix: 2) //binary base
         let padding = String.init(repeating: "0", count: (bits - unpaddedBinary.count))
         let binary = Array(padding + unpaddedBinary)

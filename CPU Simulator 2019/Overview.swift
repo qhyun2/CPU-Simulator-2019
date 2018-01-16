@@ -11,11 +11,13 @@ import SpriteKit
 import Cocoa
 
 class Overview: Scene {
-
+    
+    //locations of 4 buttons
     let x = [160, 1120, 160, 1120]
     let y = [640, 640, 320, 320]
-    let width = 100
-    let height = 80
+    
+    let width = 161
+    let height = 100
     var buttons: Array<SKShapeNode>?
     var dataBus: Bus?
 
@@ -28,7 +30,8 @@ class Overview: Scene {
         nodeArray.remove(at: 1).isHidden = true
         
         buttons = []
-
+        
+        //generate buttons
         for i in 0...3 {
             let button = SKShapeNode(rect: CGRect(x: x[i], y: y[i], width: width, height: height))
             button.fillColor = SKColor.green
@@ -38,19 +41,22 @@ class Overview: Scene {
         dataBus = Bus(x: 360, y: 0, width: 400, height: 1700, bits: 16, spacing: 0.6, scene: self)
     }
 
-    //called when scene is active and updated
-    override func update(_ currentTime: TimeInterval) {
-    }
-
     override func event(id: Int, data: Array<Int> = []) {
         switch id {
         case 1:
-            print("1")
+            //value sent to data bus
+            dataBus?.value = data[0]
+            
+            //send value back
+            //shouldn't cause loop cause only actually read actions send here
+            controller.memory?.event(id: 3, data:[(dataBus?.value)!])
+            controller.alu?.event(id: 4, data:[(dataBus?.value)!])
+            
         default:
             print("Error")
         }
     }
-
+    
     override func mouseDown(event: NSEvent) {
         let x = event.locationInWindow.x
         let y = event.locationInWindow.y

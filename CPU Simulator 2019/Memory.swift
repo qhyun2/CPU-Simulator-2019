@@ -6,8 +6,6 @@
 //  Copyright © 2017 Hao Yun. All rights reserved.
 //
 
-
-
 import SpriteKit
 import GameplayKit
 import Cocoa
@@ -15,6 +13,7 @@ import Cocoa
 class Memory: Scene {
 
     //constant "settings"
+    //hindsight comment - this was a mistake there does not need to be this many things especially all uninitialized, some of them are still being used somenot. I do not have the time or effort to figure that out
     var dataSize = 16
     var storageSize = 32
     var row = 0
@@ -35,17 +34,16 @@ class Memory: Scene {
     var lineLocation = CGFloat()
 
     //objects in scene
-    private var memory: Array<SKShapeNode> = Array()
-    private var accessIndicator = SKShapeNode()
-    private var writeIndicator = SKShapeNode()
-    private var readLine = SKShapeNode()
-    private var writeLine = SKShapeNode()
+    var memory: Array<SKShapeNode> = Array()
+    var accessIndicator = SKShapeNode()
+    var writeIndicator = SKShapeNode()
+    var readLine = SKShapeNode()
+    var writeLine = SKShapeNode()
     var dataBus: Bus?
     var addressBus: Bus?
+    var memoryValue: Array<Int> = Array(repeating: 0, count: 256)
 
-    //other variables
-    private var memoryValue: Array<Int> = Array(repeating: 0, count: 256)
-
+    //busses that need to be kept updated
     public var addressBusValue = 0 {
         didSet {
             addressBus!.value = addressBusValue
@@ -124,37 +122,21 @@ class Memory: Scene {
         addNode(node: memoryBackground)
 
         //******** read line ********
-        //create position object
-        var position = CGPoint.init(x: offsetX, y: lineLocation)
-
-        //create cell
-        readLine = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: cellHeight), cornerRadius: 0)
-        readLine.position = position
+        readLine = SKShapeNode.init(rectOf: CGSize.init(width: 30, height: 200))
+        readLine.position = CGPoint(x: 1160, y: 770)
         readLine.fillColor = SKColor.gray
-        readLine.lineWidth = 4
         readLine.strokeColor = SKColor.black
+        readLine.lineWidth = 4
         readLine.zPosition = 5
-
-        //add to array and scene
         addNode(node: readLine)
 
         //******** write line ********
-        offsetX = CGFloat(screenWidth * 0.8)
-        cellWidth = CGFloat(busWidth * 0.45)
-        cellHeight = CGFloat(busHeight)
-
-        //create position object
-        position = CGPoint.init(x: offsetX, y: lineLocation)
-
-        //create cell
-        writeLine = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: cellHeight), cornerRadius: 0)
-        writeLine.position = position
+        writeLine = SKShapeNode.init(rectOf: CGSize.init(width: 30, height: 200))
+        writeLine.position = CGPoint(x: 1100, y: 770)
         writeLine.fillColor = SKColor.gray
-        writeLine.lineWidth = 4
         writeLine.strokeColor = SKColor.black
+        writeLine.lineWidth = 4
         writeLine.zPosition = 5
-
-        //add to array and scene
         addNode(node: writeLine)
 
         //******** memory labels ********
@@ -177,12 +159,14 @@ class Memory: Scene {
         accessIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight + 15)))
         accessIndicator.fillColor = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 0.4)
         accessIndicator.zPosition = 3
+        accessIndicator.isHidden = true
         addNode(node: accessIndicator)
 
         //******** write indicator *******
         writeIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight + 15)))
         writeIndicator.fillColor = SKColor.init(red: 0.0196, green: 0.6862, blue: 0.2274, alpha: 0.4)
         writeIndicator.zPosition = 3
+        writeIndicator.isHidden = true
         addNode(node: writeIndicator)
 
         //******** memory cell bank ********
@@ -218,27 +202,28 @@ class Memory: Scene {
         updateMemory(address: 1, data: 5124)
         updateMemory(address: 2, data: 234)
         updateMemory(address: 3, data: 19)
-        addressBusValue = 1
     }
 
+    //update values in memory or on data bus based on write or read
+    //writing takes precedent over reading
+    //if both lines are on (should never happen in normal operation)
+    //writing will happen and reading will be skipped
     func updateState() {
-        //update values in memory or on data bus based on write or read
-        //writing takes precedent over reading
-        //if both lines are on (should never happen in normal operation) writing will happen and reading will be skipped
         if writing {
-            let _ = updateMemory(address: addressBusValue, data: dataBusValue)
+            updateMemory(address: addressBusValue, data: dataBusValue)
         } else {
-            //source cannot be 2 as that is from the data bus value updating leading to an infinite loop
             if reading {
                 dataBusValue = memoryValue[addressBusValue]
+                controller.overview?.event(id: 1, data: [dataBusValue])
             } else {
                 dataBusValue = 0
+                controller.overview?.event(id: 1, data: [dataBusValue])
             }
         }
     }
 
     //updated given memory location with given data
-    func updateMemory(address: Int, data: Int) -> Bool {
+    func updateMemory(address: Int, data: Int) {
 
         //update value
         memoryValue[address] = data
@@ -260,20 +245,23 @@ class Memory: Scene {
                 memory[firstCell + i].fillColor = SKColor.gray
             }
         }
-
-        return false
     }
 
     override func event(id: Int, data: Array<Int> = []) {
         switch id {
         case 1:
             //set write line
-            reading = data[0] == 1
-            break
+            writing = data[0] == 1
         case 2:
             //set read line
             reading = data[0] == 1
-            break
+        case 3:
+            //data bus value received from overview
+            dataBusValue = data[0]
+        case 4:
+            //address bus value received from overview
+            addressBusValue = data[0]
+            
         default:
             print("Memory Event Error")
         }
