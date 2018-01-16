@@ -38,8 +38,6 @@ class Memory: Scene {
     private var memory: Array<SKShapeNode> = Array()
     private var accessIndicator = SKShapeNode()
     private var writeIndicator = SKShapeNode()
-    private var convert2: Array<SKShapeNode> = Array()
-    private var convert: Array<SKShapeNode> = Array()
     private var readLine = SKShapeNode()
     private var writeLine = SKShapeNode()
     var dataBus: Bus?
@@ -50,24 +48,40 @@ class Memory: Scene {
 
     public var addressBusValue = 0 {
         didSet {
-            updateState(source: 1)
+            addressBus!.value = addressBusValue
+            addressBus!.updateDisplay()
         }
     }
     public var dataBusValue = 0 {
         didSet {
-            if dataBusValue < 32768 && dataBusValue > -32768 {
-                updateState(source: 2)
-            }
+            dataBus!.value = dataBusValue
+            dataBus!.updateDisplay()
         }
     }
     public var reading = false {
         didSet {
-            updateState(source: 3)
+            readLine.fillColor = reading ? SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1) : SKColor.gray
+            if (reading && controller.currentScene == id) {
+                //update read indicator
+                accessIndicator.position = CGPoint.init(x: CGFloat(memoryX + Float(addressBusValue % 32) * width), y: memoryTop)
+                accessIndicator.isHidden = false
+            } else {
+                accessIndicator.isHidden = true
+            }
+            updateState()
         }
     }
     public var writing = false {
         didSet {
-            updateState(source: 4)
+            writeLine.fillColor = writing ? SKColor.green : SKColor.gray
+            if (writing && controller.currentScene == id) {
+                //update read indicator
+                writeIndicator.position = CGPoint.init(x: CGFloat(memoryX + Float(addressBusValue % 32) * width), y: memoryTop)
+                writeIndicator.isHidden = false
+            } else {
+                writeIndicator.isHidden = true
+            }
+            updateState()
         }
     }
 
@@ -77,7 +91,7 @@ class Memory: Scene {
     //initialize the game scene
     override init(id: Int, controller: SceneController, bg: String) {
 
-        super.init(id: id, controller: controller, bg:bg)
+        super.init(id: id, controller: controller, bg: bg)
 
         row = 16
         col = 32
@@ -92,14 +106,11 @@ class Memory: Scene {
         memoryX = screenWidth * 0.04
         memoryY = screenHeight * 0.05
         memoryTop = CGFloat(memoryY + unitHeight / 2 - 14)
-        busWidth = CGFloat(screenWidth * 0.04)
-        busHeight = CGFloat(screenHeight * 0.2)
-        lineLocation = CGFloat(screenHeight * 0.945)
-        
+
         var offsetX = CGFloat(screenWidth * 0.77)
         var cellWidth = CGFloat(busWidth * 0.45)
         var cellHeight = CGFloat(busHeight)
-        
+
         dataBus = Bus(x: 400, y: 770, width: 600, height: 200, bits: 16, spacing: 0.75, scene: self)
         addressBus = Bus(x: 50, y: 770, width: 300, height: 200, bits: 8, spacing: 0.75, scene: self)
 
@@ -113,15 +124,12 @@ class Memory: Scene {
         addNode(node: memoryBackground)
 
         //******** read line ********
-        
-
         //create position object
         var position = CGPoint.init(x: offsetX, y: lineLocation)
 
         //create cell
         readLine = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: cellHeight), cornerRadius: 0)
         readLine.position = position
-        readLine.lineWidth = 2
         readLine.fillColor = SKColor.gray
         readLine.lineWidth = 4
         readLine.strokeColor = SKColor.black
@@ -141,7 +149,6 @@ class Memory: Scene {
         //create cell
         writeLine = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: cellHeight), cornerRadius: 0)
         writeLine.position = position
-        writeLine.lineWidth = 2
         writeLine.fillColor = SKColor.gray
         writeLine.lineWidth = 4
         writeLine.strokeColor = SKColor.black
@@ -149,54 +156,6 @@ class Memory: Scene {
 
         //add to array and scene
         addNode(node: writeLine)
-
-        //******** address bus ************
-        for i in 0...7 {
-            let offsetX = CGFloat(Float(i) * width + screenWidth * 0.04)
-            let cellWidth = CGFloat(busWidth * 0.45)
-            let cellHeight = CGFloat(busHeight)
-
-            //create position object
-            let position = CGPoint.init(x: offsetX, y: lineLocation)
-
-            //create cell
-            let cell = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: cellHeight), cornerRadius: 0)
-            cell.position = position
-            cell.lineWidth = 2
-            cell.fillColor = SKColor.gray
-            cell.lineWidth = 4
-            cell.strokeColor = SKColor.black
-            cell.zPosition = 5
-
-
-            //add to array and scene
-            convert2.append(cell)
-            //addNode(node: cell)
-        }
-
-        //******** data bus ***********
-        for i in 0...15 {
-            let offsetX = CGFloat(Float(i) * width + screenWidth * 0.2754)
-            let cellWidth = CGFloat(busWidth * 0.45)
-            let cellHeight = CGFloat(busHeight)
-
-            //create position object
-            let position = CGPoint.init(x: offsetX, y: lineLocation)
-
-            //create cell
-            let cell = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: cellHeight))
-            cell.position = position
-            cell.lineWidth = 2
-            cell.fillColor = SKColor.gray
-            cell.lineWidth = 4
-            cell.strokeColor = SKColor.black
-            cell.zPosition = 5
-
-
-            //add to array and scene
-            convert.append(cell)
-            //addNode(node: cell)
-        }
 
         //******** memory labels ********
         for i in 0..<col {
@@ -254,81 +213,15 @@ class Memory: Scene {
             }
         }
 
-        //fill memory with random values
-        
-        updateMemory(address: 1, data: 41)
-        updateMemory(address: 2, data: 31)
+        //test values
+        updateMemory(address: 0, data: 1)
+        updateMemory(address: 1, data: 5124)
+        updateMemory(address: 2, data: 234)
+        updateMemory(address: 3, data: 19)
         addressBusValue = 1
-        
-        for _ in 0...31 {
-            //let randomInt = Int(arc4random_uniform(65536)) - 32768
-            //let _ = updateMemory(address: i, data: randomInt)
-        }
     }
 
-    //update state when a change in state is detected
-    func updateState(source: Int) {
-
-        //******** update displays ********
-        switch source {
-        case 1: //address bus changed
-
-            //external display counts from 1
-            let unpaddedBinary = String(addressBusValue + 1, radix: 2) //binary base
-            let padding = String.init(repeating: "0", count: (8 - unpaddedBinary.count))
-            let binary = Array(padding + unpaddedBinary)
-
-            //update each individual cell
-            for (index, i) in convert2.enumerated() {
-
-                //determine color based on binary value
-                if(binary[index] == "1") {
-                    i.fillColor = SKColor.blue
-                } else {
-                    i.fillColor = SKColor.gray
-                }
-            }
-            break
-        case 2: //data bus changed
-            let unpaddedBinary = String(dataBusValue, radix: 2) //binary base
-            let padding = String.init(repeating: "0", count: (16 - unpaddedBinary.count))
-            let binary = Array(padding + unpaddedBinary)
-
-            //update each individual cell
-            for (index, i) in convert.enumerated() {
-
-                //determine color based on binary value
-                if(binary[index] == "1" || binary[index] == "-") {
-                    i.fillColor = SKColor.blue
-                } else {
-                    i.fillColor = SKColor.gray
-                }
-            }
-            break
-        case 3: //read line changed
-            readLine.fillColor = reading ? SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1) : SKColor.gray
-            if (reading && controller.currentScene == id) {
-                //update read indicator
-                accessIndicator.position = CGPoint.init(x: CGFloat(memoryX + Float(addressBusValue % 32) * width), y: memoryTop)
-                accessIndicator.isHidden = false
-            } else {
-                accessIndicator.isHidden = true
-            }
-            break
-        case 4: //write line changed
-            writeLine.fillColor = writing ? SKColor.green : SKColor.gray
-            if (writing && controller.currentScene == id) {
-                //update read indicator
-                writeIndicator.position = CGPoint.init(x: CGFloat(memoryX + Float(addressBusValue % 32) * width), y: memoryTop)
-                writeIndicator.isHidden = false
-            } else {
-                writeIndicator.isHidden = true
-            }
-            break
-        default:
-            break
-        }
-
+    func updateState() {
         //update values in memory or on data bus based on write or read
         //writing takes precedent over reading
         //if both lines are on (should never happen in normal operation) writing will happen and reading will be skipped
@@ -336,12 +229,10 @@ class Memory: Scene {
             let _ = updateMemory(address: addressBusValue, data: dataBusValue)
         } else {
             //source cannot be 2 as that is from the data bus value updating leading to an infinite loop
-            if source != 2 {
-                if reading {
-                    dataBusValue = memoryValue[addressBusValue]
-                } else {
-                    dataBusValue = 0
-                }
+            if reading {
+                dataBusValue = memoryValue[addressBusValue]
+            } else {
+                dataBusValue = 0
             }
         }
     }
@@ -362,7 +253,6 @@ class Memory: Scene {
 
         //update each individual cell
         for i in 0..<dataSize {
-
             //determine color based on binary value
             if(binary[i] == "1" || binary[i] == "-") {
                 memory[firstCell + i].fillColor = SKColor.blue
@@ -374,7 +264,7 @@ class Memory: Scene {
         return false
     }
 
-    override func event(id: Int, data:Array<Int> = []) {
+    override func event(id: Int, data: Array<Int> = []) {
         switch id {
         case 1:
             //set write line
@@ -384,29 +274,8 @@ class Memory: Scene {
             //set read line
             reading = data[0] == 1
             break
-        case 3:
-            //
-            break
-        case 6:
-            //
-            break
         default:
             print("Memory Event Error")
         }
-    }
-
-    override func update(_ currentTime: TimeInterval) {
-
-//        sleep(1)
-//        dataBusValue = Int(arc4random_uniform(65536)) - 32768
-//        addressBusValue = Int(arc4random_uniform(30) + 1)
-//        writing = true
-        //reading = true
-        //addressBusValue = 30
-        //dataBusValue = 1231
-        //addressBusValue = 0
-        //writing = true
-        //writing = arc4random_uniform(2) == 1
-        //reading = arc4random_uniform(2) == 1
     }
 }
