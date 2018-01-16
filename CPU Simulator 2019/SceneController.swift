@@ -66,6 +66,7 @@ class SceneController: SKScene {
         
         controlunit?.event(id: 1, data:[1, 1])
         controlunit?.event(id: 1, data:[2, 2])
+        controlunit?.event(id: 2, data: [7])
 //        let a = Event(delay: 6000, id: 1, scene: alu!)
 //        let b = Event(delay: 500, id: 2, scene: alu!)
 //        let c = Event(delay: 500, id: 1, scene: alu!)

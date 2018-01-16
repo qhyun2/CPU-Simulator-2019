@@ -104,11 +104,6 @@ class Memory: Scene {
         memoryX = screenWidth * 0.04
         memoryY = screenHeight * 0.05
         memoryTop = CGFloat(memoryY + unitHeight / 2 - 14)
-
-        var offsetX = CGFloat(screenWidth * 0.77)
-        var cellWidth = CGFloat(busWidth * 0.45)
-        var cellHeight = CGFloat(busHeight)
-
         dataBus = Bus(x: 400, y: 770, width: 600, height: 200, bits: 16, spacing: 0.75, scene: self)
         addressBus = Bus(x: 50, y: 770, width: 300, height: 200, bits: 8, spacing: 0.75, scene: self)
 
@@ -199,9 +194,9 @@ class Memory: Scene {
 
         //test values
         updateMemory(address: 0, data: 1)
-        updateMemory(address: 1, data: 5124)
-        updateMemory(address: 2, data: 234)
-        updateMemory(address: 3, data: 19)
+        updateMemory(address: 1, data: 1)
+        updateMemory(address: 2, data: 0)
+        updateMemory(address: 3, data: 0)
     }
 
     //update values in memory or on data bus based on write or read

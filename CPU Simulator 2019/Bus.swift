@@ -50,6 +50,7 @@ class Bus {
         label.fontName = "AmericanTypewriter-Bold"
         label.fontSize = CGFloat(fontSize)
         label.fontColor = SKColor.orange
+        label.text = "0"
         scene.addNode(node: label)
     }
 

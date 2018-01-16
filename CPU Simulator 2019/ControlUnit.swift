@@ -21,6 +21,9 @@ class ControlUnit: Scene {
         case 1:
             loadFromMemory(address: data[0], reg: data[1])
             break
+        case 2:
+            saveToMemory(address: data[0])
+            break
         default:
             print("Control Unit Event Error")
         }
@@ -42,6 +45,25 @@ class ControlUnit: Scene {
         controller.eventQ?.addEvent(event: writeALU)
         controller.eventQ?.addEvent(event: writeALUo)
         controller.eventQ?.addEvent(event: readMemo)
+    }
+    
+    func saveToMemory(address: Int) {
+        
+        let memory = controller.memory!
+        let alu = controller.alu!
+        
+        let setAdd = Event(delay: 500, id: 4, scene: memory, data: [address])
+        let readALU = Event(delay: 500, id: 3, scene: alu, data: [1])
+        let writeMem = Event(delay: 500, id: 1, scene: memory, data:[1])
+        let writeMemo = Event(delay: 500, id: 1, scene: memory, data:[0])
+        let readALUo = Event(delay: 500, id: 3, scene: alu, data: [0])
+        
+        controller.eventQ?.addEvent(event: setAdd)
+        controller.eventQ?.addEvent(event: readALU)
+        controller.eventQ?.addEvent(event: writeMem)
+        controller.eventQ?.addEvent(event: writeMemo)
+        controller.eventQ?.addEvent(event: readALUo)
+        
     }
 }
 
