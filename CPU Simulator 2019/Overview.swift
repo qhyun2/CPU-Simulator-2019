@@ -17,10 +17,15 @@ class Overview: Scene {
     let width = 100
     let height = 80
     var buttons: Array<SKShapeNode>?
+    var dataBus: Bus?
 
 
     override init(id: Int, controller: SceneController, bg: String) {
         super.init(id: id, controller: controller, bg: bg)
+        
+        //remove back button and label
+        nodeArray.remove(at: 1).isHidden = true
+        nodeArray.remove(at: 1).isHidden = true
         
         buttons = []
 
@@ -30,13 +35,14 @@ class Overview: Scene {
             buttons?.append(button)
             addNode(node: button)
         }
+        dataBus = Bus(x: 360, y: 0, width: 400, height: 1700, bits: 16, spacing: 0.6, scene: self)
     }
 
     //called when scene is active and updated
     override func update(_ currentTime: TimeInterval) {
     }
-    
-    override func event(id: Int, data:Array<Int> = []) {
+
+    override func event(id: Int, data: Array<Int> = []) {
         switch id {
         case 1:
             print("1")

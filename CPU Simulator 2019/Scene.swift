@@ -16,25 +16,37 @@ class Scene {
     var controller: SceneController
     var nodeArray: Array<SKNode>
     var background: SKSpriteNode
-    var back = SKShapeNode(rect: CGRect(x: 50, y: 700, width: 100, height: 100))
+    var backButton = SKShapeNode(rect: CGRect(x: 1294, y: 690, width: 121, height: 75), cornerRadius: 20)
+    var backLabel = SKLabelNode()
 
     init(id: Int, controller: SceneController, bg: String) {
 
         self.id = id
         self.controller = controller
         stage = controller
-
+        
         //array for storing all objects in a given scene
         //needed in order to be able to hide/show on command
         nodeArray = []
-
+        
         //setup background
         background = SKSpriteNode(imageNamed: bg)
         background.size = CGSize(width: stage.size.width, height: stage.size.height)
         background.zPosition = -99
         background.position = CGPoint(x: stage.size.width / 2, y: stage.size.height / 2)
         addNode(node: background)
-        addNode(node: back)
+        
+        //setup back button
+        backButton.fillColor = SKColor.cyan
+        backButton.lineWidth = 4
+        backButton.strokeColor = SKColor.black
+        addNode(node: backButton)
+        backLabel.fontName = "AmericanTypewriter-Bold"
+        backLabel.fontSize = 32
+        backLabel.fontColor = SKColor.black
+        backLabel.position = CGPoint(x: 1354, y: 717)
+        backLabel.text = "Back"
+        addNode(node: backLabel)
     }
 
     //called when scene is active to update scene
@@ -45,11 +57,10 @@ class Scene {
 
     //mouse input
     func mouseDown(event: NSEvent) {
-        if back.contains(CGPoint(x: event.locationInWindow.x, y: event.locationInWindow.y)) {
+        if backButton.contains(CGPoint(x: event.locationInWindow.x, y: event.locationInWindow.y)) {
             controller.changeScene(id: 0)
         }
     }
-
 
     //add spritekit node to scene, also added to reference array for future use
     func addNode(node: SKNode) {

@@ -38,10 +38,12 @@ class Memory: Scene {
     private var memory: Array<SKShapeNode> = Array()
     private var accessIndicator = SKShapeNode()
     private var writeIndicator = SKShapeNode()
-    private var addressBus: Array<SKShapeNode> = Array()
-    private var dataBus: Array<SKShapeNode> = Array()
+    private var convert2: Array<SKShapeNode> = Array()
+    private var convert: Array<SKShapeNode> = Array()
     private var readLine = SKShapeNode()
     private var writeLine = SKShapeNode()
+    var dataBus: Bus?
+    var addressBus: Bus?
 
     //other variables
     private var memoryValue: Array<Int> = Array(repeating: 0, count: 256)
@@ -93,6 +95,13 @@ class Memory: Scene {
         busWidth = CGFloat(screenWidth * 0.04)
         busHeight = CGFloat(screenHeight * 0.2)
         lineLocation = CGFloat(screenHeight * 0.945)
+        
+        var offsetX = CGFloat(screenWidth * 0.77)
+        var cellWidth = CGFloat(busWidth * 0.45)
+        var cellHeight = CGFloat(busHeight)
+        
+        dataBus = Bus(x: 400, y: 770, width: 600, height: 200, bits: 16, spacing: 0.75, scene: self)
+        addressBus = Bus(x: 50, y: 770, width: 300, height: 200, bits: 8, spacing: 0.75, scene: self)
 
         //******** background box ********
         let memoryBackground = SKShapeNode.init(rectOf: CGSize.init(width: CGFloat(screenWidth * 0.88), height: CGFloat(screenWidth * 0.46)))
@@ -104,9 +113,7 @@ class Memory: Scene {
         addNode(node: memoryBackground)
 
         //******** read line ********
-        var offsetX = CGFloat(screenWidth * 0.77)
-        var cellWidth = CGFloat(busWidth * 0.45)
-        var cellHeight = CGFloat(busHeight)
+        
 
         //create position object
         var position = CGPoint.init(x: offsetX, y: lineLocation)
@@ -163,8 +170,8 @@ class Memory: Scene {
 
 
             //add to array and scene
-            addressBus.append(cell)
-            addNode(node: cell)
+            convert2.append(cell)
+            //addNode(node: cell)
         }
 
         //******** data bus ***********
@@ -187,8 +194,8 @@ class Memory: Scene {
 
 
             //add to array and scene
-            dataBus.append(cell)
-            addNode(node: cell)
+            convert.append(cell)
+            //addNode(node: cell)
         }
 
         //******** memory labels ********
@@ -272,7 +279,7 @@ class Memory: Scene {
             let binary = Array(padding + unpaddedBinary)
 
             //update each individual cell
-            for (index, i) in addressBus.enumerated() {
+            for (index, i) in convert2.enumerated() {
 
                 //determine color based on binary value
                 if(binary[index] == "1") {
@@ -288,7 +295,7 @@ class Memory: Scene {
             let binary = Array(padding + unpaddedBinary)
 
             //update each individual cell
-            for (index, i) in dataBus.enumerated() {
+            for (index, i) in convert.enumerated() {
 
                 //determine color based on binary value
                 if(binary[index] == "1" || binary[index] == "-") {

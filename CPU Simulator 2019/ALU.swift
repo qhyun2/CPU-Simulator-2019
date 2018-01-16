@@ -92,21 +92,14 @@ class ALU: Scene {
         //set write bus 2
         case 2:
             write2V = data[0]
-        
         default:
             print("Error")
         }
     }
 
-    //called when scene is active and updated
-    override func update(_ currentTime: TimeInterval) {
-//        inputBus?.value = Int(arc4random_uniform(65300))
-//        inputBus!.value = 8
-//        write1V = Int(arc4random_uniform(2))
-//        write2V = Int(arc4random_uniform(2))
-//        regOut!.value = 12314
-//        readV = Int(arc4random_uniform(2))
-    }
+//    //called when scene is active and updated
+//    override func update(_ currentTime: TimeInterval) {
+//    }
 
     func updateLabel() {
         let sign = subtractV == 0 ? "+" : "-"
