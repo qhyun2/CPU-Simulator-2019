@@ -65,8 +65,17 @@ class ALU: Scene {
 
         super.init(id: id, controller: controller, bg: bg)
         
+        //background box
+        let bgBox = SKShapeNode.init(rectOf: CGSize.init(width: 800, height: 250))
+        bgBox.position = CGPoint(x: 450, y: 680)
+        bgBox.fillColor = SKColor.init(white: 0, alpha: 0.65)
+        bgBox.lineWidth = 4
+        bgBox.strokeColor = SKColor.blue
+        addNode(node: bgBox)
+        
+        //input bus
         inputBus = Bus(x: 160, y: 770, width: 700, height: 100, bits: 16, spacing: 1, scene: self)
-        inputBus?.enableLabel(x: 70, y: 750, fontSize: 32, scene: self)
+        inputBus?.enableLabel(x: 80, y: 750, fontSize: 32, scene: self)
         
         //control lines
         write1 = Bus(x: 900, y: 770, width: 60, height: 100, bits: 1, spacing: 0.4, scene: self)
@@ -76,11 +85,11 @@ class ALU: Scene {
         
         //registers
         reg1 = Bus(x: 160, y: 680, width: 700, height: 40, bits: 16, spacing: 0.4, scene: self)
-        reg1?.enableLabel(x: 70, y: 670, fontSize: 32, scene: self)
+        reg1?.enableLabel(x: 80, y: 670, fontSize: 32, scene: self)
         reg2 = Bus(x: 160, y: 600, width: 700, height: 40, bits: 16, spacing: 0.4, scene: self)
-        reg2?.enableLabel(x: 70, y: 590, fontSize: 32, scene: self)
+        reg2?.enableLabel(x: 80, y: 590, fontSize: 32, scene: self)
         regOut = Bus(x: 160, y: 100, width: 700, height: 40, bits: 16, spacing: 0.4, scene: self)
-        regOut?.enableLabel(x: 70, y: 90, fontSize: 32, scene: self)
+        regOut?.enableLabel(x: 80, y: 90, fontSize: 32, scene: self)
         let box = SKShapeNode(rect: CGRect(x: 360, y: 160, width: 320, height: 320))
         box.fillColor = SKColor.black
 

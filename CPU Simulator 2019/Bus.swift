@@ -51,6 +51,7 @@ class Bus {
         label.fontSize = CGFloat(fontSize)
         label.fontColor = SKColor.orange
         label.text = "0"
+        label.zPosition = 15
         scene.addNode(node: label)
     }
 

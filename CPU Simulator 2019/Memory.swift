@@ -61,7 +61,7 @@ class Memory: Scene {
             readLine.fillColor = reading ? SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1) : SKColor.gray
             if (reading && controller.currentScene == id) {
                 //update read indicator
-                accessIndicator.position = CGPoint.init(x: CGFloat(memoryX + Float(addressBusValue % 32) * width), y: memoryTop)
+                accessIndicator.position = CGPoint.init(x: CGFloat(53 + Float(addressBusValue % 32) * 43), y: memoryTop + 39)
                 accessIndicator.isHidden = false
             } else {
                 accessIndicator.isHidden = true
@@ -74,7 +74,7 @@ class Memory: Scene {
             writeLine.fillColor = writing ? SKColor.green : SKColor.gray
             if (writing && controller.currentScene == id) {
                 //update read indicator
-                writeIndicator.position = CGPoint.init(x: CGFloat(memoryX + Float(addressBusValue % 32) * width), y: memoryTop)
+                writeIndicator.position = CGPoint.init(x: CGFloat(53 + Float(addressBusValue % 32) * 43), y: memoryTop + 39)
                 writeIndicator.isHidden = false
             } else {
                 writeIndicator.isHidden = true
@@ -105,11 +105,13 @@ class Memory: Scene {
         memoryY = screenHeight * 0.05
         memoryTop = CGFloat(memoryY + unitHeight / 2 - 14)
         dataBus = Bus(x: 400, y: 770, width: 600, height: 200, bits: 16, spacing: 0.75, scene: self)
+        dataBus?.enableLabel(x: 678, y: 710, fontSize: 45, scene: self)
         addressBus = Bus(x: 50, y: 770, width: 300, height: 200, bits: 8, spacing: 0.75, scene: self)
+        addressBus?.enableLabel(x: 180, y: 710, fontSize: 45, scene: self)
 
         //******** background box ********
-        let memoryBackground = SKShapeNode.init(rectOf: CGSize.init(width: CGFloat(screenWidth * 0.88), height: CGFloat(screenWidth * 0.46)))
-        memoryBackground.position.x = CGFloat(centerX - 70)
+        let memoryBackground = SKShapeNode.init(rectOf: CGSize.init(width: CGFloat(screenWidth * 0.96), height: CGFloat(screenWidth * 0.46)))
+        memoryBackground.position.x = CGFloat(centerX)
         memoryBackground.position.y = CGFloat(memoryY + unitHeight / 2)
         memoryBackground.fillColor = SKColor.init(white: 0, alpha: 0.65)
         memoryBackground.lineWidth = 4
@@ -137,28 +139,25 @@ class Memory: Scene {
         //******** memory labels ********
         for i in 0..<col {
 
-            let offsetX = CGFloat(Float(i) * width + memoryX)
+            let offsetX = CGFloat(Float(i) * 43 + 53)
             let position = CGPoint.init(x: offsetX, y: CGFloat(memoryY + unitHeight))
-
-            //external display counts from 1 not 0
-            let addressLabel = SKLabelNode(text: String(i + 1))
+            let addressLabel = SKLabelNode(text: String(i))
             addressLabel.position = position
             addressLabel.fontName = "AmericanTypewriter-Bold"
             addressLabel.fontSize = 20
             addressLabel.fontColor = SKColor.orange
-
             addNode(node: addressLabel)
         }
 
         //******** access indicator ********
-        accessIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight + 15)))
+        accessIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight - 54)))
         accessIndicator.fillColor = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 0.4)
         accessIndicator.zPosition = 3
         accessIndicator.isHidden = true
         addNode(node: accessIndicator)
 
         //******** write indicator *******
-        writeIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight + 15)))
+        writeIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight - 54)))
         writeIndicator.fillColor = SKColor.init(red: 0.0196, green: 0.6862, blue: 0.2274, alpha: 0.4)
         writeIndicator.zPosition = 3
         writeIndicator.isHidden = true
@@ -169,11 +168,11 @@ class Memory: Scene {
             for j in 0..<row {
 
                 //determine positions and size
-                let offsetX = CGFloat(Float(i) * width + memoryX)
-                let offsetY = CGFloat(Float(j) * width + memoryY)
+                let offsetX = CGFloat(Float(i) * 43 + 53)
+                let offsetY = CGFloat(Float(j) * 33 + 120)
 
-                let cellWidth = CGFloat(CGwidth * 0.45)
-                let cellHeight = CGFloat(CGwidth * 0.8)
+                let cellWidth = CGFloat(43 * 0.45)
+                let cellHeight = CGFloat(33 * 0.8)
 
                 //create position object
                 let position = CGPoint.init(x: offsetX, y: offsetY)
@@ -256,7 +255,7 @@ class Memory: Scene {
         case 4:
             //address bus value received from overview
             addressBusValue = data[0]
-            
+
         default:
             print("Memory Event Error")
         }

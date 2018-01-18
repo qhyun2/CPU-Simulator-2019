@@ -31,8 +31,8 @@ class SceneController: SKScene {
  
         overview = Overview(id: OVERVIEWid, controller: self, bg: "bg1")
         memory = Memory(id: MEMORYid, controller: self, bg: "bg2")
-        alu = ALU(id: ALUid, controller: self, bg: "bg3")
-        controlunit = ControlUnit(id: CONTROLUNITid, controller: self, bg: "bg4")
+        alu = ALU(id: ALUid, controller: self, bg: "bg2")
+        controlunit = ControlUnit(id: CONTROLUNITid, controller: self, bg: "bg2")
         eventQ = EventQueue()
         
         overview?.hide()
@@ -64,9 +64,9 @@ class SceneController: SKScene {
     override func mouseDown(with event: NSEvent) {
         sceneArray![currentScene].mouseDown(event: event)
         
-        controlunit?.event(id: 1, data:[1, 1])
-        controlunit?.event(id: 1, data:[2, 2])
-        controlunit?.event(id: 2, data: [7])
+        controlunit?.event(id: 1, data:[0, 1])
+        controlunit?.event(id: 1, data:[1, 2])
+        controlunit?.event(id: 2, data: [0])
 //        let a = Event(delay: 6000, id: 1, scene: alu!)
 //        let b = Event(delay: 500, id: 2, scene: alu!)
 //        let c = Event(delay: 500, id: 1, scene: alu!)
