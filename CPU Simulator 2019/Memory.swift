@@ -35,6 +35,7 @@ class Memory: Scene {
 
     //objects in scene
     var memory: Array<SKShapeNode> = Array()
+    var memoryLabels: Array<SKLabelNode> = Array()
     var accessIndicator = SKShapeNode()
     var writeIndicator = SKShapeNode()
     var readLine = SKShapeNode()
@@ -111,7 +112,7 @@ class Memory: Scene {
 
         //******** background box ********
         let memoryBackground = SKShapeNode.init(rectOf: CGSize.init(width: CGFloat(screenWidth * 0.96), height: CGFloat(screenWidth * 0.46)))
-        memoryBackground.position.x = CGFloat(centerX)
+        memoryBackground.position.x = 720
         memoryBackground.position.y = CGFloat(memoryY + unitHeight / 2)
         memoryBackground.fillColor = SKColor.init(white: 0, alpha: 0.65)
         memoryBackground.lineWidth = 4
@@ -191,11 +192,28 @@ class Memory: Scene {
             }
         }
 
+        //memory value labels
+        for i in 0...31 {
+            let label = SKLabelNode(text: "0")
+            if i % 2 == 0 {
+                label.position = CGPoint(x: 52 + i * 43, y: 65)
+            } else {
+                label.position = CGPoint(x: 52 + i * 43, y: 30)
+            }
+            label.fontName = "AmericanTypewriter-Bold"
+            label.fontSize = 27
+            label.fontColor = SKColor.orange
+            label.zPosition = 15
+            memoryLabels.append(label)
+            addNode(node: label)
+        }
+
         //test values
         updateMemory(address: 0, data: 1)
         updateMemory(address: 1, data: 1)
         updateMemory(address: 2, data: 0)
         updateMemory(address: 3, data: 0)
+        updateMemory(address: 24, data: 1324)
     }
 
     //update values in memory or on data bus based on write or read
@@ -221,6 +239,7 @@ class Memory: Scene {
 
         //update value
         memoryValue[address] = data
+        memoryLabels[address].text = String(data)
 
         //determine first cell of the set to be modified
         let firstCell = dataSize * address

@@ -78,9 +78,12 @@ class ALU: Scene {
         inputBus?.enableLabel(x: 80, y: 750, fontSize: 32, scene: self)
         
         //control lines
-        write1 = Bus(x: 900, y: 770, width: 60, height: 100, bits: 1, spacing: 0.4, scene: self)
-        write2 = Bus(x: 970, y: 770, width: 60, height: 100, bits: 1, spacing: 0.4, scene: self)
-        read = Bus(x: 1040, y: 770, width: 60, height: 100, bits: 1, spacing: 0.4, scene: self)
+        write1 = Bus(x: 900, y: 770, width: 60, height: 200, bits: 1, spacing: 0.4, scene: self)
+        write1?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
+        write2 = Bus(x: 970, y: 770, width: 60, height: 380, bits: 1, spacing: 0.4, scene: self)
+        write2?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
+        read = Bus(x: 1040, y: 770, width: 60, height: 1400, bits: 1, spacing: 0.4, scene: self)
+        read?.activeColour = SKColor.green
         subtract = Bus(x: 1110, y: 770, width: 60, height: 100, bits: 1, spacing: 0.4, scene: self)
         
         //registers

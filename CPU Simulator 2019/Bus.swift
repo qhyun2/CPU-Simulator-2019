@@ -19,6 +19,7 @@ class Bus {
     var bits: Int
     var lines: Array<SKShapeNode> = []
     var label = SKLabelNode()
+    var activeColour = SKColor.blue
 
     init(x: Int, y: Int, width: Int, height: Int, bits: Int, spacing: Float, scene: Scene) {
 
@@ -69,7 +70,7 @@ class Bus {
 
             //determine color based on binary value
             if(binary[index] == "1") {
-                i.fillColor = SKColor.blue
+                i.fillColor = activeColour
             } else {
                 i.fillColor = SKColor.gray
             }
