@@ -45,47 +45,34 @@ import GameplayKit
 class ViewController: NSViewController {
 
     @IBOutlet var skView: SKView!
-    
+
     var SceneController = SKScene(fileNamed: "SceneController")!
-    
+
+    lazy var window: NSWindow = self.view.window!
+    var location: NSPoint {
+        return window.mouseLocationOutsideOfEventStream
+    }
+
     override func viewDidLoad() {
-        
+
         super.viewDidLoad()
         // Set the scale mode to scale to fit the window
         let viewer = self.skView!
         SceneController.scaleMode = .aspectFit
         // Present the scene
         viewer.presentScene(SceneController)
-
-        /* These are all of the options for NSApplicationPresentationOptions
-             .Default
-             .AutoHideDock              |   /
-             .AutoHideMenuBar           |   /
-             .DisableForceQuit          |   /
-             .DisableMenuBarTransparency|   /
-             .FullScreen                |   /
-             .HideDock                  |   /
-             .HideMenuBar               |   /
-             .DisableAppleMenu          |   /
-             .DisableProcessSwitching   |   /
-             .DisableSessionTermination |   /
-             .DisableHideApplication    |   /
-             .AutoHideToolbar
-             .HideMenuBar               |   /
-             .DisableAppleMenu          |   /
-             .DisableProcessSwitching   |   /
-             .DisableSessionTermination |   /
-             .DisableHideApplication    |   /
-             .AutoHideToolbar
-         */
-
-        let presOptions: NSApplication.PresentationOptions = ([.fullScreen, .autoHideMenuBar])
+        
+        //mystery most of the time fullscreen works stuff
+        let presOptions: NSApplication.PresentationOptions = ([])
         let optionsDictionary = [NSView.FullScreenModeOptionKey.fullScreenModeApplicationPresentationOptions:
                 presOptions.rawValue]
-
         viewer.enterFullScreenMode(NSScreen.main!, withOptions: optionsDictionary)
-        viewer.ignoresSiblingOrder = true
         viewer.showsFPS = true
         viewer.showsNodeCount = true
+
+        NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
+            //print("windowLocation:", String(format: "%.1f, %.1f", self.location.x, self.location.y))
+            return $0
+        }
     }
 }

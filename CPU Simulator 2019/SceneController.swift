@@ -29,8 +29,8 @@ class SceneController: SKScene {
     override func didMove(to view: SKView) {
         
  
-        overview = Overview(id: OVERVIEWid, controller: self, bg: "bg1")
-        memory = Memory(id: MEMORYid, controller: self, bg: "bg2")
+        overview = Overview(id: OVERVIEWid, controller: self, bg: "bg3")
+        memory = Memory(id: MEMORYid, controller: self, bg: "bg1")
         alu = ALU(id: ALUid, controller: self, bg: "bg2")
         controlunit = ControlUnit(id: CONTROLUNITid, controller: self, bg: "bg2")
         eventQ = EventQueue()
@@ -67,17 +67,6 @@ class SceneController: SKScene {
         controlunit?.event(id: 1, data:[0, 1])
         controlunit?.event(id: 1, data:[1, 2])
         controlunit?.event(id: 2, data: [0])
-//        let a = Event(delay: 6000, id: 1, scene: alu!)
-//        let b = Event(delay: 500, id: 2, scene: alu!)
-//        let c = Event(delay: 500, id: 1, scene: alu!)
-//
-//        eventQ?.addEvent(event: a)
-//        eventQ?.addEvent(event: b)
-//        eventQ?.addEvent(event: c)
-//        eventQ?.addEvent(event: b)
-//        eventQ?.addEvent(event: c)
-//        eventQ?.addEvent(event: b)
-//        eventQ?.addEvent(event: a)
     }
 }
 
