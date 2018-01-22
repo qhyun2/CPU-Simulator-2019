@@ -22,6 +22,7 @@ class ALU: Scene {
     var regOut: Bus?
     var label: SKLabelNode?
     var resultLabel: SKLabelNode?
+    var testShape: SKShapeNode?
 
     var write1V = 0
     {
@@ -100,9 +101,9 @@ class ALU: Scene {
         label?.position = CGPoint(x: 500, y: 350)
         resultLabel = SKLabelNode(text: "0")
         resultLabel?.position = CGPoint(x: 500, y: 280)
+        addNode(node: box)
         addNode(node: label!)
         addNode(node: resultLabel!)
-        addNode(node: box)
     }
     
     override func event(id: Int, data:Array<Int> = []) {
@@ -131,7 +132,7 @@ class ALU: Scene {
         let text = "\(reg1!.value ) \(sign) \(reg2!.value )"
         label!.text = text
         
-        let result = reg1!.value + reg2!.value
+        let result = subtractV == 0 ? reg1!.value + reg2!.value : reg1!.value - reg2!.value
         resultLabel!.text = String(result)
         regOut?.value = result
     }

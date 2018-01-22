@@ -10,6 +10,8 @@ import Foundation
 import SpriteKit
 import Cocoa
 
+
+
 class ControlUnit: Scene {
 
     override init(id: Int, controller: SceneController, bg: String) {
@@ -23,6 +25,10 @@ class ControlUnit: Scene {
             break
         case 2:
             saveToMemory(address: data[0])
+            break
+        case 3:
+            //long supply chain for text input (part 4)
+            print(controller.codeIn)
             break
         default:
             print("Control Unit Event Error")
@@ -64,6 +70,10 @@ class ControlUnit: Scene {
         controller.eventQ?.addEvent(event: writeMemo)
         controller.eventQ?.addEvent(event: readALUo)
         
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
     }
 }
 

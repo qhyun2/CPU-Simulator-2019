@@ -18,7 +18,8 @@ class Overview: Scene {
     let w = [703, 313, 293]
     let h = [651, 268, 203]
     var buttons: Array<SKShapeNode>?
-    var dataBus: Bus?
+    var dataBus: HorizontalBus?
+    var addressBus: HorizontalBus?
 
 
     override init(id: Int, controller: SceneController, bg: String) {
@@ -36,19 +37,42 @@ class Overview: Scene {
             button.lineWidth = 14
             button.strokeColor = SKColor.cyan
             button.fillColor = SKColor.clear
+            button.zPosition = 12
             buttons?.append(button)
             addNode(node: button)
         }
-        dataBus = Bus(x: 360, y: 12310874891, width: 400, height: 1700, bits: 16, spacing: 0.6, scene: self)
+        dataBus = HorizontalBus(x: 516, y: 485, width: 264, height: 231, bits: 16, spacing: 1.0, scene: self)
+        dataBus?.enableLabel(x: 517, y: 573, fontSize: 50, scene: self)
+        
+        addressBus = HorizontalBus(x: 510, y: 250, width: 290, height: 110, bits: 8, spacing: 1, scene: self)
+        addressBus?.enableLabel(x: 517, y: 278, fontSize: 50, scene: self)
 
         let memLabel = SKLabelNode()
-        memLabel.position = CGPoint(x: 728, y: 571)
+        memLabel.position = CGPoint(x: 1007, y: 385)
         memLabel.fontName = "AmericanTypewriter-Bold"
-        memLabel.fontSize = 32
-        memLabel.fontColor = SKColor.orange
+        memLabel.fontSize = 40
+        memLabel.fontColor = SKColor.green
         memLabel.text = "Memory"
         memLabel.zPosition = 15
         addNode(node: memLabel)
+
+        let aluLabel = SKLabelNode()
+        aluLabel.position = CGPoint(x: 220, y: 564)
+        aluLabel.fontName = "AmericanTypewriter-Bold"
+        aluLabel.fontSize = 40
+        aluLabel.fontColor = SKColor.green
+        aluLabel.text = "ALU"
+        aluLabel.zPosition = 15
+        addNode(node: aluLabel)
+
+        let conLabel = SKLabelNode()
+        conLabel.position = CGPoint(x: 217, y: 261)
+        conLabel.fontName = "AmericanTypewriter-Bold"
+        conLabel.fontSize = 40
+        conLabel.fontColor = SKColor.green
+        conLabel.text = "Control Unit"
+        conLabel.zPosition = 15
+        addNode(node: conLabel)
     }
 
     override func event(id: Int, data: Array<Int> = []) {
@@ -56,11 +80,14 @@ class Overview: Scene {
         case 1:
             //value sent to data bus
             dataBus?.value = data[0]
-
+            
             //send value back
             //shouldn't cause loop cause only actually read actions send here
             controller.memory?.event(id: 3, data: [(dataBus?.value)!])
             controller.alu?.event(id: 4, data: [(dataBus?.value)!])
+        case 2:
+            //value sent to address bus
+            addressBus?.value = data[0]
         default:
             print("Error")
         }

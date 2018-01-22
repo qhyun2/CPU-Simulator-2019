@@ -43,12 +43,24 @@ import GameplayKit
  */
 
 class ViewController: NSViewController {
-
+    
+    
+    @IBOutlet weak var button: NSButton!
+    @IBOutlet weak var textField: NSTextField!
     @IBOutlet var skView: SKView!
 
     var SceneController = SKScene(fileNamed: "SceneController")!
 
     lazy var window: NSWindow = self.view.window!
+    @IBAction func myButtonPressed(_ sender: AnyObject) {
+        textInput = textField.stringValue
+        updated = true
+    }
+    
+    @IBAction func editDidEnd(_ sender: AnyObject){
+        print("End")
+    }
+    
     var location: NSPoint {
         return window.mouseLocationOutsideOfEventStream
     }

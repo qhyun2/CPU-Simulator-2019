@@ -49,6 +49,9 @@ class Memory: Scene {
         didSet {
             addressBus!.value = addressBusValue
             addressBus!.updateDisplay()
+            
+            //update overview display
+            controller.overview?.event(id: 2, data:[addressBus!.value])
         }
     }
     public var dataBusValue = 0 {

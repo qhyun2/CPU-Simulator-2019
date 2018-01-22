@@ -19,6 +19,7 @@
 		BC5B545E200C46B2001C36CD /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5B545D200C46B2001C36CD /* EventQueue.swift */; };
 		BCB5B3FC1FD6ECDA00462F8B /* SceneController.sks in Resources */ = {isa = PBXBuildFile; fileRef = BCB5B3FB1FD6ECDA00462F8B /* SceneController.sks */; };
 		BCB5B3FE1FD6ED5800462F8B /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */; };
+		BCCDCD4920122D8900BEC607 /* HorizontalBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCDCD4820122D8900BEC607 /* HorizontalBus.swift */; };
 		BCD5F7B520050E5600D514AC /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD5F7B420050E5600D514AC /* Scene.swift */; };
 		BCE845FB1FE41BB000274557 /* Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE845FA1FE41BB000274557 /* Memory.swift */; };
 		BCECBD6C2008EDF700EDA7BA /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCECBD6B2008EDF700EDA7BA /* Bus.swift */; };
@@ -61,6 +62,7 @@
 		BC5B545D200C46B2001C36CD /* EventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
 		BCB5B3FB1FD6ECDA00462F8B /* SceneController.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SceneController.sks; sourceTree = "<group>"; };
 		BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
+		BCCDCD4820122D8900BEC607 /* HorizontalBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalBus.swift; sourceTree = "<group>"; };
 		BCD5F7B420050E5600D514AC /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		BCE845FA1FE41BB000274557 /* Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memory.swift; sourceTree = "<group>"; };
 		BCECBD6B2008EDF700EDA7BA /* Bus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bus.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */,
 				BC5B545D200C46B2001C36CD /* EventQueue.swift */,
 				BCECBD6B2008EDF700EDA7BA /* Bus.swift */,
+				BCCDCD4820122D8900BEC607 /* HorizontalBus.swift */,
 				BC3D40091FC4756800C78858 /* ViewController.swift */,
 				BC3D40011FC4756800C78858 /* AppDelegate.swift */,
 				BC3D400D1FC4756800C78858 /* Main.storyboard */,
@@ -290,6 +293,7 @@
 				BC3D400A1FC4756800C78858 /* ViewController.swift in Sources */,
 				BCD5F7B520050E5600D514AC /* Scene.swift in Sources */,
 				BCB5B3FE1FD6ED5800462F8B /* SceneController.swift in Sources */,
+				BCCDCD4920122D8900BEC607 /* HorizontalBus.swift in Sources */,
 				BC0390DA2007AEB0003C8F1E /* ALU.swift in Sources */,
 				BC5B545E200C46B2001C36CD /* EventQueue.swift in Sources */,
 				BC0390DE200842DF003C8F1E /* ControlUnit.swift in Sources */,
