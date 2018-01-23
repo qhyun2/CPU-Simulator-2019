@@ -10,6 +10,8 @@ import Foundation
 import SpriteKit
 import Cocoa
 
+var zeroFlag = false
+
 class ALU: Scene {
 
     var inputBus: Bus?

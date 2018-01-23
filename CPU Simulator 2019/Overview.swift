@@ -43,7 +43,7 @@ class Overview: Scene {
         }
         dataBus = HorizontalBus(x: 516, y: 485, width: 264, height: 231, bits: 16, spacing: 1.0, scene: self)
         dataBus?.enableLabel(x: 517, y: 573, fontSize: 50, scene: self)
-        
+
         addressBus = HorizontalBus(x: 510, y: 250, width: 290, height: 110, bits: 8, spacing: 1, scene: self)
         addressBus?.enableLabel(x: 517, y: 278, fontSize: 50, scene: self)
 
@@ -80,7 +80,7 @@ class Overview: Scene {
         case 1:
             //value sent to data bus
             dataBus?.value = data[0]
-            
+
             //send value back
             //shouldn't cause loop cause only actually read actions send here
             controller.memory?.event(id: 3, data: [(dataBus?.value)!])
@@ -98,16 +98,12 @@ class Overview: Scene {
         let x = event.locationInWindow.x
         let y = event.locationInWindow.y
         let point = CGPoint(x: x, y: y)
-        print(x, y)
 
         for (index, i) in buttons!.enumerated() {
             if i.contains(point) {
                 controller.changeScene(id: index + 1)
             }
         }
-    }
-
-    override func update(_ currentTime: TimeInterval) {
     }
 }
 

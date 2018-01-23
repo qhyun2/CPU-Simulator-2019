@@ -15,11 +15,62 @@ var text: NSTextField = NSTextField()
 class ControlUnit: Scene {
 
     var instructionArray: Array<Array<Int>> = [[]]
-    var instructionPointer = 1
+    var instructionPointer = 1 {
+        didSet {
+            instructionPointerLabel.text = "Current Line: \(instructionPointer)"
+        }
+    }
+    var halt = false
+    let runButton = SKShapeNode(rect: CGRect(x: 178, y: 650, width: 87, height: 31))
+    let stopButton = SKShapeNode(rect: CGRect(x: 178, y: 610, width: 87, height: 31))
+    let startLabel = SKLabelNode(text: "Run")
+    let stopLabel = SKLabelNode(text: "Stop")
+    let instructionPointerLabel = SKLabelNode(text: "Current Line: 1")
 
     override init(id: Int, controller: SceneController, bg: String) {
         super.init(id: id, controller: controller, bg: bg)
+
+        runButton.fillColor = SKColor.cyan
+        runButton.lineWidth = 3
+        runButton.strokeColor = SKColor.black
+        addNode(node: runButton)
+
+        stopButton.fillColor = SKColor.cyan
+        stopButton.lineWidth = 3
+        stopButton.strokeColor = SKColor.black
+        addNode(node: stopButton)
+
+        stopLabel.fontName = "AmericanTypewriter-Bold"
+        stopLabel.fontSize = 16
+        stopLabel.fontColor = SKColor.black
+        stopLabel.position = CGPoint(x: 221, y: 620)
+        addNode(node: stopLabel)
+
+        startLabel.fontName = "AmericanTypewriter-Bold"
+        startLabel.fontSize = 16
+        startLabel.fontColor = SKColor.black
+        startLabel.position = CGPoint(x: 221, y: 660)
+        addNode(node: startLabel)
+
+        instructionPointerLabel.fontName = "AmericanTypewriter-Bold"
+        instructionPointerLabel.fontSize = 20
+        instructionPointerLabel.fontColor = SKColor.green
+        instructionPointerLabel.position = CGPoint(x: 90, y: 609)
+        addNode(node: instructionPointerLabel)
+
+        for i in 1...40 {
+            let lineLabels = SKLabelNode()
+            lineLabels.text = String(i)
+            lineLabels.fontSize = 16
+            lineLabels.fontName = "AmericanTypewriter-Bold"
+            lineLabels.fontColor = SKColor.green
+            let offset = Int(14.1 * Float(i - 1))
+            lineLabels.position = CGPoint(x: 148, y: 583 - offset)
+            lineLabels.zPosition = 10
+            addNode(node: lineLabels)
+        }
     }
+
 
     override func event(id: Int, data: Array<Int> = []) {
         switch id {
@@ -30,9 +81,38 @@ class ControlUnit: Scene {
             saveToMemory(address: data[0])
             break
         case 3:
+            //jump command
+            instructionPointer = data[0]
+            break
+        case 4:
+            //jump if command
+            instructionPointer = zeroFlag ? data[0] : data[1]
+            break
+        case 5:
             //long supply chain for text input (part 4)
             parseCode(code: controller.codeIn)
             break
+        case 6:
+            //trigger next line of code, (attached onto the end of all instructions)
+            if !halt {
+                
+                //prevents alot of index out of range crashes
+                if instructionArray.count > instructionPointer {
+                    
+                    var toExe = instructionArray[instructionPointer]
+                    let instructionId = toExe.removeFirst()
+                    let instruction = Event(delay: 500, id: instructionId, scene: self, data: toExe)
+                    let start = Event(delay: 500, id: 6, scene: self)
+
+                    controller.eventQ?.addEvent(event: instruction)
+                    controller.eventQ?.addEvent(event: start)
+
+                    if !(instructionId == 3 || instructionId == 4) {
+                        instructionPointer += 1
+                    }
+                }
+            }
+
         default:
             print("Control Unit Event Error")
         }
@@ -48,29 +128,35 @@ class ControlUnit: Scene {
         for i in codeLines {
 
             //seperate each line into its componets as seperated by spaces
-            let lineParts = i.components(separatedBy: CharacterSet.whitespaces)
+            var lineParts = i.components(separatedBy: CharacterSet.whitespaces)
             var instructionId = 0
 
             switch(lineParts[0]) {
-            case "jump":
+            case "load":
                 instructionId = 1
                 break
-            case "jumpif":
+            case "save":
                 instructionId = 2
                 break
-            case "loadA":
+            case "jump":
                 instructionId = 3
                 break
-            case "loadB":
+            case "jumpif":
                 instructionId = 4
                 break
             default:
                 instructionId = -1
             }
-            
-            print(instructionId)
+            var instruction = [instructionId]
+            lineParts.removeFirst()
 
+            for i in lineParts {
+                instruction.append(Int(i)!)
+            }
+            instructionArray.append(instruction)
         }
+
+        print(instructionArray)
     }
 
 
@@ -111,18 +197,23 @@ class ControlUnit: Scene {
 
     }
 
-    override func update(_ currentTime: TimeInterval) {
-        super.update(currentTime)
-    }
+    override func mouseDown(event: NSEvent) {
+        super.mouseDown(event: event)
 
-    override func show() {
-        buttonEnabled = true
-        super.show()
-    }
+        let x = event.locationInWindow.x
+        let y = event.locationInWindow.y
+        let point = CGPoint(x: x, y: y)
 
-    override func hide() {
-        buttonEnabled = false
-        super.hide()
+        if runButton.contains(point) {
+            halt = false
+            instructionPointer = 1
+            let start = Event(delay: 0, id: 6, scene: self)
+            controller.eventQ?.addEvent(event: start)
+        }
+
+        if stopButton.contains(point) {
+            halt = true
+        }
     }
 }
 

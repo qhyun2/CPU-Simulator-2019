@@ -34,9 +34,9 @@ class SceneController: SKScene {
     override func didMove(to view: SKView) {
 
         overview = Overview(id: OVERVIEWid, controller: self, bg: "bg3")
-        memory = Memory(id: MEMORYid, controller: self, bg: "bg1")
-        alu = ALU(id: ALUid, controller: self, bg: "bg2")
-        controlunit = ControlUnit(id: CONTROLUNITid, controller: self, bg: "bg2")
+        memory = Memory(id: MEMORYid, controller: self, bg: "bg2")
+        alu = ALU(id: ALUid, controller: self, bg: "bg1")
+        controlunit = ControlUnit(id: CONTROLUNITid, controller: self, bg: "bg1")
         eventQ = EventQueue()
 
         overview?.hide()
@@ -57,7 +57,7 @@ class SceneController: SKScene {
         if updated {
             updated = false
             codeIn = textInput
-            controlunit?.event(id: 3, data: [])
+            controlunit?.event(id: 5, data: [])
         }
     }
 
@@ -73,11 +73,17 @@ class SceneController: SKScene {
 
     //mouse clicked
     override func mouseDown(with event: NSEvent) {
+        
+        let x = event.locationInWindow.x
+        let y = event.locationInWindow.y
+        let point = CGPoint(x: x, y: y)
+        print(x, y)
+        
         sceneArray![currentScene].mouseDown(event: event)
 
-        controlunit?.event(id: 1, data: [0, 1])
-        controlunit?.event(id: 1, data: [1, 2])
-        controlunit?.event(id: 2, data: [0])
+//        controlunit?.event(id: 1, data: [0, 1])
+//        controlunit?.event(id: 1, data: [1, 2])
+//        controlunit?.event(id: 2, data: [0])
     }
 }
 
