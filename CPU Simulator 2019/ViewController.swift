@@ -25,42 +25,61 @@ import GameplayKit
  Overview:
  -Represent each scene connected together
  -component selection
- -returning from scenes
+ Xreturning from scenes
  
  Memory Scene:
  -split up updateState function
  
  ALU:
- -Input and Result registers
- -Op Codes
+ XInput and Result registers
+ XOp Codes
  -Flags
  
  Control Unit:
  -Intruction id input
  -Intruction representation
- -intruction execution
+ Xintruction execution
  
  */
 
-class ViewController: NSViewController {
-    
-    
-    @IBOutlet weak var button: NSButton!
-    @IBOutlet weak var textField: NSTextField!
-    @IBOutlet var skView: SKView!
 
+//control if input box is enabled
+var buttonEnabled: Bool = true {
+    didSet {
+//        textField.isEnabled = buttonEnabled
+    }
+}
+
+class ViewController: NSViewController {
+
+
+    @IBOutlet var textField: NSTextView!
+    @IBOutlet var skView: SKView!
+    @IBOutlet weak var textWindow: NSScrollView!
+    @IBOutlet weak var button: NSButton!
+    @IBOutlet weak var submitButton: NSButton!
+    @IBOutlet weak var codeSelector: NSPopUpButton!
+    //main skscene
     var SceneController = SKScene(fileNamed: "SceneController")!
 
-    lazy var window: NSWindow = self.view.window!
-    @IBAction func myButtonPressed(_ sender: AnyObject) {
-        textInput = textField.stringValue
+    //user inputed text into
+    @IBAction func preformedClick(_ sender: AnyObject) {
+        textInput = textField.string
         updated = true
     }
     
-    @IBAction func editDidEnd(_ sender: AnyObject){
-        print("End")
+    @IBAction func buttonPressed(_ sender: AnyObject) {
+        textWindow.isHidden = !textWindow.isHidden
+        codeSelector.isHidden = !codeSelector.isHidden
+        submitButton.isHidden = !submitButton.isHidden
+        
+        button.title = textWindow.isHidden ? "Show Code" : "Hide Code"
     }
     
+    
+
+    //mouse tracking
+    lazy var window: NSWindow = self.view.window!
     var location: NSPoint {
         return window.mouseLocationOutsideOfEventStream
     }
@@ -73,7 +92,7 @@ class ViewController: NSViewController {
         SceneController.scaleMode = .aspectFit
         // Present the scene
         viewer.presentScene(SceneController)
-        
+
         //mystery most of the time fullscreen works stuff
         let presOptions: NSApplication.PresentationOptions = ([])
         let optionsDictionary = [NSView.FullScreenModeOptionKey.fullScreenModeApplicationPresentationOptions:

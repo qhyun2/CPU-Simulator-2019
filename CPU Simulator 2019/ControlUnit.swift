@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 import Cocoa
 
-
+var text:NSTextField = NSTextField()
 
 class ControlUnit: Scene {
 
@@ -74,6 +74,16 @@ class ControlUnit: Scene {
     
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
+    }
+    
+    override func show() {
+        buttonEnabled = true
+        super.show()
+    }
+    
+    override func hide() {
+        buttonEnabled = false
+        super.hide()
     }
 }
 
