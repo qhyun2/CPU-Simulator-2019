@@ -4,11 +4,6 @@
 //
 //  Created by Hao Yun on 2017-11-21.
 //  Copyright © 2017 Hao Yun. All rights reserved.
-//
-import Cocoa
-import SpriteKit
-import GameplayKit
-
 /* Project Outline
  
  Sprint 2:
@@ -42,6 +37,9 @@ import GameplayKit
  
  */
 
+import Cocoa
+import SpriteKit
+import GameplayKit
 
 //control if input box is enabled
 var buttonEnabled: Bool = true {
@@ -59,6 +57,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var button: NSButton!
     @IBOutlet weak var submitButton: NSButton!
     @IBOutlet weak var codeSelector: NSPopUpButton!
+    
     //main skscene
     var SceneController = SKScene(fileNamed: "SceneController")!
 
@@ -76,8 +75,6 @@ class ViewController: NSViewController {
         button.title = textWindow.isHidden ? "Show Code" : "Hide Code"
     }
     
-    
-
     //mouse tracking
     lazy var window: NSWindow = self.view.window!
     var location: NSPoint {
