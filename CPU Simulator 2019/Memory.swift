@@ -224,9 +224,6 @@ class Memory: Scene {
         //test values
         updateMemory(address: 0, data: 1)
         updateMemory(address: 1, data: 1)
-        updateMemory(address: 2, data: 0)
-        updateMemory(address: 3, data: 0)
-        updateMemory(address: 24, data: 1324)
     }
 
     //update values in memory or on data bus based on write or read
@@ -295,5 +292,29 @@ class Memory: Scene {
 
     override func mouseDown(point: CGPoint) {
         super.mouseDown(point: point)
+
+        //see if any of the cells have been clicked
+        for (index, i) in memory.enumerated() {
+            if i.contains(point) {
+
+                //update colour
+                i.fillColor = i.fillColor == SKColor.blue ? SKColor.gray : SKColor.blue
+
+                let address = index / dataSize
+                let start = address * dataSize
+                let end = start + dataSize
+                var value = ""
+
+                //determine value based on colours
+                for j in start..<end {
+                    value += memory[j].fillColor == SKColor.blue ? "1" : "0"
+                }
+
+                //determine value and print
+                let num = Int(value, radix: 2) ?? 0
+                memoryValue[address] = num
+                memoryLabels[address].text = String(num)
+            }
+        }
     }
 }

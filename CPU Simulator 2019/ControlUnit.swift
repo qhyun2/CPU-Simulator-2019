@@ -24,7 +24,7 @@ class ControlUnit: Scene {
 
     var halt = false
     let instructionPointerLabel = SKLabelNode(text: "Current Line: 1")
-    let speedLabel = SKLabelNode()
+    let speedLabel = SKLabelNode(text: "Speed: x1.0")
     var indicatorArrow = SKSpriteNode(imageNamed: "arrow")
 
     var buttons: Array<Button> = []
@@ -33,7 +33,6 @@ class ControlUnit: Scene {
         didSet {
             controller.eventQ?.speedMod = speed[currentSpeed]
             speedLabel.text = "Speed: x\(speed[currentSpeed])"
-            print(currentSpeed)
         }
     }
 
@@ -43,20 +42,23 @@ class ControlUnit: Scene {
         indicatorArrow.position = CGPoint(x: 96, y: 589)
         addNode(node: indicatorArrow)
 
-        let runRect = CGRect(x: 178, y: 700, width: 90, height: 30)
-        let stopRect = CGRect(x: 178, y: 660, width: 90, height: 30)
+        let runRect = CGRect(x: 178, y: 740, width: 90, height: 30)
+        let stopRect = CGRect(x: 178, y: 700, width: 90, height: 30)
+        let resetRect = CGRect(x: 178, y: 660, width: 90, height: 30)
         let stepRect = CGRect(x: 178, y: 620, width: 90, height: 30)
         let upSpeed = CGRect(x: 80, y: 700, width: 90, height: 30)
         let downSpeed = CGRect(x: 80, y: 660, width: 90, height: 30)
 
         let runButton = Button(rect: runRect, text: "Start", scene: self, event: Event(delay: 0, id: 7, scene: self))
         let stopButton = Button(rect: stopRect, text: "Pause", scene: self, event: Event(delay: 0, id: 8, scene: self))
+        let resetButton = Button(rect: resetRect, text: "Reset", scene: self, event: Event(delay: 0, id: 12, scene: self))
         let stepButton = Button(rect: stepRect, text: "Step", scene: self, event: Event(delay: 0, id: 9, scene: self))
-        let upSpeedButton = Button(rect: upSpeed, text: "+Speed", scene: self, event: Event(delay: 0, id: 10, scene: self))
-        let downSpeedButton = Button(rect: downSpeed, text: "-Speed", scene: self, event: Event(delay: 0, id: 11, scene: self))
+        let upSpeedButton = Button(rect: upSpeed, text: "+ Speed", scene: self, event: Event(delay: 0, id: 10, scene: self))
+        let downSpeedButton = Button(rect: downSpeed, text: "- Speed", scene: self, event: Event(delay: 0, id: 11, scene: self))
 
         buttons.append(runButton)
         buttons.append(stopButton)
+        buttons.append(resetButton)
         buttons.append(stepButton)
         buttons.append(upSpeedButton)
         buttons.append(downSpeedButton)
@@ -128,7 +130,6 @@ class ControlUnit: Scene {
             }
         case 7:
             halt = false
-            instructionPointer = 1
             let start = Event(delay: 0, id: 6, scene: self)
             controller.eventQ?.addEvent(event: start)
             break
@@ -159,6 +160,10 @@ class ControlUnit: Scene {
             if currentSpeed > 1 {
                 currentSpeed -= 1
             }
+        case 12:
+            instructionPointer = 1
+            break
+
         default:
             print("Control Unit Event Error")
         }
