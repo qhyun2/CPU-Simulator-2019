@@ -18,7 +18,6 @@ class ALU: Scene {
     var write1: Bus?
     var write2: Bus?
     var read: Bus?
-    var subtract: Bus?
     var reg1: Bus?
     var reg2: Bus?
     var regOut: Bus?
@@ -52,22 +51,20 @@ class ALU: Scene {
         didSet {
             read?.value = readV
             if readV == 1 {
-                
+
                 //update input bus
                 inputBus!.value = regOut!.value
-                
+
                 //set main controller bus to be this value
                 controller.overview?.event(id: 1, data: [(regOut?.value)!])
             }
         }
     }
-    var subtractV = 0
-
 
     override init(id: Int, controller: SceneController, bg: String) {
 
         super.init(id: id, controller: controller, bg: bg)
-        
+
         //background box
         let bgBox = SKShapeNode.init(rectOf: CGSize.init(width: 800, height: 250))
         bgBox.position = CGPoint(x: 450, y: 680)
@@ -75,11 +72,11 @@ class ALU: Scene {
         bgBox.lineWidth = 4
         bgBox.strokeColor = SKColor.blue
         addNode(node: bgBox)
-        
+
         //input bus
         inputBus = Bus(x: 160, y: 770, width: 700, height: 100, bits: 16, spacing: 1, scene: self)
         inputBus?.enableLabel(x: 80, y: 750, fontSize: 32, scene: self)
-        
+
         //control lines
         write1 = Bus(x: 900, y: 770, width: 60, height: 200, bits: 1, spacing: 0.4, scene: self)
         write1?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
@@ -87,8 +84,7 @@ class ALU: Scene {
         write2?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
         read = Bus(x: 1040, y: 770, width: 60, height: 1400, bits: 1, spacing: 0.4, scene: self)
         read?.activeColour = SKColor.green
-        subtract = Bus(x: 1110, y: 770, width: 60, height: 100, bits: 1, spacing: 0.4, scene: self)
-        
+
         //registers
         reg1 = Bus(x: 160, y: 680, width: 700, height: 40, bits: 16, spacing: 0.4, scene: self)
         reg1?.enableLabel(x: 80, y: 670, fontSize: 32, scene: self)
@@ -107,19 +103,19 @@ class ALU: Scene {
         addNode(node: label!)
         addNode(node: resultLabel!)
     }
-    
-    override func event(id: Int, data:Array<Int> = []) {
+
+    override func event(id: Int, data: Array<Int> = []) {
 
         switch id {
-        //set write bus 1
         case 1:
+            //set write bus 1
             write1V = data[0]
             break
-        //set write bus 2
         case 2:
+            //set write bus 2
             write2V = data[0]
-        //set read bus
         case 3:
+            //set read bus
             readV = data[0]
         case 4:
             //value received for data bus
@@ -130,11 +126,10 @@ class ALU: Scene {
     }
 
     func updateLabel() {
-        let sign = subtractV == 0 ? "+" : "-"
-        let text = "\(reg1!.value ) \(sign) \(reg2!.value )"
+        let text = "\(reg1!.value) + \(reg2!.value)"
         label!.text = text
-        
-        let result = subtractV == 0 ? reg1!.value + reg2!.value : reg1!.value - reg2!.value
+
+        let result = reg1!.value + reg2!.value
         resultLabel!.text = String(result)
         regOut?.value = result
     }

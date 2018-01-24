@@ -10,14 +10,13 @@ import Foundation
 import SpriteKit
 import Cocoa
 
-var text: NSTextField = NSTextField()
-
 class ControlUnit: Scene {
 
     var instructionArray: Array<Array<Int>> = [[]]
     var instructionPointer = 1 {
         didSet {
             instructionPointerLabel.text = "Current Line: \(instructionPointer)"
+            indicatorArrow.position = CGPoint(x: 96, y: 589 - Int((Double((instructionPointer - 1)) * 14.1)))
         }
     }
     var halt = false
@@ -26,9 +25,13 @@ class ControlUnit: Scene {
     let startLabel = SKLabelNode(text: "Run")
     let stopLabel = SKLabelNode(text: "Stop")
     let instructionPointerLabel = SKLabelNode(text: "Current Line: 1")
+    var indicatorArrow = SKSpriteNode(imageNamed: "arrow")
 
     override init(id: Int, controller: SceneController, bg: String) {
         super.init(id: id, controller: controller, bg: bg)
+
+        indicatorArrow.position = CGPoint(x: 96, y: 589)
+        addNode(node: indicatorArrow)
 
         runButton.fillColor = SKColor.cyan
         runButton.lineWidth = 3
@@ -55,7 +58,7 @@ class ControlUnit: Scene {
         instructionPointerLabel.fontName = "AmericanTypewriter-Bold"
         instructionPointerLabel.fontSize = 20
         instructionPointerLabel.fontColor = SKColor.green
-        instructionPointerLabel.position = CGPoint(x: 90, y: 609)
+        instructionPointerLabel.position = CGPoint(x: 90, y: 620)
         addNode(node: instructionPointerLabel)
 
         for i in 1...40 {
@@ -95,10 +98,10 @@ class ControlUnit: Scene {
         case 6:
             //trigger next line of code, (attached onto the end of all instructions)
             if !halt {
-                
+
                 //prevents alot of index out of range crashes
                 if instructionArray.count > instructionPointer {
-                    
+
                     var toExe = instructionArray[instructionPointer]
                     let instructionId = toExe.removeFirst()
                     let instruction = Event(delay: 500, id: instructionId, scene: self, data: toExe)
@@ -122,6 +125,8 @@ class ControlUnit: Scene {
 
     func parseCode(code: String) {
 
+        instructionArray = [[]]
+        
         //each element of array is one line of code
         let codeLines = code.components(separatedBy: CharacterSet.newlines)
 

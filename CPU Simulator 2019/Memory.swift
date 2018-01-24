@@ -62,7 +62,12 @@ class Memory: Scene {
     }
     public var reading = false {
         didSet {
+            //update display in memory scene
             readLine.fillColor = reading ? SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1) : SKColor.gray
+            
+            //update display in overview
+            controller.overview!.event(id: 3, data: [reading ? 1 : 0])
+            
             if (reading && controller.currentScene == id) {
                 //update read indicator
                 accessIndicator.position = CGPoint.init(x: CGFloat(53 + Float(addressBusValue % 32) * 43), y: memoryTop + 39)
@@ -75,7 +80,12 @@ class Memory: Scene {
     }
     public var writing = false {
         didSet {
+            //update display in memory scene
             writeLine.fillColor = writing ? SKColor.green : SKColor.gray
+            
+            //update display in overview
+            controller.overview!.event(id: 4, data: [writing ? 1 : 0])
+            
             if (writing && controller.currentScene == id) {
                 //update read indicator
                 writeIndicator.position = CGPoint.init(x: CGFloat(53 + Float(addressBusValue % 32) * 43), y: memoryTop + 39)

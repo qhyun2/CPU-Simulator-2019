@@ -28,11 +28,9 @@ class SceneController: SKScene {
     var CONTROLUNITid = 3
     var codeIn = ""
 
-
-
     //initialize the game scene
     override func didMove(to view: SKView) {
-
+        
         overview = Overview(id: OVERVIEWid, controller: self, bg: "bg3")
         memory = Memory(id: MEMORYid, controller: self, bg: "bg2")
         alu = ALU(id: ALUid, controller: self, bg: "bg1")
@@ -63,6 +61,7 @@ class SceneController: SKScene {
 
     //swap scenes
     func changeScene(id: Int) {
+        
         //hide current scene
         sceneArray![currentScene].hide()
         //show new scene
@@ -76,14 +75,20 @@ class SceneController: SKScene {
         
         let x = event.locationInWindow.x
         let y = event.locationInWindow.y
-        let point = CGPoint(x: x, y: y)
         print(x, y)
         
         sceneArray![currentScene].mouseDown(event: event)
-
-//        controlunit?.event(id: 1, data: [0, 1])
-//        controlunit?.event(id: 1, data: [1, 2])
-//        controlunit?.event(id: 2, data: [0])
+    }
+    
+    func makeLabel(x: Int, y: Int, fontSize:CGFloat = 32, colour:SKColor, text:String = "") -> SKLabelNode {
+      
+        let label = SKLabelNode(text:text)
+        label.position = CGPoint(x: x, y: y)
+        label.fontName = "AmericanTypewriter-Bold"
+        label.fontSize = fontSize
+        label.fontColor = colour
+        label.zPosition = 50
+        return label
     }
 }
 

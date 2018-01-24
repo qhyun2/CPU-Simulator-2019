@@ -12,14 +12,16 @@ import Cocoa
 
 class Overview: Scene {
 
-    //locations of 4 buttons
-    let x = [654, 67, 66, 1120]
-    let y = [66, 458, 158, 320]
-    let w = [703, 313, 293]
+    //locations and dimen of 3 buttons
+    let x = [654, 66, 66]
+    let y = [66, 458, 158]
+    let w = [703, 315, 315]
     let h = [651, 268, 203]
     var buttons: Array<SKShapeNode>?
     var dataBus: HorizontalBus?
     var addressBus: HorizontalBus?
+    var readLine: HorizontalBus?
+    var writeLine: HorizontalBus?
 
 
     override init(id: Int, controller: SceneController, bg: String) {
@@ -29,9 +31,9 @@ class Overview: Scene {
         nodeArray.remove(at: 1).isHidden = true
         nodeArray.remove(at: 1).isHidden = true
 
-        buttons = []
 
         //generate buttons
+        buttons = []
         for i in 0...2 {
             let button = SKShapeNode(rect: CGRect(x: x[i], y: y[i], width: w[i], height: h[i]), cornerRadius: 20)
             button.lineWidth = 14
@@ -41,38 +43,23 @@ class Overview: Scene {
             buttons?.append(button)
             addNode(node: button)
         }
+
+        //busses
         dataBus = HorizontalBus(x: 516, y: 485, width: 264, height: 231, bits: 16, spacing: 1.0, scene: self)
         dataBus?.enableLabel(x: 517, y: 573, fontSize: 50, scene: self)
 
-        addressBus = HorizontalBus(x: 510, y: 250, width: 290, height: 110, bits: 8, spacing: 1, scene: self)
-        addressBus?.enableLabel(x: 517, y: 278, fontSize: 50, scene: self)
+        addressBus = HorizontalBus(x: 520, y: 176, width: 270, height: 110, bits: 8, spacing: 1, scene: self)
+        addressBus?.enableLabel(x: 517, y: 205, fontSize: 50, scene: self)
 
-        let memLabel = SKLabelNode()
-        memLabel.position = CGPoint(x: 1007, y: 385)
-        memLabel.fontName = "AmericanTypewriter-Bold"
-        memLabel.fontSize = 40
-        memLabel.fontColor = SKColor.green
-        memLabel.text = "Memory"
-        memLabel.zPosition = 15
-        addNode(node: memLabel)
+        readLine = HorizontalBus(x: 519, y: 295, width: 270, height: 10, bits: 1, spacing: 1, scene: self)
+        readLine?.activeColour = NSColor.purple
+        writeLine = HorizontalBus(x: 519, y: 315, width: 270, height: 10, bits: 1, spacing: 1, scene: self)
+        writeLine?.activeColour = NSColor.green
 
-        let aluLabel = SKLabelNode()
-        aluLabel.position = CGPoint(x: 220, y: 564)
-        aluLabel.fontName = "AmericanTypewriter-Bold"
-        aluLabel.fontSize = 40
-        aluLabel.fontColor = SKColor.green
-        aluLabel.text = "ALU"
-        aluLabel.zPosition = 15
-        addNode(node: aluLabel)
-
-        let conLabel = SKLabelNode()
-        conLabel.position = CGPoint(x: 217, y: 261)
-        conLabel.fontName = "AmericanTypewriter-Bold"
-        conLabel.fontSize = 40
-        conLabel.fontColor = SKColor.green
-        conLabel.text = "Control Unit"
-        conLabel.zPosition = 15
-        addNode(node: conLabel)
+        //labels
+        addNode(node: controller.makeLabel(x: 1007, y: 385, fontSize: 40, colour: SKColor.green, text: "Memory"))
+        addNode(node: controller.makeLabel(x: 220, y: 580, fontSize: 40, colour: SKColor.green, text: "ALU"))
+        addNode(node: controller.makeLabel(x: 217, y: 250, fontSize: 40, colour: SKColor.green, text: "Control Unit"))
     }
 
     override func event(id: Int, data: Array<Int> = []) {
@@ -88,17 +75,24 @@ class Overview: Scene {
         case 2:
             //value sent to address bus
             addressBus?.value = data[0]
+        case 3:
+            //read line update
+            readLine?.value = data[0]
+        case 4:
+            //write line update
+            writeLine?.value = data[0]
         default:
-            print("Error")
+            print("Overview Event Error")
         }
     }
 
     override func mouseDown(event: NSEvent) {
 
+        //input system
         let x = event.locationInWindow.x
         let y = event.locationInWindow.y
         let point = CGPoint(x: x, y: y)
-
+        
         for (index, i) in buttons!.enumerated() {
             if i.contains(point) {
                 controller.changeScene(id: index + 1)
