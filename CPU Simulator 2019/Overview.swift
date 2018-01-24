@@ -86,13 +86,8 @@ class Overview: Scene {
         }
     }
 
-    override func mouseDown(event: NSEvent) {
+    override func mouseDown(point: CGPoint) {
 
-        //input system
-        let x = event.locationInWindow.x
-        let y = event.locationInWindow.y
-        let point = CGPoint(x: x, y: y)
-        
         for (index, i) in buttons!.enumerated() {
             if i.contains(point) {
                 controller.changeScene(id: index + 1)

@@ -50,8 +50,8 @@ class Scene {
     func event(id: Int, data:Array<Int> = []) { }
 
     //mouse input
-    func mouseDown(event: NSEvent) {
-        if backButton.contains(CGPoint(x: event.locationInWindow.x, y: event.locationInWindow.y)) {
+    func mouseDown(point: CGPoint) {
+        if backButton.contains(point) {
             controller.changeScene(id: 0)
         }
     }

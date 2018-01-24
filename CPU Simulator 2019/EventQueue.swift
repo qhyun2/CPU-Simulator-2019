@@ -63,7 +63,7 @@ class EventQueue {
                 events.removeFirst()
 
                 //reset timer
-                timer -= current.delay
+                timer = 0
             }
         }
     }

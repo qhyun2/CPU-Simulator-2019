@@ -28,7 +28,7 @@ class ControlUnit: Scene {
     var indicatorArrow = SKSpriteNode(imageNamed: "arrow")
 
     var buttons: Array<Button> = []
-    var speed = [0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 4.0, 8.0, 16.0, 64.0]
+    var speed = [0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 4.0, 8.0, 16.0, 64.0, 1000.0]
     var currentSpeed = 4 {
         didSet {
             controller.eventQ?.speedMod = speed[currentSpeed]
@@ -85,7 +85,6 @@ class ControlUnit: Scene {
             addNode(node: lineLabels)
         }
     }
-
 
     override func event(id: Int, data: Array<Int> = []) {
         switch id {
@@ -152,7 +151,7 @@ class ControlUnit: Scene {
                 }
             }
         case 10:
-            if currentSpeed < 10 {
+            if currentSpeed < 11 {
                 currentSpeed += 1
             }
             break
@@ -167,6 +166,7 @@ class ControlUnit: Scene {
 
     var lines: Array<String> = []
 
+    //takes code, parses it and stores in the instruction array
     func parseCode(code: String) {
 
         //clear instruction array for a clean slate
@@ -253,13 +253,8 @@ class ControlUnit: Scene {
 
     }
 
-    override func mouseDown(event: NSEvent) {
-        super.mouseDown(event: event)
-
-        let x = event.locationInWindow.x
-        let y = event.locationInWindow.y
-        let point = CGPoint(x: x, y: y)
-
+    override func mouseDown(point: CGPoint) {
+        super.mouseDown(point: point)
         for i in buttons {
             i.update(point: point)
         }

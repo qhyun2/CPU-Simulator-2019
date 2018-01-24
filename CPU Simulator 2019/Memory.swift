@@ -250,32 +250,25 @@ class Memory: Scene {
     //updated given memory location with given data
     func updateMemory(address: Int, data: Int) {
 
-        if data > 65535 {
-            //update value
-            memoryValue[address] = data
-            memoryLabels[address].text = String(data)
+        //update value
+        memoryValue[address] = data
+        memoryLabels[address].text = String(data)
 
-            //determine first cell of the set to be modified
-            let firstCell = dataSize * address
+        //determine first cell of the set to be modified
+        let firstCell = dataSize * address
 
-            //binary visual representation
-            let unpaddedBinary = String(data, radix: 2) //binary base
-            let padding = String.init(repeating: "0", count: (dataSize - unpaddedBinary.count))
-            let binary = Array(padding + unpaddedBinary)
+        //binary visual representation
+        let unpaddedBinary = String(data, radix: 2) //binary base
+        let padding = String.init(repeating: "0", count: (dataSize - unpaddedBinary.count))
+        let binary = Array(padding + unpaddedBinary)
 
-            //update each individual cell
-            for i in 0..<dataSize {
-                //determine color based on binary value
-                if(binary[i] == "1" || binary[i] == "-") {
-                    memory[firstCell + i].fillColor = SKColor.blue
-                } else {
-                    memory[firstCell + i].fillColor = SKColor.gray
-                }
-            }
-        } else {
-            let firstCell = dataSize * address
-            for i in 0..<dataSize {
-                memory[firstCell + i].fillColor = SKColor.red
+        //update each individual cell
+        for i in 0..<dataSize {
+            //determine color based on binary value
+            if(binary[i] == "1" || binary[i] == "-") {
+                memory[firstCell + i].fillColor = SKColor.blue
+            } else {
+                memory[firstCell + i].fillColor = SKColor.gray
             }
         }
     }
@@ -298,5 +291,9 @@ class Memory: Scene {
         default:
             print("Memory Event Error")
         }
+    }
+
+    override func mouseDown(point: CGPoint) {
+        super.mouseDown(point: point)
     }
 }

@@ -455,7 +455,7 @@
                                     </menu>
                                 </popUpButtonCell>
                                 <connections>
-                                    <action selector="clicked:" target="XfG-lQ-9wD" id="RFo-rd-9vC"/>
+                                    <action selector="selected:" target="XfG-lQ-9wD" id="X9B-qP-Sp4"/>
                                 </connections>
                             </popUpButton>
                             <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJY-rC-xBb">

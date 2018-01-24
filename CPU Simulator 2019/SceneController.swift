@@ -72,7 +72,10 @@ class SceneController: SKScene {
 
     //mouse clicked
     override func mouseDown(with event: NSEvent) {
-        sceneArray![currentScene].mouseDown(event: event)
+        let x = event.locationInWindow.x
+        let y = event.locationInWindow.y
+        let point = CGPoint(x: x, y: y)
+        sceneArray![currentScene].mouseDown(point: point)
     }
 
     func makeLabel(x: Int, y: Int, fontSize: CGFloat = 32, colour: SKColor, text: String = "") -> SKLabelNode {
