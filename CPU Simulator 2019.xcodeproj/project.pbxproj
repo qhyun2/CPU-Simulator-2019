@@ -17,6 +17,7 @@
 		BC3D401B1FC4756800C78858 /* CPU_Simulator_2019Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D401A1FC4756800C78858 /* CPU_Simulator_2019Tests.swift */; };
 		BC3D40261FC4756800C78858 /* CPU_Simulator_2019UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3D40251FC4756800C78858 /* CPU_Simulator_2019UITests.swift */; };
 		BC5B545E200C46B2001C36CD /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5B545D200C46B2001C36CD /* EventQueue.swift */; };
+		BCAE586D2018D1B2008D8A64 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCAE586C2018D1B2008D8A64 /* Button.swift */; };
 		BCB5B3FC1FD6ECDA00462F8B /* SceneController.sks in Resources */ = {isa = PBXBuildFile; fileRef = BCB5B3FB1FD6ECDA00462F8B /* SceneController.sks */; };
 		BCB5B3FE1FD6ED5800462F8B /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */; };
 		BCCDCD4920122D8900BEC607 /* HorizontalBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCDCD4820122D8900BEC607 /* HorizontalBus.swift */; };
@@ -60,6 +61,7 @@
 		BC3D40251FC4756800C78858 /* CPU_Simulator_2019UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPU_Simulator_2019UITests.swift; sourceTree = "<group>"; };
 		BC3D40271FC4756800C78858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC5B545D200C46B2001C36CD /* EventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
+		BCAE586C2018D1B2008D8A64 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		BCB5B3FB1FD6ECDA00462F8B /* SceneController.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SceneController.sks; sourceTree = "<group>"; };
 		BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		BCCDCD4820122D8900BEC607 /* HorizontalBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalBus.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				BCD5F7B420050E5600D514AC /* Scene.swift */,
 				BCB5B3FD1FD6ED5800462F8B /* SceneController.swift */,
 				BC5B545D200C46B2001C36CD /* EventQueue.swift */,
+				BCAE586C2018D1B2008D8A64 /* Button.swift */,
 				BCECBD6B2008EDF700EDA7BA /* Bus.swift */,
 				BCCDCD4820122D8900BEC607 /* HorizontalBus.swift */,
 				BC3D40091FC4756800C78858 /* ViewController.swift */,
@@ -295,6 +298,7 @@
 				BCB5B3FE1FD6ED5800462F8B /* SceneController.swift in Sources */,
 				BCCDCD4920122D8900BEC607 /* HorizontalBus.swift in Sources */,
 				BC0390DA2007AEB0003C8F1E /* ALU.swift in Sources */,
+				BCAE586D2018D1B2008D8A64 /* Button.swift in Sources */,
 				BC5B545E200C46B2001C36CD /* EventQueue.swift in Sources */,
 				BC0390DE200842DF003C8F1E /* ControlUnit.swift in Sources */,
 				BC3D40021FC4756800C78858 /* AppDelegate.swift in Sources */,

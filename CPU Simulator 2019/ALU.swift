@@ -28,8 +28,8 @@ class ALU: Scene {
     var write1V = 0
     {
         didSet {
-            //only write on turning on
             write1?.value = write1V
+            //only write on turning on
             if write1V == 1 {
                 reg1!.value = inputBus!.value
                 updateLabel()
@@ -121,7 +121,7 @@ class ALU: Scene {
             //value received for data bus
             inputBus?.value = data[0]
         default:
-            print("Error")
+            print("ALU Event Error")
         }
     }
 

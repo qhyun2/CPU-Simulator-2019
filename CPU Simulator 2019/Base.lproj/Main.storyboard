@@ -411,17 +411,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="1440" height="790"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6to-Rg-FFh">
-                                <rect key="frame" x="230" y="720" width="104" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Hide Code" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nVB-yf-345">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="buttonPressed:" target="XfG-lQ-9wD" id="hHw-cQ-eHZ"/>
-                                </connections>
-                            </button>
                             <scrollView hidden="YES" fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhB-tg-pcR">
                                 <rect key="frame" x="162" y="20" width="240" height="573"/>
                                 <autoresizingMask key="autoresizingMask"/>
@@ -450,29 +439,42 @@
                                 </scroller>
                             </scrollView>
                             <popUpButton hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DK-86-yoj">
-                                <rect key="frame" x="304" y="612" width="76" height="26"/>
+                                <rect key="frame" x="300" y="620" width="100" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5bB-XD-Cvr" id="jtJ-h3-1Sz">
+                                <popUpButtonCell key="cell" type="push" title="Empty" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="dY7-X2-uAF" id="jtJ-h3-1Sz">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="RTw-OF-HFd">
                                         <items>
-                                            <menuItem title="Item 1" state="on" id="5bB-XD-Cvr"/>
-                                            <menuItem title="Item 2" id="Ekp-Fy-nzf"/>
-                                            <menuItem title="Item 3" id="4hs-gk-gbi"/>
+                                            <menuItem title="Empty" id="dY7-X2-uAF"/>
+                                            <menuItem title="Jump Test" state="on" id="5bB-XD-Cvr"/>
+                                            <menuItem title="Fib Seq" id="Ekp-Fy-nzf"/>
+                                            <menuItem title="Counter" id="4hs-gk-gbi"/>
+                                            <menuItem title="Counter" id="JO0-Qa-OZf"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
                             </popUpButton>
                             <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJY-rC-xBb">
-                                <rect key="frame" x="300" y="649" width="83" height="32"/>
+                                <rect key="frame" x="300" y="660" width="100" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Submit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3W0-fj-dj0">
+                                <buttonCell key="cell" type="push" title="Load" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3W0-fj-dj0">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="preformedClick:" target="XfG-lQ-9wD" id="tcr-b3-hNa"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6to-Rg-FFh">
+                                <rect key="frame" x="300" y="700" width="100" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Show Code" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nVB-yf-345">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="buttonPressed:" target="XfG-lQ-9wD" id="hHw-cQ-eHZ"/>
                                 </connections>
                             </button>
                         </subviews>

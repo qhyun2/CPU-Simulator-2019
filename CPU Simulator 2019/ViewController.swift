@@ -4,26 +4,30 @@
 //
 //  Created by Hao Yun on 2017-11-21.
 //  Copyright © 2017 Hao Yun. All rights reserved.
+
 /* Project Outline
+ 
+ X Done
+ - Todo
  
  Sprint 2:
  XCreate working memory display
  XDisplay when sections are accessed
  
  Sprint 3:
- -Write Scene Controller
+ XWrite Scene Controller
  
  
  Overall:
 
  
  Overview:
- -Represent each scene connected together
- -component selection
+ XRepresent each scene connected together
+ Xcomponent selection
  Xreturning from scenes
  
  Memory Scene:
- -split up updateState function
+ Xsplit up updateState function
  
  ALU:
  XInput and Result registers
@@ -31,8 +35,8 @@
  -Flags
  
  Control Unit:
- -Intruction id input
- -Intruction representation
+ XIntruction id input
+ XIntruction representation
  Xintruction execution
  
  */
@@ -40,13 +44,6 @@
 import Cocoa
 import SpriteKit
 import GameplayKit
-
-//control if input box is enabled
-var buttonEnabled: Bool = true {
-    didSet {
-//        textField.isEnabled = buttonEnabled
-    }
-}
 
 class ViewController: NSViewController {
 

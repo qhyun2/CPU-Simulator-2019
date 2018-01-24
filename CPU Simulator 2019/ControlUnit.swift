@@ -10,6 +10,8 @@ import Foundation
 import SpriteKit
 import Cocoa
 
+//ADD PAUSE STEP AND CONTINUE BUTTONS
+
 class ControlUnit: Scene {
 
     var instructionArray: Array<Array<Int>> = [[]]
@@ -19,13 +21,12 @@ class ControlUnit: Scene {
             indicatorArrow.position = CGPoint(x: 96, y: 589 - Int((Double((instructionPointer - 1)) * 14.1)))
         }
     }
+
     var halt = false
-    let runButton = SKShapeNode(rect: CGRect(x: 178, y: 650, width: 87, height: 31))
-    let stopButton = SKShapeNode(rect: CGRect(x: 178, y: 610, width: 87, height: 31))
-    let startLabel = SKLabelNode(text: "Run")
-    let stopLabel = SKLabelNode(text: "Stop")
     let instructionPointerLabel = SKLabelNode(text: "Current Line: 1")
     var indicatorArrow = SKSpriteNode(imageNamed: "arrow")
+
+    var buttons: Array<Button> = []
 
     override init(id: Int, controller: SceneController, bg: String) {
         super.init(id: id, controller: controller, bg: bg)
@@ -33,27 +34,17 @@ class ControlUnit: Scene {
         indicatorArrow.position = CGPoint(x: 96, y: 589)
         addNode(node: indicatorArrow)
 
-        runButton.fillColor = SKColor.cyan
-        runButton.lineWidth = 3
-        runButton.strokeColor = SKColor.black
-        addNode(node: runButton)
+        let runRect = CGRect(x: 178, y: 700, width: 90, height: 30)
+        let stopRect = CGRect(x: 178, y: 660, width: 90, height: 30)
+        let stepRect = CGRect(x: 178, y: 620, width: 90, height: 30)
 
-        stopButton.fillColor = SKColor.cyan
-        stopButton.lineWidth = 3
-        stopButton.strokeColor = SKColor.black
-        addNode(node: stopButton)
+        let runButton = Button(rect: runRect, text: "Start", scene: self, event: Event(delay: 0, id: 7, scene: self))
+        let stopButton = Button(rect: stopRect, text: "Pause", scene: self, event: Event(delay: 0, id: 8, scene: self))
+        let stepButton = Button(rect: stepRect, text: "Step", scene: self, event: Event(delay: 0, id: 9, scene: self))
 
-        stopLabel.fontName = "AmericanTypewriter-Bold"
-        stopLabel.fontSize = 16
-        stopLabel.fontColor = SKColor.black
-        stopLabel.position = CGPoint(x: 221, y: 620)
-        addNode(node: stopLabel)
-
-        startLabel.fontName = "AmericanTypewriter-Bold"
-        startLabel.fontSize = 16
-        startLabel.fontColor = SKColor.black
-        startLabel.position = CGPoint(x: 221, y: 660)
-        addNode(node: startLabel)
+        buttons.append(runButton)
+        buttons.append(stopButton)
+        buttons.append(stepButton)
 
         instructionPointerLabel.fontName = "AmericanTypewriter-Bold"
         instructionPointerLabel.fontSize = 20
@@ -96,26 +87,49 @@ class ControlUnit: Scene {
             parseCode(code: controller.codeIn)
             break
         case 6:
-            //trigger next line of code, (attached onto the end of all instructions)
-            if !halt {
+            //prevents alot of index out of range crashes
+            if instructionArray.count > instructionPointer {
 
-                //prevents alot of index out of range crashes
-                if instructionArray.count > instructionPointer {
+                var toExe = instructionArray[instructionPointer]
+                let instructionId = toExe.removeFirst()
+                let instruction = Event(delay: 500, id: instructionId, scene: self, data: toExe)
+                controller.eventQ?.addEvent(event: instruction)
 
-                    var toExe = instructionArray[instructionPointer]
-                    let instructionId = toExe.removeFirst()
-                    let instruction = Event(delay: 500, id: instructionId, scene: self, data: toExe)
+                if !halt {
+                    //hook into next instruction if not halted
                     let start = Event(delay: 500, id: 6, scene: self)
-
-                    controller.eventQ?.addEvent(event: instruction)
                     controller.eventQ?.addEvent(event: start)
+                }
 
-                    if !(instructionId == 3 || instructionId == 4) {
-                        instructionPointer += 1
-                    }
+                //increment instruction pointer by 1 if not a jump command
+                if !(instructionId == 3 || instructionId == 4) {
+                    instructionPointer += 1
                 }
             }
+        case 7:
+            halt = false
+            instructionPointer = 1
+            let start = Event(delay: 0, id: 6, scene: self)
+            controller.eventQ?.addEvent(event: start)
+            break
+        case 8:
+            //stop program execution
+            halt = true
+            break
+        case 9:
+            //exe one instruction, same as event 6 but no hook into next instruction
+            if instructionArray.count > instructionPointer {
 
+                var toExe = instructionArray[instructionPointer]
+                let instructionId = toExe.removeFirst()
+                let instruction = Event(delay: 0, id: instructionId, scene: self, data: toExe)
+                controller.eventQ?.addEvent(event: instruction)
+
+                //increment instruction pointer by 1 if not a jump command
+                if !(instructionId == 3 || instructionId == 4) {
+                    instructionPointer += 1
+                }
+            }
         default:
             print("Control Unit Event Error")
         }
@@ -125,8 +139,9 @@ class ControlUnit: Scene {
 
     func parseCode(code: String) {
 
+        //clear instruction array for a clean slate
         instructionArray = [[]]
-        
+
         //each element of array is one line of code
         let codeLines = code.components(separatedBy: CharacterSet.newlines)
 
@@ -136,6 +151,7 @@ class ControlUnit: Scene {
             var lineParts = i.components(separatedBy: CharacterSet.whitespaces)
             var instructionId = 0
 
+            //decode keywords into ids
             switch(lineParts[0]) {
             case "load":
                 instructionId = 1
@@ -149,21 +165,26 @@ class ControlUnit: Scene {
             case "jumpif":
                 instructionId = 4
                 break
+            case "input":
+                instructionId = 5
+                break
+            case "display":
+                instructionId = 6
+                break
             default:
                 instructionId = -1
             }
-            var instruction = [instructionId]
-            lineParts.removeFirst()
 
+            var instruction = [instructionId]
+
+            //taken any extra arguments and convert to ints and add on
+            lineParts.removeFirst()
             for i in lineParts {
-                instruction.append(Int(i)!)
+                instruction.append(Int(i) ?? -1)
             }
             instructionArray.append(instruction)
         }
-
-        print(instructionArray)
     }
-
 
     func loadFromMemory(address: Int, reg: Int) {
 
@@ -209,15 +230,8 @@ class ControlUnit: Scene {
         let y = event.locationInWindow.y
         let point = CGPoint(x: x, y: y)
 
-        if runButton.contains(point) {
-            halt = false
-            instructionPointer = 1
-            let start = Event(delay: 0, id: 6, scene: self)
-            controller.eventQ?.addEvent(event: start)
-        }
-
-        if stopButton.contains(point) {
-            halt = true
+        for i in buttons {
+            i.update(point: point)
         }
     }
 }

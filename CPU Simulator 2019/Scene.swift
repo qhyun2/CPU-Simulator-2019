@@ -17,7 +17,6 @@ class Scene {
     var nodeArray: Array<SKNode>
     var background: SKSpriteNode
     var backButton = SKShapeNode(rect: CGRect(x: 1294, y: 690, width: 121, height: 75), cornerRadius: 20)
-    var backLabel = SKLabelNode()
 
     init(id: Int, controller: SceneController, bg: String) {
 
@@ -41,12 +40,7 @@ class Scene {
         backButton.lineWidth = 4
         backButton.strokeColor = SKColor.black
         addNode(node: backButton)
-        backLabel.fontName = "AmericanTypewriter-Bold"
-        backLabel.fontSize = 32
-        backLabel.fontColor = SKColor.black
-        backLabel.position = CGPoint(x: 1354, y: 717)
-        backLabel.text = "Back"
-        addNode(node: backLabel)
+        addNode(node: controller.makeLabel(x: 1354, y: 717, fontSize: 32, colour: SKColor.black, text: "Back"))
     }
 
     //called when scene is active to update scene
