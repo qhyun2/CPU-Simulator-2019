@@ -24,9 +24,18 @@ class ControlUnit: Scene {
 
     var halt = false
     let instructionPointerLabel = SKLabelNode(text: "Current Line: 1")
+    let speedLabel = SKLabelNode()
     var indicatorArrow = SKSpriteNode(imageNamed: "arrow")
 
     var buttons: Array<Button> = []
+    var speed = [0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 4.0, 8.0, 16.0, 64.0]
+    var currentSpeed = 4 {
+        didSet {
+            controller.eventQ?.speedMod = speed[currentSpeed]
+            speedLabel.text = "Speed: x\(speed[currentSpeed])"
+            print(currentSpeed)
+        }
+    }
 
     override init(id: Int, controller: SceneController, bg: String) {
         super.init(id: id, controller: controller, bg: bg)
@@ -37,20 +46,32 @@ class ControlUnit: Scene {
         let runRect = CGRect(x: 178, y: 700, width: 90, height: 30)
         let stopRect = CGRect(x: 178, y: 660, width: 90, height: 30)
         let stepRect = CGRect(x: 178, y: 620, width: 90, height: 30)
+        let upSpeed = CGRect(x: 80, y: 700, width: 90, height: 30)
+        let downSpeed = CGRect(x: 80, y: 660, width: 90, height: 30)
 
         let runButton = Button(rect: runRect, text: "Start", scene: self, event: Event(delay: 0, id: 7, scene: self))
         let stopButton = Button(rect: stopRect, text: "Pause", scene: self, event: Event(delay: 0, id: 8, scene: self))
         let stepButton = Button(rect: stepRect, text: "Step", scene: self, event: Event(delay: 0, id: 9, scene: self))
+        let upSpeedButton = Button(rect: upSpeed, text: "+Speed", scene: self, event: Event(delay: 0, id: 10, scene: self))
+        let downSpeedButton = Button(rect: downSpeed, text: "-Speed", scene: self, event: Event(delay: 0, id: 11, scene: self))
 
         buttons.append(runButton)
         buttons.append(stopButton)
         buttons.append(stepButton)
+        buttons.append(upSpeedButton)
+        buttons.append(downSpeedButton)
 
         instructionPointerLabel.fontName = "AmericanTypewriter-Bold"
         instructionPointerLabel.fontSize = 20
         instructionPointerLabel.fontColor = SKColor.green
         instructionPointerLabel.position = CGPoint(x: 90, y: 620)
         addNode(node: instructionPointerLabel)
+
+        speedLabel.fontName = "AmericanTypewriter-Bold"
+        speedLabel.fontSize = 18
+        speedLabel.fontColor = SKColor.green
+        speedLabel.position = CGPoint(x: 90, y: 640)
+        addNode(node: speedLabel)
 
         for i in 1...40 {
             let lineLabels = SKLabelNode()
@@ -129,6 +150,15 @@ class ControlUnit: Scene {
                 if !(instructionId == 3 || instructionId == 4) {
                     instructionPointer += 1
                 }
+            }
+        case 10:
+            if currentSpeed < 10 {
+                currentSpeed += 1
+            }
+            break
+        case 11:
+            if currentSpeed > 1 {
+                currentSpeed -= 1
             }
         default:
             print("Control Unit Event Error")

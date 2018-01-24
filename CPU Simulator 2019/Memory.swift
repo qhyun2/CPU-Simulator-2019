@@ -49,9 +49,9 @@ class Memory: Scene {
         didSet {
             addressBus!.value = addressBusValue
             addressBus!.updateDisplay()
-            
+
             //update overview display
-            controller.overview?.event(id: 2, data:[addressBus!.value])
+            controller.overview?.event(id: 2, data: [addressBus!.value])
         }
     }
     public var dataBusValue = 0 {
@@ -64,10 +64,10 @@ class Memory: Scene {
         didSet {
             //update display in memory scene
             readLine.fillColor = reading ? SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1) : SKColor.gray
-            
+
             //update display in overview
             controller.overview!.event(id: 3, data: [reading ? 1 : 0])
-            
+
             if (reading && controller.currentScene == id) {
                 //update read indicator
                 accessIndicator.position = CGPoint.init(x: CGFloat(53 + Float(addressBusValue % 32) * 43), y: memoryTop + 39)
@@ -82,10 +82,10 @@ class Memory: Scene {
         didSet {
             //update display in memory scene
             writeLine.fillColor = writing ? SKColor.green : SKColor.gray
-            
+
             //update display in overview
             controller.overview!.event(id: 4, data: [writing ? 1 : 0])
-            
+
             if (writing && controller.currentScene == id) {
                 //update read indicator
                 writeIndicator.position = CGPoint.init(x: CGFloat(53 + Float(addressBusValue % 32) * 43), y: memoryTop + 39)
@@ -250,25 +250,32 @@ class Memory: Scene {
     //updated given memory location with given data
     func updateMemory(address: Int, data: Int) {
 
-        //update value
-        memoryValue[address] = data
-        memoryLabels[address].text = String(data)
+        if data > 65535 {
+            //update value
+            memoryValue[address] = data
+            memoryLabels[address].text = String(data)
 
-        //determine first cell of the set to be modified
-        let firstCell = dataSize * address
+            //determine first cell of the set to be modified
+            let firstCell = dataSize * address
 
-        //binary visual representation
-        let unpaddedBinary = String(data, radix: 2) //binary base
-        let padding = String.init(repeating: "0", count: (dataSize - unpaddedBinary.count))
-        let binary = Array(padding + unpaddedBinary)
+            //binary visual representation
+            let unpaddedBinary = String(data, radix: 2) //binary base
+            let padding = String.init(repeating: "0", count: (dataSize - unpaddedBinary.count))
+            let binary = Array(padding + unpaddedBinary)
 
-        //update each individual cell
-        for i in 0..<dataSize {
-            //determine color based on binary value
-            if(binary[i] == "1" || binary[i] == "-") {
-                memory[firstCell + i].fillColor = SKColor.blue
-            } else {
-                memory[firstCell + i].fillColor = SKColor.gray
+            //update each individual cell
+            for i in 0..<dataSize {
+                //determine color based on binary value
+                if(binary[i] == "1" || binary[i] == "-") {
+                    memory[firstCell + i].fillColor = SKColor.blue
+                } else {
+                    memory[firstCell + i].fillColor = SKColor.gray
+                }
+            }
+        } else {
+            let firstCell = dataSize * address
+            for i in 0..<dataSize {
+                memory[firstCell + i].fillColor = SKColor.red
             }
         }
     }

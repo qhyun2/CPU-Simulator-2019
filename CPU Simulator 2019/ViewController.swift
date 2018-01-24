@@ -54,7 +54,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var button: NSButton!
     @IBOutlet weak var submitButton: NSButton!
     @IBOutlet weak var codeSelector: NSPopUpButton!
-    
+    @IBOutlet weak var picker: NSPopUpButton!
+
     //main skscene
     var SceneController = SKScene(fileNamed: "SceneController")!
 
@@ -63,15 +64,64 @@ class ViewController: NSViewController {
         textInput = textField.string
         updated = true
     }
-    
+
     @IBAction func buttonPressed(_ sender: AnyObject) {
         textWindow.isHidden = !textWindow.isHidden
         codeSelector.isHidden = !codeSelector.isHidden
         submitButton.isHidden = !submitButton.isHidden
-        
+
         button.title = textWindow.isHidden ? "Show Code" : "Hide Code"
     }
-    
+
+
+    @IBAction func selected(_ sender: Any) {
+        switch(picker.index(of: picker.selectedItem!)) {
+        case 0:
+            textField.string = ""
+            break
+        case 1:
+            textField.string =
+                """
+            jump 6
+            jump 11
+            jump 1
+            jump 10
+            jump 2
+            jump 4
+            jump 9
+            jump 12
+            jump 3
+            jump 13
+            jump 7
+            jump 5
+            jump 8
+            """
+            break
+        case 2:
+            textField.string =
+                """
+            load 0 1
+            load 1 2
+            save 0
+            load 0 1
+            load 1 2
+            save 1
+            jump 1
+            """
+        case 3:
+            textField.string =
+            """
+            load 0 1
+            load 1 2
+            save 0
+            jump 1
+            """
+            break
+        default:
+            print("Preloaded Code Selector Error")
+        }
+    }
+
     //mouse tracking
     lazy var window: NSWindow = self.view.window!
     var location: NSPoint {
@@ -92,8 +142,6 @@ class ViewController: NSViewController {
         let optionsDictionary = [NSView.FullScreenModeOptionKey.fullScreenModeApplicationPresentationOptions:
                 presOptions.rawValue]
         viewer.enterFullScreenMode(NSScreen.main!, withOptions: optionsDictionary)
-        viewer.showsFPS = true
-        viewer.showsNodeCount = true
 
         NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {
             //print("windowLocation:", String(format: "%.1f, %.1f", self.location.x, self.location.y))

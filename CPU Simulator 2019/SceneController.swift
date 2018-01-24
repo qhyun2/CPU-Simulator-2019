@@ -10,8 +10,8 @@ import SpriteKit
 import GameplayKit
 import Cocoa
 
-var textInput:String = ""
-var updated:Bool = false
+var textInput: String = ""
+var updated: Bool = false
 
 class SceneController: SKScene {
 
@@ -30,7 +30,7 @@ class SceneController: SKScene {
 
     //initialize the game scene
     override func didMove(to view: SKView) {
-        
+
         overview = Overview(id: OVERVIEWid, controller: self, bg: "bg3")
         memory = Memory(id: MEMORYid, controller: self, bg: "bg2")
         alu = ALU(id: ALUid, controller: self, bg: "bg1")
@@ -50,7 +50,7 @@ class SceneController: SKScene {
 
         sceneArray![currentScene].update(currentTime)
         eventQ?.update(delta: currentTime)
-        
+
         //long supply chain that gets the text input (part 3)
         if updated {
             updated = false
@@ -61,7 +61,7 @@ class SceneController: SKScene {
 
     //swap scenes
     func changeScene(id: Int) {
-        
+
         //hide current scene
         sceneArray![currentScene].hide()
         //show new scene
@@ -72,17 +72,11 @@ class SceneController: SKScene {
 
     //mouse clicked
     override func mouseDown(with event: NSEvent) {
-        
-        let x = event.locationInWindow.x
-        let y = event.locationInWindow.y
-        print(x, y)
-        
         sceneArray![currentScene].mouseDown(event: event)
     }
-    
-    func makeLabel(x: Int, y: Int, fontSize:CGFloat = 32, colour:SKColor, text:String = "") -> SKLabelNode {
-      
-        let label = SKLabelNode(text:text)
+
+    func makeLabel(x: Int, y: Int, fontSize: CGFloat = 32, colour: SKColor, text: String = "") -> SKLabelNode {
+        let label = SKLabelNode(text: text)
         label.position = CGPoint(x: x, y: y)
         label.fontName = "AmericanTypewriter-Bold"
         label.fontSize = fontSize

@@ -454,6 +454,9 @@
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
+                                <connections>
+                                    <action selector="clicked:" target="XfG-lQ-9wD" id="RFo-rd-9vC"/>
+                                </connections>
                             </popUpButton>
                             <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJY-rC-xBb">
                                 <rect key="frame" x="300" y="660" width="100" height="32"/>
@@ -482,6 +485,7 @@
                     <connections>
                         <outlet property="button" destination="6to-Rg-FFh" id="rE5-SB-wxT"/>
                         <outlet property="codeSelector" destination="8DK-86-yoj" id="ijN-it-3YS"/>
+                        <outlet property="picker" destination="8DK-86-yoj" id="abC-8g-OCZ"/>
                         <outlet property="skView" destination="m2S-Jp-Qdl" id="qux-te-cT3"/>
                         <outlet property="submitButton" destination="ZJY-rC-xBb" id="tqP-aH-7PD"/>
                         <outlet property="textField" destination="4p5-bH-g9j" id="eUc-MH-Rzy"/>
