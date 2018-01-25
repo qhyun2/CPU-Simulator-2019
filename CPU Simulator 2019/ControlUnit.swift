@@ -94,20 +94,6 @@ class ControlUnit: Scene {
 
     override func event(id: Int, data: Array<Int> = []) {
         switch id {
-        case 1:
-            loadFromMemory(address: data[0], reg: data[1])
-            break
-        case 2:
-            saveToMemory(address: data[0])
-            break
-        case 3:
-            //jump command
-            instructionPointer = data[0]
-            break
-        case 4:
-            //jump if command
-            instructionPointer = zeroFlag ? data[0] : data[1]
-            break
         case 5:
             //long supply chain for text input (part 4)
             parseCode(code: controller.codeIn)
@@ -115,15 +101,15 @@ class ControlUnit: Scene {
         case 6:
             //prevents alot of index out of range crashes
             if instructionArray.count > instructionPointer {
-                
+
                 //prepare data and execute instruction
                 var toExe = instructionArray[instructionPointer]
                 let instructionId = toExe.removeFirst()
-                event(id: instructionId, data: toExe)
+                instruction(id: instructionId, data: toExe)
 
                 if !halt {
                     //hook into next instruction if not halted
-                    let start = Event(delay: 0, id: 6, scene: self)
+                    let start = Event(delay: 300, id: 6, scene: self)
                     controller.eventQ?.addEvent(event: start)
                 }
 
@@ -133,8 +119,9 @@ class ControlUnit: Scene {
                 }
             }
         case 7:
+            //start exec
             halt = false
-            let start = Event(delay: 0, id: 6, scene: self)
+            let start = Event(delay: 300, id: 6, scene: self)
             controller.eventQ?.addEvent(event: start)
             break
         case 8:
@@ -142,13 +129,12 @@ class ControlUnit: Scene {
             halt = true
             break
         case 9:
-            //exe one instruction, same as event 6 but no hook into next instruction
+            //step - exe one instruction, same as event 6 but no hook into next instruction
             if instructionArray.count > instructionPointer {
 
                 var toExe = instructionArray[instructionPointer]
                 let instructionId = toExe.removeFirst()
-                let instruction = Event(delay: 0, id: instructionId, scene: self, data: toExe)
-                controller.eventQ?.addEvent(event: instruction)
+                instruction(id: instructionId, data: toExe)
 
                 //increment instruction pointer by 1 if not a jump command
                 if !(instructionId == 3 || instructionId == 4) {
@@ -195,7 +181,7 @@ class ControlUnit: Scene {
             case "load":
                 instructionId = 1
                 break
-            case "save":
+            case "add":
                 instructionId = 2
                 break
             case "jump":
@@ -204,9 +190,11 @@ class ControlUnit: Scene {
             case "jumpif":
                 instructionId = 4
                 break
-            case "halt":
+            case "sub":
                 instructionId = 5
                 break
+            case "halt":
+                instructionId = 6
             default:
                 instructionId = -1
             }
@@ -222,12 +210,37 @@ class ControlUnit: Scene {
         }
     }
 
+    func instruction(id: Int, data: Array<Int>) {
+        switch id {
+        case 1:
+            loadFromMemory(address: data[0], reg: data[1])
+            break
+        case 2:
+            addToMemory(address: data[0])
+            break
+        case 3:
+            //jump command
+            instructionPointer = data[0]
+            break
+        case 4:
+            //jump if command
+            instructionPointer = zeroFlag ? data[0] : data[1]
+            break
+        case 5:
+            //subtract command
+            subtractToMemory(address: data[0])
+            break
+        default:
+            print("Error")
+        }
+    }
+
     func loadFromMemory(address: Int, reg: Int) {
 
         let memory = controller.memory!
         let alu = controller.alu!
 
-        let setAdd = Event(delay: 500, id: 4, scene: memory, data: [address])
+        let setAdd = Event(delay: 0, id: 4, scene: memory, data: [address])
         let readMem = Event(delay: 500, id: 2, scene: memory, data: [1])
         let writeALU = Event(delay: 500, id: reg, scene: alu, data: [1])
         let writeALUo = Event(delay: 500, id: reg, scene: alu, data: [0])
@@ -240,12 +253,13 @@ class ControlUnit: Scene {
         controller.eventQ?.addEvent(event: readMemo)
     }
 
-    func saveToMemory(address: Int) {
+    func addToMemory(address: Int) {
 
         let memory = controller.memory!
         let alu = controller.alu!
 
-        let setAdd = Event(delay: 500, id: 4, scene: memory, data: [address])
+        let setAdd = Event(delay: 0, id: 4, scene: memory, data: [address])
+        let subALUo = Event(delay: 400, id: 5, scene: alu, data: [0])
         let readALU = Event(delay: 500, id: 3, scene: alu, data: [1])
         let writeMem = Event(delay: 500, id: 1, scene: memory, data: [1])
         let writeMemo = Event(delay: 500, id: 1, scene: memory, data: [0])
@@ -253,6 +267,29 @@ class ControlUnit: Scene {
         let remAdd = Event(delay: 500, id: 4, scene: memory, data: [0])
 
         controller.eventQ?.addEvent(event: setAdd)
+        controller.eventQ?.addEvent(event: subALUo)
+        controller.eventQ?.addEvent(event: readALU)
+        controller.eventQ?.addEvent(event: writeMem)
+        controller.eventQ?.addEvent(event: writeMemo)
+        controller.eventQ?.addEvent(event: readALUo)
+        controller.eventQ?.addEvent(event: remAdd)
+    }
+
+    func subtractToMemory(address: Int) {
+
+        let memory = controller.memory!
+        let alu = controller.alu!
+
+        let setAdd = Event(delay: 0, id: 4, scene: memory, data: [address])
+        let subALU = Event(delay: 400, id: 5, scene: alu, data: [1])
+        let readALU = Event(delay: 400, id: 3, scene: alu, data: [1])
+        let writeMem = Event(delay: 400, id: 1, scene: memory, data: [1])
+        let writeMemo = Event(delay: 400, id: 1, scene: memory, data: [0])
+        let readALUo = Event(delay: 400, id: 3, scene: alu, data: [0])
+        let remAdd = Event(delay: 400, id: 4, scene: memory, data: [0])
+
+        controller.eventQ?.addEvent(event: setAdd)
+        controller.eventQ?.addEvent(event: subALU)
         controller.eventQ?.addEvent(event: readALU)
         controller.eventQ?.addEvent(event: writeMem)
         controller.eventQ?.addEvent(event: writeMemo)

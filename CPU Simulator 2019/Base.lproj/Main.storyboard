@@ -449,8 +449,8 @@
                                             <menuItem title="Empty" state="on" id="dY7-X2-uAF"/>
                                             <menuItem title="Counter" id="5bB-XD-Cvr"/>
                                             <menuItem title="Add" id="Ekp-Fy-nzf"/>
-                                            <menuItem title="Fib Seq" id="4hs-gk-gbi"/>
                                             <menuItem title="Jump Test" id="JO0-Qa-OZf"/>
+                                            <menuItem title="Fib Seq" id="4hs-gk-gbi"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>

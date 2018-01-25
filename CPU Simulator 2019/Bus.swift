@@ -21,7 +21,7 @@ class Bus {
     var label = SKLabelNode()
     var activeColour = SKColor.blue
 
-    init(x: Int, y: Int, width: Int, height: Int, bits: Int, spacing: Float, scene: Scene) {
+    init(x: Int, y: Int, width: Int, height: Int, bits: Int, scene: Scene) {
 
         let cellWidth = width / bits
         self.bits = bits
@@ -35,7 +35,7 @@ class Bus {
             let position = CGPoint.init(x: offsetX, y: y)
 
             //create cell
-            let cell = SKShapeNode.init(rectOf: CGSize.init(width: Int(Float(cellWidth) * spacing), height: height))
+            let cell = SKShapeNode.init(rectOf: CGSize.init(width: cellWidth, height: height))
             cell.position = position
             cell.lineWidth = 4
             cell.zPosition = 5

@@ -118,13 +118,13 @@ class Memory: Scene {
         memoryX = screenWidth * 0.04
         memoryY = screenHeight * 0.05
         memoryTop = CGFloat(memoryY + unitHeight / 2 - 14)
-        dataBus = Bus(x: 400, y: 770, width: 600, height: 200, bits: 16, spacing: 0.75, scene: self)
+        dataBus = Bus(x: 400, y: 770, width: 600, height: 200, bits: 16, scene: self)
         dataBus?.enableLabel(x: 678, y: 710, fontSize: 45, scene: self)
-        addressBus = Bus(x: 50, y: 770, width: 300, height: 200, bits: 8, spacing: 0.75, scene: self)
+        addressBus = Bus(x: 50, y: 770, width: 300, height: 200, bits: 8, scene: self)
         addressBus?.enableLabel(x: 180, y: 710, fontSize: 45, scene: self)
 
         //******** background box ********
-        let memoryBackground = SKShapeNode.init(rectOf: CGSize.init(width: CGFloat(screenWidth * 0.96), height: CGFloat(screenWidth * 0.46)))
+        let memoryBackground = SKShapeNode.init(rectOf: CGSize.init(width: CGFloat(screenWidth * 0.99), height: CGFloat(screenWidth * 0.46)))
         memoryBackground.position.x = 720
         memoryBackground.position.y = CGFloat(memoryY + unitHeight / 2)
         memoryBackground.fillColor = SKColor.init(white: 0, alpha: 0.65)
@@ -166,7 +166,6 @@ class Memory: Scene {
         //******** access indicator ********
         accessIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight - 54)))
         accessIndicator.fillColor = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 0.4)
-        accessIndicator.position = CGPoint(x: -10000, y: -10000)
         accessIndicator.zPosition = 3
         accessIndicator.isHidden = true
         addNode(node: accessIndicator)
@@ -174,7 +173,6 @@ class Memory: Scene {
         //******** write indicator *******
         writeIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight - 54)))
         writeIndicator.fillColor = SKColor.init(red: 0.0196, green: 0.6862, blue: 0.2274, alpha: 0.4)
-        writeIndicator.position = CGPoint(x: -10000, y: -10000)
         writeIndicator.zPosition = 3
         writeIndicator.isHidden = true
         addNode(node: writeIndicator)
@@ -187,8 +185,8 @@ class Memory: Scene {
                 let offsetX = CGFloat(Float(i) * 43 + 53)
                 let offsetY = CGFloat(Float(j) * 33 + 120)
 
-                let cellWidth = CGFloat(38)
-                let cellHeight = CGFloat(30)
+                let cellWidth = CGFloat(43)
+                let cellHeight = CGFloat(33)
 
                 //create position object
                 let position = CGPoint.init(x: offsetX, y: offsetY)
@@ -318,5 +316,11 @@ class Memory: Scene {
                 memoryLabels[address].text = String(num)
             }
         }
+    }
+
+    override func show() {
+        super.show()
+        writeIndicator.isHidden = true
+        accessIndicator.isHidden = true
     }
 }

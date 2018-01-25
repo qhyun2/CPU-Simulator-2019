@@ -88,8 +88,22 @@ class ViewController: NSViewController {
                 """
             load 0 1
             load 1 2
-            save 0
+            add 0
             jump 1
+            
+            
+            
+            
+            
+            
+            
+            load 0 1
+            load 1 2
+            sub 0
+            jumpif 5 1
+            jump 6
+            jump 5
+
             """
             break
         case 2:
@@ -97,7 +111,7 @@ class ViewController: NSViewController {
                 """
             load 0 1
             load 1 2
-            save 2
+            add 2
             """
             break
         case 4:
@@ -105,10 +119,10 @@ class ViewController: NSViewController {
                 """
             load 0 1
             load 1 2
-            save 0
+            add 0
             load 0 1
             load 1 2
-            save 1
+            add 1
             jump 1
             """
             break

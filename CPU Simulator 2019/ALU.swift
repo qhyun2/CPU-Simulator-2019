@@ -10,25 +10,18 @@ import Foundation
 import SpriteKit
 import Cocoa
 
-var zeroFlag = false
+var zeroFlag = true
 
 class ALU: Scene {
-
-    var inputBus: Bus?
-    var write1: Bus?
-    var write2: Bus?
-    var read: Bus?
-    var reg1: Bus?
-    var reg2: Bus?
-    var regOut: Bus?
-    var label: SKLabelNode?
-    var resultLabel: SKLabelNode?
-    var testShape: SKShapeNode?
 
     var write1V = 0
     {
         didSet {
             write1?.value = write1V
+            write1Hor?.value = write1V
+            if controller.currentScene == controller.ALUid {
+                write1Ind?.isHidden = write1V == 0
+            }
             //only write on turning on
             if write1V == 1 {
                 reg1!.value = inputBus!.value
@@ -40,6 +33,10 @@ class ALU: Scene {
     {
         didSet {
             write2?.value = write2V
+            if controller.currentScene == controller.ALUid {
+                write2Ind?.isHidden = write2V == 0
+            }
+            write2Hor?.value = write2V
             if write2V == 1 {
                 reg2!.value = inputBus!.value
                 updateLabel()
@@ -50,6 +47,10 @@ class ALU: Scene {
     {
         didSet {
             read?.value = readV
+            readHor?.value = readV
+            if controller.currentScene == controller.ALUid {
+                readInd?.isHidden = readV == 0 && controller.currentScene == controller.ALUid
+            }
             if readV == 1 {
 
                 //update input bus
@@ -60,45 +61,99 @@ class ALU: Scene {
             }
         }
     }
+    var subtractV = 0 {
+        didSet {
+            subtract?.value = subtractV
+            updateLabel()
+        }
+    }
+
+    var inputBus: Bus?
+    var write1: Bus?
+    var write2: Bus?
+    var read: Bus?
+    var reg1: Bus?
+    var reg2: Bus?
+    var regOut: Bus?
+    var subtract: Bus?
+    var label: SKLabelNode?
+    var resultLabel: SKLabelNode?
+    var write1Ind: SKShapeNode?
+    var write2Ind: SKShapeNode?
+    var readInd: SKShapeNode?
+    var write1Hor: HorizontalBus?
+    var write2Hor: HorizontalBus?
+    var readHor: HorizontalBus?
 
     override init(id: Int, controller: SceneController, bg: String) {
 
         super.init(id: id, controller: controller, bg: bg)
 
         //background box
-        let bgBox = SKShapeNode.init(rectOf: CGSize.init(width: 800, height: 250))
-        bgBox.position = CGPoint(x: 450, y: 680)
+        let bgBox = SKShapeNode.init(rectOf: CGSize.init(width: 800, height: 800))
+        bgBox.position = CGPoint(x: 450, y: 530)
         bgBox.fillColor = SKColor.init(white: 0, alpha: 0.65)
         bgBox.lineWidth = 4
         bgBox.strokeColor = SKColor.blue
         addNode(node: bgBox)
 
         //input bus
-        inputBus = Bus(x: 160, y: 770, width: 700, height: 100, bits: 16, spacing: 1, scene: self)
+        inputBus = Bus(x: 160, y: 770, width: 700, height: 100, bits: 16, scene: self)
         inputBus?.enableLabel(x: 80, y: 750, fontSize: 32, scene: self)
 
         //control lines
-        write1 = Bus(x: 900, y: 770, width: 60, height: 200, bits: 1, spacing: 0.4, scene: self)
+        write1 = Bus(x: 900, y: 770, width: 30, height: 218, bits: 1, scene: self)
         write1?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
-        write2 = Bus(x: 970, y: 770, width: 60, height: 380, bits: 1, spacing: 0.4, scene: self)
+        write1Hor = HorizontalBus(x: 848, y: 680, width: 132, height: 40, bits: 1, spacing: 1.0, scene: self)
+        write1Hor?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
+
+        write2 = Bus(x: 970, y: 770, width: 30, height: 340, bits: 1, scene: self)
         write2?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
-        read = Bus(x: 1040, y: 770, width: 60, height: 1400, bits: 1, spacing: 0.4, scene: self)
+        write2Hor = HorizontalBus(x: 875, y: 620, width: 218, height: 40, bits: 1, spacing: 1.0, scene: self)
+        write2Hor?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
+
+        read = Bus(x: 1040, y: 770, width: 30, height: 1140, bits: 1, scene: self)
         read?.activeColour = SKColor.green
+        readHor = HorizontalBus(x: 925, y: 217, width: 260, height: 40, bits: 1, spacing: 1.0, scene: self)
+        readHor?.activeColour = SKColor.green
+        
+        subtract = Bus(x: 1110, y: 770, width: 30, height: 100, bits: 1, scene: self)
 
         //registers
-        reg1 = Bus(x: 160, y: 680, width: 700, height: 40, bits: 16, spacing: 0.4, scene: self)
+        reg1 = Bus(x: 160, y: 680, width: 700, height: 40, bits: 16, scene: self)
         reg1?.enableLabel(x: 80, y: 670, fontSize: 32, scene: self)
-        reg2 = Bus(x: 160, y: 600, width: 700, height: 40, bits: 16, spacing: 0.4, scene: self)
-        reg2?.enableLabel(x: 80, y: 590, fontSize: 32, scene: self)
-        regOut = Bus(x: 160, y: 100, width: 700, height: 40, bits: 16, spacing: 0.4, scene: self)
-        regOut?.enableLabel(x: 80, y: 90, fontSize: 32, scene: self)
-        let box = SKShapeNode(rect: CGRect(x: 360, y: 160, width: 320, height: 320))
-        box.fillColor = SKColor.black
+        reg2 = Bus(x: 160, y: 620, width: 700, height: 40, bits: 16, scene: self)
+        reg2?.enableLabel(x: 80, y: 610, fontSize: 32, scene: self)
+        regOut = Bus(x: 160, y: 217, width: 700, height: 40, bits: 16, scene: self)
+        regOut?.enableLabel(x: 80, y: 207, fontSize: 32, scene: self)
 
-        label = SKLabelNode(text: "")
-        label?.position = CGPoint(x: 500, y: 350)
-        resultLabel = SKLabelNode(text: "0")
-        resultLabel?.position = CGPoint(x: 500, y: 280)
+        //indicators
+        write1Ind = SKShapeNode(rect: CGRect(x: 132, y: 652, width: 700, height: 56))
+        write1Ind!.fillColor = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 0.4)
+        write1Ind!.zPosition = 100
+        write1Ind!.isHidden = true
+        addNode(node: write1Ind!)
+        write2Ind = SKShapeNode(rect: CGRect(x: 132, y: 590, width: 700, height: 56))
+        write2Ind!.fillColor = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 0.4)
+        write2Ind!.zPosition = 100
+        write2Ind!.isHidden = true
+        addNode(node: write2Ind!)
+        readInd = SKShapeNode(rect: CGRect(x: 132, y: 190, width: 700, height: 56))
+        readInd!.fillColor = SKColor.init(red: 0.0196, green: 0.6862, blue: 0.2274, alpha: 0.4)
+        readInd!.zPosition = 100
+        readInd!.isHidden = true
+        addNode(node: readInd!)
+
+        let box = SKShapeNode(rect: CGRect(x: 319, y: 305, width: 320, height: 200), cornerRadius: 35)
+        box.fillColor = SKColor.black
+        box.strokeColor = SKColor.cyan
+        box.lineWidth = 10
+        
+        addNode(node: controller.makeLabel(x: 1110, y: 698, fontSize: 20, colour: SKColor.orange, text: "Subtract"))
+
+        label = controller.makeLabel(x: 475, y: 430, fontSize: 40, colour: SKColor.orange, text: "0 + 0")
+        resultLabel = controller.makeLabel(x: 475, y: 350, fontSize: 40, colour: SKColor.orange, text: "0")
+        resultLabel?.position = CGPoint(x: 475, y: 341)
         addNode(node: box)
         addNode(node: label!)
         addNode(node: resultLabel!)
@@ -120,18 +175,30 @@ class ALU: Scene {
         case 4:
             //value received for data bus
             inputBus?.value = data[0]
+        case 5:
+            //subtract bus set
+            subtractV = data[0]
         default:
             print("ALU Event Error")
         }
     }
-
     func updateLabel() {
-        let text = "\(reg1!.value) + \(reg2!.value)"
+        let sign = subtractV == 0 ? "+" : "-"
+        let text = "\(reg1!.value ) \(sign) \(reg2!.value )"
         label!.text = text
 
-        let result = reg1!.value + reg2!.value
+        var result = subtractV == 0 ? reg1!.value + reg2!.value : reg1!.value - reg2!.value
+        result = result < 0 ? 0 : result
+        zeroFlag = result == 0
         resultLabel!.text = String(result)
         regOut?.value = result
+    }
+
+    override func show() {
+        super.show()
+        write1Ind?.isHidden = true
+        write2Ind?.isHidden = true
+        readInd?.isHidden = true
     }
 }
 

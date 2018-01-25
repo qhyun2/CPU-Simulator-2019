@@ -75,6 +75,7 @@ class SceneController: SKScene {
         let x = event.locationInWindow.x
         let y = event.locationInWindow.y
         let point = CGPoint(x: x, y: y)
+        print(point)
         sceneArray![currentScene].mouseDown(point: point)
     }
 
