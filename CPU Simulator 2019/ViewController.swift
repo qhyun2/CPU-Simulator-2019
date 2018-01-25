@@ -77,58 +77,25 @@ class ViewController: NSViewController {
 
         button.title = textWindow.isHidden ? "Show Code" : "Hide Code"
     }
-
+    
     @IBAction func selected(_ sender: Any) {
+        //yes I understand that this code should not be here and programs should not be hardcoded
+        //But I do not have the time or buget to fix it
         switch(picker.index(of: picker.selectedItem!)) {
         case 0:
             textField.string = ""
             break
         case 1:
             textField.string =
-                """
-            load 0 1
-            load 1 2
-            add 0
-            jump 1
-            
-            
-            
-            
-            
-            
-            
-            load 0 1
-            load 1 2
-            sub 0
-            jumpif 5 1
-            jump 6
-            jump 5
-
             """
-            break
-        case 2:
-            textField.string =
-                """
             load 0 1
             load 1 2
             add 2
+            sub 3
             """
-            break
-        case 4:
+        case 2:
             textField.string =
-                """
-            load 0 1
-            load 1 2
-            add 0
-            load 0 1
-            load 1 2
-            add 1
-            jump 1
             """
-            break
-        case 3:
-            textField.string =
-                """
             jump 6
             jump 11
             jump 1
@@ -144,6 +111,41 @@ class ViewController: NSViewController {
             jump 8
             """
             break
+        case 3:
+            textField.string =
+            """
+            load 0 1
+            load 1 2
+            sub 0
+            jumpif 5 1
+            jump 6
+            jump 5
+            """
+            break
+        case 4:
+            textField.string =
+            """
+            load 0 1
+            load 1 2
+            add 0
+            load 0 1
+            load 1 2
+            add 1
+            jump 1
+            """
+            break
+        case 5:
+            textField.string =
+            """
+            load 1 1
+            load 3 2
+            add 3
+            load 0 1
+            load 2 2
+            sub 0
+            jumpif 8 1
+            
+            """
         default:
             print("Preloaded Code Selector Error")
         }

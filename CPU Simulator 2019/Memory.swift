@@ -40,9 +40,10 @@ class Memory: Scene {
     var writeIndicator = SKShapeNode()
     var readLine = SKShapeNode()
     var writeLine = SKShapeNode()
+    var clearButton:Button?
     var dataBus: Bus?
     var addressBus: Bus?
-    var memoryValue: Array<Int> = Array(repeating: 0, count: 256)
+    var memoryValue: Array<Int> = Array(repeating: 0, count: 32)
 
     //busses that need to be kept updated
     public var addressBusValue = 0 {
@@ -220,6 +221,9 @@ class Memory: Scene {
             memoryLabels.append(label)
             addNode(node: label)
         }
+        
+        let clearRect = CGRect(x: 1190, y: 712, width: 90, height: 30)
+        clearButton = Button(rect: clearRect, text: "Clear", scene: self, event: Event(delay: 0, id: 5, scene: self))
 
         //test values
         updateMemory(address: 0, data: 1)
@@ -284,7 +288,12 @@ class Memory: Scene {
         case 4:
             //address bus value received from overview
             addressBusValue = data[0]
-
+        case 5:
+            //clear memory
+            for i in 0...31 {
+                updateMemory(address: i, data: 0)
+            }
+            break
         default:
             print("Memory Event Error")
         }
@@ -292,6 +301,8 @@ class Memory: Scene {
 
     override func mouseDown(point: CGPoint) {
         super.mouseDown(point: point)
+        
+        clearButton?.update(point: point)
 
         //see if any of the cells have been clicked
         for (index, i) in memory.enumerated() {

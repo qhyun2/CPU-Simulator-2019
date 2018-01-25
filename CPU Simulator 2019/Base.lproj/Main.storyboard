@@ -447,10 +447,11 @@
                                     <menu key="menu" id="RTw-OF-HFd">
                                         <items>
                                             <menuItem title="Empty" state="on" id="dY7-X2-uAF"/>
-                                            <menuItem title="Counter" id="5bB-XD-Cvr"/>
-                                            <menuItem title="Add" id="Ekp-Fy-nzf"/>
+                                            <menuItem title="Add/Sub" id="5bB-XD-Cvr"/>
                                             <menuItem title="Jump Test" id="JO0-Qa-OZf"/>
-                                            <menuItem title="Fib Seq" id="4hs-gk-gbi"/>
+                                            <menuItem title="Jumpif Test" id="4hs-gk-gbi"/>
+                                            <menuItem title="Fib Seq" id="0lv-na-nnz"/>
+                                            <menuItem title="Multiply" id="OmH-LO-y84"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>

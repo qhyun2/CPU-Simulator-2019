@@ -22,6 +22,10 @@ class Overview: Scene {
     var addressBus: HorizontalBus?
     var readLine: HorizontalBus?
     var writeLine: HorizontalBus?
+    var reg1Line: Bus?
+    var reg2Line: Bus?
+    var reg3Line: Bus?
+    var subLine: Bus?
 
 
     override init(id: Int, controller: SceneController, bg: String) {
@@ -55,6 +59,15 @@ class Overview: Scene {
         readLine?.activeColour = NSColor.purple
         writeLine = HorizontalBus(x: 519, y: 315, width: 270, height: 10, bits: 1, spacing: 1, scene: self)
         writeLine?.activeColour = NSColor.green
+        
+        reg1Line = Bus(x: 110, y: 408, width: 20, height: 90, bits: 1, scene: self)
+        reg1Line?.activeColour = SKColor.green
+        reg2Line = Bus(x: 150, y: 408, width: 20, height: 90, bits: 1, scene: self)
+        reg2Line?.activeColour = SKColor.green
+        reg3Line = Bus(x: 190, y: 408, width: 20, height: 90, bits: 1, scene: self)
+        reg3Line?.activeColour = SKColor.purple
+        subLine = Bus(x: 230, y: 408, width: 20, height: 90, bits: 1, scene: self)
+        subLine?.activeColour = SKColor.yellow
 
         //labels
         addNode(node: controller.makeLabel(x: 1007, y: 385, fontSize: 40, colour: SKColor.green, text: "Memory"))
@@ -81,6 +94,18 @@ class Overview: Scene {
         case 4:
             //write line update
             writeLine?.value = data[0]
+        case 5:
+            //write line update
+            reg1Line?.value = data[0]
+        case 6:
+            //write line update
+            reg2Line?.value = data[0]
+        case 7:
+            //write line update
+            reg3Line?.value = data[0]
+        case 8:
+            //write line update
+            subLine?.value = data[0]
         default:
             print("Overview Event Error")
         }

@@ -19,6 +19,7 @@ class ALU: Scene {
         didSet {
             write1?.value = write1V
             write1Hor?.value = write1V
+            controller.overview?.event(id: 5, data: [write1V])
             if controller.currentScene == controller.ALUid {
                 write1Ind?.isHidden = write1V == 0
             }
@@ -33,10 +34,11 @@ class ALU: Scene {
     {
         didSet {
             write2?.value = write2V
+            write2Hor?.value = write2V
+            controller.overview?.event(id: 6, data: [write2V])
             if controller.currentScene == controller.ALUid {
                 write2Ind?.isHidden = write2V == 0
             }
-            write2Hor?.value = write2V
             if write2V == 1 {
                 reg2!.value = inputBus!.value
                 updateLabel()
@@ -48,6 +50,7 @@ class ALU: Scene {
         didSet {
             read?.value = readV
             readHor?.value = readV
+            controller.overview?.event(id: 7, data: [readV])
             if controller.currentScene == controller.ALUid {
                 readInd?.isHidden = readV == 0 && controller.currentScene == controller.ALUid
             }
@@ -63,6 +66,7 @@ class ALU: Scene {
     }
     var subtractV = 0 {
         didSet {
+            controller.overview?.event(id: 8, data: [subtractV])
             subtract?.value = subtractV
             updateLabel()
         }
@@ -103,21 +107,22 @@ class ALU: Scene {
 
         //control lines
         write1 = Bus(x: 900, y: 770, width: 30, height: 218, bits: 1, scene: self)
-        write1?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
+        write1?.activeColour = SKColor.green
         write1Hor = HorizontalBus(x: 848, y: 680, width: 132, height: 40, bits: 1, spacing: 1.0, scene: self)
         write1Hor?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
 
         write2 = Bus(x: 970, y: 770, width: 30, height: 340, bits: 1, scene: self)
-        write2?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
+        write2?.activeColour = SKColor.green
         write2Hor = HorizontalBus(x: 875, y: 620, width: 218, height: 40, bits: 1, spacing: 1.0, scene: self)
         write2Hor?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
 
         read = Bus(x: 1040, y: 770, width: 30, height: 1140, bits: 1, scene: self)
-        read?.activeColour = SKColor.green
+        read?.activeColour = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 1)
         readHor = HorizontalBus(x: 925, y: 217, width: 260, height: 40, bits: 1, spacing: 1.0, scene: self)
         readHor?.activeColour = SKColor.green
-        
+
         subtract = Bus(x: 1110, y: 770, width: 30, height: 100, bits: 1, scene: self)
+        subtract?.activeColour = SKColor.yellow
 
         //registers
         reg1 = Bus(x: 160, y: 680, width: 700, height: 40, bits: 16, scene: self)
@@ -148,7 +153,7 @@ class ALU: Scene {
         box.fillColor = SKColor.black
         box.strokeColor = SKColor.cyan
         box.lineWidth = 10
-        
+
         addNode(node: controller.makeLabel(x: 1110, y: 698, fontSize: 20, colour: SKColor.orange, text: "Subtract"))
 
         label = controller.makeLabel(x: 475, y: 430, fontSize: 40, colour: SKColor.orange, text: "0 + 0")
@@ -184,7 +189,7 @@ class ALU: Scene {
     }
     func updateLabel() {
         let sign = subtractV == 0 ? "+" : "-"
-        let text = "\(reg1!.value ) \(sign) \(reg2!.value )"
+        let text = "\(reg1!.value) \(sign) \(reg2!.value)"
         label!.text = text
 
         var result = subtractV == 0 ? reg1!.value + reg2!.value : reg1!.value - reg2!.value
