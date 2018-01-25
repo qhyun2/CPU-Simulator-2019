@@ -61,23 +61,17 @@ class Bus {
         //update label
         label.text = "\(value)"
 
-        if value < 65536 {
-            let unpaddedBinary = String(value, radix: 2) //binary base
-            let padding = String.init(repeating: "0", count: (bits - unpaddedBinary.count))
-            let binary = Array(padding + unpaddedBinary)
-            //update each individual cell
-            for (index, i) in lines.enumerated() {
+        let unpaddedBinary = String(value, radix: 2) //binary base
+        let padding = String.init(repeating: "0", count: (bits - unpaddedBinary.count))
+        let binary = Array(padding + unpaddedBinary)
+        //update each individual cell
+        for (index, i) in lines.enumerated() {
 
-                //determine color based on binary value
-                if(binary[index] == "1") {
-                    i.fillColor = activeColour
-                } else {
-                    i.fillColor = SKColor.gray
-                }
-            }
-        } else {
-            for i in lines {
-                i.fillColor = SKColor.red
+            //determine color based on binary value
+            if(binary[index] == "1") {
+                i.fillColor = activeColour
+            } else {
+                i.fillColor = SKColor.gray
             }
         }
     }

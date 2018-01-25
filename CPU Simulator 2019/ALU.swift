@@ -194,6 +194,7 @@ class ALU: Scene {
 
         var result = subtractV == 0 ? reg1!.value + reg2!.value : reg1!.value - reg2!.value
         result = result < 0 ? 0 : result
+        result = result > 65535 ? 65535 : result
         zeroFlag = result == 0
         resultLabel!.text = String(result)
         regOut?.value = result

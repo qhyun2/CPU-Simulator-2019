@@ -21,8 +21,8 @@ class Button {
         //rect on screen
         hitbox = SKShapeNode(rect: rect)
         hitbox.fillColor = SKColor.cyan
-        hitbox.lineWidth = 3
         hitbox.strokeColor = SKColor.black
+        hitbox.lineWidth = 3
         scene.addNode(node: hitbox)
 
         //label

@@ -193,18 +193,19 @@ class ControlUnit: Scene {
             case "sub":
                 instructionId = 5
                 break
-            case "halt":
-                instructionId = 6
             default:
                 instructionId = -1
             }
-
-            var instruction = [instructionId]
-
             //taken any extra arguments and convert to ints and add on
             lineParts.removeFirst()
+
+            //minimum arguments for instructions, 1 by default, 2 needed for jumpif and load
+            let minimumArgs = instructionId == 1 || instructionId == 4 ? 2 : 1
+            
+            var instruction = lineParts.count >= minimumArgs ? [instructionId] : [-1]
+            
             for i in lineParts {
-                instruction.append(Int(i) ?? -1)
+                instruction.append(Int(i) ?? 0)
             }
             instructionArray.append(instruction)
         }
@@ -231,7 +232,7 @@ class ControlUnit: Scene {
             subtractToMemory(address: data[0])
             break
         default:
-            print("Error")
+            print("Error Invalid Instruction ID: \(id)")
         }
     }
 
