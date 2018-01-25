@@ -10,25 +10,15 @@ import Foundation
 import SpriteKit
 import Cocoa
 
-//ADD PAUSE STEP AND CONTINUE BUTTONS
-
 class ControlUnit: Scene {
 
-    var instructionArray: Array<Array<Int>> = [[]]
     var instructionPointer = 1 {
         didSet {
             instructionPointerLabel.text = "Current Line: \(instructionPointer)"
-            indicatorArrow.position = CGPoint(x: 96, y: 589 - Int((Double((instructionPointer - 1)) * 14.1)))
+            indicatorArrow.position = CGPoint(x: 496, y: 589 - Int((Double((instructionPointer - 1)) * 14.1)))
         }
     }
 
-    var halt = false
-    let instructionPointerLabel = SKLabelNode(text: "Current Line: 1")
-    let speedLabel = SKLabelNode(text: "Speed: x1.0")
-    var indicatorArrow = SKSpriteNode(imageNamed: "arrow")
-
-    var buttons: Array<Button> = []
-    var speed = [0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 4.0, 8.0, 16.0, 64.0, 1000.0]
     var currentSpeed = 4 {
         didSet {
             controller.eventQ?.speedMod = speed[currentSpeed]
@@ -36,18 +26,32 @@ class ControlUnit: Scene {
         }
     }
 
+    var running = false {
+        didSet {
+
+        }
+    }
+
+    var halt = false
+    var instructionArray: Array<Array<Int>> = [[]]
+    let instructionPointerLabel = SKLabelNode(text: "Current Line: 1")
+    let speedLabel = SKLabelNode(text: "Speed: x1.0")
+    var indicatorArrow = SKSpriteNode(imageNamed: "arrow")
+    var speed = [0.1, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 4.0, 8.0, 16.0, 64.0, 1000.0]
+    var buttons: Array<Button> = []
+
     override init(id: Int, controller: SceneController, bg: String) {
         super.init(id: id, controller: controller, bg: bg)
 
-        indicatorArrow.position = CGPoint(x: 96, y: 589)
+        indicatorArrow.position = CGPoint(x: 496, y: 589)
         addNode(node: indicatorArrow)
 
-        let runRect = CGRect(x: 178, y: 740, width: 90, height: 30)
-        let stopRect = CGRect(x: 178, y: 700, width: 90, height: 30)
-        let resetRect = CGRect(x: 178, y: 660, width: 90, height: 30)
-        let stepRect = CGRect(x: 178, y: 620, width: 90, height: 30)
-        let upSpeed = CGRect(x: 80, y: 700, width: 90, height: 30)
-        let downSpeed = CGRect(x: 80, y: 660, width: 90, height: 30)
+        let runRect = CGRect(x: 578, y: 740, width: 90, height: 30)
+        let stopRect = CGRect(x: 578, y: 700, width: 90, height: 30)
+        let resetRect = CGRect(x: 578, y: 660, width: 90, height: 30)
+        let stepRect = CGRect(x: 578, y: 620, width: 90, height: 30)
+        let upSpeed = CGRect(x: 480, y: 700, width: 90, height: 30)
+        let downSpeed = CGRect(x: 480, y: 660, width: 90, height: 30)
 
         let runButton = Button(rect: runRect, text: "Start", scene: self, event: Event(delay: 0, id: 7, scene: self))
         let stopButton = Button(rect: stopRect, text: "Pause", scene: self, event: Event(delay: 0, id: 8, scene: self))
@@ -66,13 +70,13 @@ class ControlUnit: Scene {
         instructionPointerLabel.fontName = "AmericanTypewriter-Bold"
         instructionPointerLabel.fontSize = 20
         instructionPointerLabel.fontColor = SKColor.green
-        instructionPointerLabel.position = CGPoint(x: 90, y: 620)
+        instructionPointerLabel.position = CGPoint(x: 490, y: 620)
         addNode(node: instructionPointerLabel)
 
         speedLabel.fontName = "AmericanTypewriter-Bold"
         speedLabel.fontSize = 18
         speedLabel.fontColor = SKColor.green
-        speedLabel.position = CGPoint(x: 90, y: 640)
+        speedLabel.position = CGPoint(x: 490, y: 640)
         addNode(node: speedLabel)
 
         for i in 1...40 {
@@ -82,7 +86,7 @@ class ControlUnit: Scene {
             lineLabels.fontName = "AmericanTypewriter-Bold"
             lineLabels.fontColor = SKColor.green
             let offset = Int(14.1 * Float(i - 1))
-            lineLabels.position = CGPoint(x: 148, y: 583 - offset)
+            lineLabels.position = CGPoint(x: 548, y: 583 - offset)
             lineLabels.zPosition = 10
             addNode(node: lineLabels)
         }
@@ -111,15 +115,15 @@ class ControlUnit: Scene {
         case 6:
             //prevents alot of index out of range crashes
             if instructionArray.count > instructionPointer {
-
+                
+                //prepare data and execute instruction
                 var toExe = instructionArray[instructionPointer]
                 let instructionId = toExe.removeFirst()
-                let instruction = Event(delay: 500, id: instructionId, scene: self, data: toExe)
-                controller.eventQ?.addEvent(event: instruction)
+                event(id: instructionId, data: toExe)
 
                 if !halt {
                     //hook into next instruction if not halted
-                    let start = Event(delay: 500, id: 6, scene: self)
+                    let start = Event(delay: 0, id: 6, scene: self)
                     controller.eventQ?.addEvent(event: start)
                 }
 
@@ -200,11 +204,8 @@ class ControlUnit: Scene {
             case "jumpif":
                 instructionId = 4
                 break
-            case "input":
+            case "halt":
                 instructionId = 5
-                break
-            case "display":
-                instructionId = 6
                 break
             default:
                 instructionId = -1
@@ -249,13 +250,14 @@ class ControlUnit: Scene {
         let writeMem = Event(delay: 500, id: 1, scene: memory, data: [1])
         let writeMemo = Event(delay: 500, id: 1, scene: memory, data: [0])
         let readALUo = Event(delay: 500, id: 3, scene: alu, data: [0])
+        let remAdd = Event(delay: 500, id: 4, scene: memory, data: [0])
 
         controller.eventQ?.addEvent(event: setAdd)
         controller.eventQ?.addEvent(event: readALU)
         controller.eventQ?.addEvent(event: writeMem)
         controller.eventQ?.addEvent(event: writeMemo)
         controller.eventQ?.addEvent(event: readALUo)
-
+        controller.eventQ?.addEvent(event: remAdd)
     }
 
     override func mouseDown(point: CGPoint) {

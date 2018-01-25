@@ -86,6 +86,35 @@ class ViewController: NSViewController {
         case 1:
             textField.string =
                 """
+            load 0 1
+            load 1 2
+            save 0
+            jump 1
+            """
+            break
+        case 2:
+            textField.string =
+                """
+            load 0 1
+            load 1 2
+            save 2
+            """
+            break
+        case 4:
+            textField.string =
+                """
+            load 0 1
+            load 1 2
+            save 0
+            load 0 1
+            load 1 2
+            save 1
+            jump 1
+            """
+            break
+        case 3:
+            textField.string =
+                """
             jump 6
             jump 11
             jump 1
@@ -100,28 +129,6 @@ class ViewController: NSViewController {
             jump 5
             jump 8
             """
-            break
-        case 2:
-            textField.string =
-                """
-            load 0 1
-            load 1 2
-            save 0
-            load 0 1
-            load 1 2
-            save 1
-            jump 1
-            """
-        case 3:
-            textField.string =
-                """
-            load 0 1
-            load 1 2
-            save 0
-            jump 1
-            """
-            break
-        case 4:
             break
         default:
             print("Preloaded Code Selector Error")

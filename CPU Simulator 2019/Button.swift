@@ -14,6 +14,7 @@ class Button {
     var hitbox: SKShapeNode
     var onClick: Event
     var scene: Scene
+    var label: SKLabelNode
 
     init(rect: CGRect, text: String, scene: Scene, event: Event) {
 
@@ -25,7 +26,8 @@ class Button {
         scene.addNode(node: hitbox)
 
         //label
-        scene.addNode(node: scene.controller.makeLabel(x: Int(rect.midX), y: Int(rect.midY - rect.height * 0.2), fontSize: 16, colour: SKColor.black, text: text))
+        label = scene.controller.makeLabel(x: Int(rect.midX), y: Int(rect.midY - rect.height * 0.2), fontSize: 16, colour: SKColor.black, text: text)
+        scene.addNode(node: label)
 
         onClick = event
         self.scene = scene

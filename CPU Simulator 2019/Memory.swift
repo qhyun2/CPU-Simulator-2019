@@ -166,6 +166,7 @@ class Memory: Scene {
         //******** access indicator ********
         accessIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight - 54)))
         accessIndicator.fillColor = SKColor.init(red: 0.4823, green: 0.078, blue: 0.6588, alpha: 0.4)
+        accessIndicator.position = CGPoint(x: -10000, y: -10000)
         accessIndicator.zPosition = 3
         accessIndicator.isHidden = true
         addNode(node: accessIndicator)
@@ -173,6 +174,7 @@ class Memory: Scene {
         //******** write indicator *******
         writeIndicator = SKShapeNode.init(rectOf: CGSize.init(width: CGwidth, height: CGFloat(unitHeight - 54)))
         writeIndicator.fillColor = SKColor.init(red: 0.0196, green: 0.6862, blue: 0.2274, alpha: 0.4)
+        writeIndicator.position = CGPoint(x: -10000, y: -10000)
         writeIndicator.zPosition = 3
         writeIndicator.isHidden = true
         addNode(node: writeIndicator)
@@ -185,8 +187,8 @@ class Memory: Scene {
                 let offsetX = CGFloat(Float(i) * 43 + 53)
                 let offsetY = CGFloat(Float(j) * 33 + 120)
 
-                let cellWidth = CGFloat(43 * 0.45)
-                let cellHeight = CGFloat(33 * 0.8)
+                let cellWidth = CGFloat(38)
+                let cellHeight = CGFloat(30)
 
                 //create position object
                 let position = CGPoint.init(x: offsetX, y: offsetY)
